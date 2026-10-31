@@ -1,0 +1,128 @@
+{
+  "grade": 10,
+  "version": "1.0",
+  "title": "10. Sınıf Matematik",
+  "program": "Türkiye Yüzyılı Maarif Modeli — Ortaöğretim Matematik Dersi Öğretim Programı",
+  "themes": [
+    {
+      "id": "th-10-1",
+      "order": 1,
+      "title": "Sayma, Algoritma ve Bilişim",
+      "description": "Sayma yöntemleri, sıralama ve seçme.",
+      "topics": [
+        {
+          "id": "top-10-count",
+          "title": "Sıralama ve Seçme",
+          "learning_outcomes": [
+            { "code": "MAT.10.1.1", "text": "Toplama ve çarpma yoluyla sayma ilkelerini kullanır; permütasyon ve kombinasyon problemlerini çözer." }
+          ],
+          "subtopics": [
+            { "id": "top-10-count-rules", "title": "Toplama ve Çarpma Yoluyla Sayma" },
+            { "id": "top-10-count-perm", "title": "Permütasyon" },
+            { "id": "top-10-count-comb", "title": "Kombinasyon" }
+          ],
+          "content_file": null
+        }
+      ]
+    },
+    {
+      "id": "th-10-2",
+      "order": 2,
+      "title": "Nicelikler ve Değişimler",
+      "description": "Fonksiyonlar, fonksiyonların grafikleri ve dönüşümleri.",
+      "topics": [
+        {
+          "id": "top-10-func",
+          "title": "Fonksiyonlar",
+          "learning_outcomes": [
+            { "code": "MAT.10.2.1", "text": "Fonksiyonların grafiklerini çizer, bileşke ve ters fonksiyonu yorumlar." }
+          ],
+          "subtopics": [
+            { "id": "top-10-func-graph", "title": "Fonksiyonların Grafikleri" },
+            { "id": "top-10-func-comp", "title": "Bileşke Fonksiyon" },
+            { "id": "top-10-func-inv", "title": "Ters Fonksiyon" }
+          ],
+          "content_file": null
+        },
+        {
+          "id": "top-10-quad",
+          "title": "İkinci Dereceden Denklemler",
+          "learning_outcomes": [
+            { "code": "MAT.10.2.2", "text": "İkinci dereceden bir bilinmeyenli denklemleri farklı yöntemlerle çözer." }
+          ],
+          "subtopics": [
+            { "id": "top-10-quad-solve", "title": "Çarpanlara Ayırma ve Diskriminant" },
+            { "id": "top-10-quad-roots", "title": "Kökler ve Katsayılar Arasındaki İlişki" }
+          ],
+          "content_file": null
+        }
+      ]
+    },
+    {
+      "id": "th-10-3",
+      "order": 3,
+      "title": "Sayılar ve Cebir",
+      "description": "Polinomlar ve cebirsel ifadeler.",
+      "topics": [
+        {
+          "id": "top-10-poly",
+          "title": "Polinomlar",
+          "learning_outcomes": [
+            { "code": "MAT.10.3.1", "text": "Polinomlarla işlemler yapar ve polinomları çarpanlarına ayırır." }
+          ],
+          "subtopics": [
+            { "id": "top-10-poly-ops", "title": "Polinomlarla İşlemler" },
+            { "id": "top-10-poly-factor", "title": "Çarpanlara Ayırma" }
+          ],
+          "content_file": null
+        }
+      ]
+    },
+    {
+      "id": "th-10-4",
+      "order": 4,
+      "title": "Geometrik Şekiller",
+      "description": "Dörtgenler, çokgenler ve katı cisimler.",
+      "topics": [
+        {
+          "id": "top-10-quadri",
+          "title": "Dörtgenler ve Çokgenler",
+          "learning_outcomes": [
+            { "code": "MAT.10.4.1", "text": "Dörtgen ve çokgenlerin açı, kenar ve alan özelliklerini kullanarak problemler çözer." }
+          ],
+          "subtopics": [
+            { "id": "top-10-quadri-special", "title": "Özel Dörtgenler" },
+            { "id": "top-10-quadri-polygon", "title": "Çokgenler" }
+          ],
+          "content_file": null
+        },
+        {
+          "id": "top-10-solid",
+          "title": "Katı Cisimler",
+          "learning_outcomes": [
+            { "code": "MAT.10.4.2", "text": "Prizma, piramit, silindir ve koninin alan ve hacimlerini hesaplar." }
+          ],
+          "subtopics": [],
+          "content_file": null
+        }
+      ]
+    },
+    {
+      "id": "th-10-5",
+      "order": 5,
+      "title": "Veriden Olasılığa",
+      "description": "Koşullu olasılık ve bağımsız olaylar.",
+      "topics": [
+        {
+          "id": "top-10-prob",
+          "title": "Olasılık",
+          "learning_outcomes": [
+            { "code": "MAT.10.5.1", "text": "Bağımlı ve bağımsız olayların olasılıklarını hesaplar." }
+          ],
+          "subtopics": [],
+          "content_file": null
+        }
+      ]
+    }
+  ]
+}

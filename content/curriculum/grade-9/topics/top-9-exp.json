@@ -1,0 +1,175 @@
+{
+  "id": "top-9-exp",
+  "version": "1.0",
+  "grade": 9,
+  "theme_id": "th-9-1",
+  "title": "Üslü İfadeler ve Denklemler",
+  "summary": "Bir sayıyı kendisiyle tekrar tekrar çarpmanın kısa yazılışı olan üslü ifadeleri; sıfırıncı ve negatif kuvveti, parantezin işarete etkisini, işlem kurallarını ve üslü denklemleri adım adım öğreniyoruz.",
+  "estimated_minutes": 45,
+  "learning_objectives": [
+    "Üslü ifadenin tekrarlı çarpma anlamına geldiğini açıklayabilmek.",
+    "Sıfırıncı kuvvet ve negatif kuvvetin anlamını yorumlayabilmek.",
+    "$-a^n$ ile $(-a)^n$ arasındaki farkı ayırt edebilmek.",
+    "Çarpma, bölme ve kuvvetin kuvveti kurallarını doğru uygulayabilmek.",
+    "Tabanları eşitleyerek basit üslü denklemleri çözebilmek."
+  ],
+  "sections": [
+    {
+      "id": "top-9-exp-def",
+      "title": "Üslü İfade Nedir? Sıfırıncı Kuvvet",
+      "body": "Diyelim ki bir bakteri her saat ikiye bölünüyor. 5 saat sonra kaç bakteri olur? $2 \\cdot 2 \\cdot 2 \\cdot 2 \\cdot 2$ yazmak yerine kısaca $2^5$ yazarız. İşte üslü ifade bu: **taban** kendisiyle **üs** kadar çarpılır.\n\n$$a^n = \\underbrace{a \\cdot a \\cdot \\ldots \\cdot a}_{n \\text{ tane}}$$\n\nPeki $a^0$ ne demek? Şu örüntüye bak: $2^3 = 8$, $2^2 = 4$, $2^1 = 2$. Üs bir azaldıkça sonuç ikiye bölünüyor. Bir adım daha gidersek $2^0 = 2 \\div 2 = 1$ olur. Yani sıfırdan farklı her sayının sıfırıncı kuvveti $1$'dir. Dikkat: $0^0$ tanımsızdır.",
+      "formulas": [
+        { "label": "Üslü ifadenin tanımı", "latex": "a^n = a \\cdot a \\cdot \\ldots \\cdot a \\quad (n \\text{ tane})" },
+        { "label": "Sıfırıncı kuvvet", "latex": "a^0 = 1 \\quad (a \\neq 0)" },
+        { "label": "Sıfırın pozitif kuvveti", "latex": "0^n = 0 \\quad (n > 0)" }
+      ],
+      "examples": [
+        {
+          "title": "Sıfırıncı kuvveti kullanalım",
+          "problem": "$7^0 + 0^7 + 1^7$ işleminin sonucunu bulunuz.",
+          "steps": [
+            "$7^0$: sıfırdan farklı bir sayının sıfırıncı kuvveti $1$'dir.",
+            "$0^7$: sıfırı kendisiyle kaç kez çarparsan çarp sonuç $0$'dır.",
+            "$1^7$: $1$'i kendisiyle çarpmak hep $1$ verir.",
+            "Toplam: $1 + 0 + 1 = 2$."
+          ],
+          "answer": "$2$"
+        }
+      ],
+      "tip": "Kuvvet, tabanla çarpılmaz! $3^4$, $3 \\cdot 4 = 12$ değil; $3 \\cdot 3 \\cdot 3 \\cdot 3 = 81$'dir.",
+      "common_mistakes": [
+        "$5^0 = 0$ sanmak (doğrusu $1$).",
+        "$5^0 = 5$ sanmak; kuvvet sıfırken sayının \"aynen kaldığını\" düşünmek.",
+        "Tabanı üsle çarpmak: $2^3 = 6$ yazmak."
+      ]
+    },
+    {
+      "id": "top-9-exp-sign",
+      "title": "Negatif Tabanlar ve Parantez Kuralı",
+      "body": "Bu kısım sınavlarda en çok puan kaybettiren yerdir, o yüzden yavaş gidelim.\n\n- $(-3)^2$ demek **$-3$'ün karesi** demek: $(-3) \\cdot (-3) = 9$.\n- $-3^2$ demek **$3^2$'nin negatifi** demek: $-(3 \\cdot 3) = -9$.\n\nParantez yoksa üs sadece hemen solundaki sayıya etki eder; baştaki eksi işareti en sona kalır.\n\nNegatif bir sayının **çift** kuvveti pozitif, **tek** kuvveti negatiftir: $(-2)^4 = 16$, $(-2)^3 = -8$.",
+      "formulas": [
+        { "label": "Çift kuvvet", "latex": "(-a)^{2k} = a^{2k}" },
+        { "label": "Tek kuvvet", "latex": "(-a)^{2k+1} = -a^{2k+1}" },
+        { "label": "Parantezsiz yazım", "latex": "-a^n = -(a^n)" }
+      ],
+      "examples": [
+        {
+          "title": "Parantez farkı",
+          "problem": "$(-2)^4 - 2^4 - (-2)^3$ işleminin sonucunu bulunuz.",
+          "steps": [
+            "$(-2)^4$: çift kuvvet, sonuç pozitif: $16$.",
+            "$2^4 = 16$, önündeki eksiyle birlikte $-16$.",
+            "$(-2)^3$: tek kuvvet, sonuç negatif: $-8$. Önündeki eksiyle $-(-8) = +8$.",
+            "Toplam: $16 - 16 + 8 = 8$."
+          ],
+          "answer": "$8$"
+        }
+      ],
+      "tip": "Hesap makinesine $-3^2$ yazınca $-9$ çıkar; makine de aynı kuralı uygular.",
+      "common_mistakes": [
+        "$-3^2 = 9$ yazmak.",
+        "$(-3)^2 = -9$ yazmak; parantez içindeki eksinin de karesinin alındığını unutmak."
+      ]
+    },
+    {
+      "id": "top-9-exp-neg",
+      "title": "Negatif Kuvvet",
+      "body": "Örüntüye devam edelim: $2^1 = 2$, $2^0 = 1$, o hâlde $2^{-1} = \\frac{1}{2}$, $2^{-2} = \\frac{1}{4}$.\n\nYani negatif kuvvet sayıyı **negatif yapmaz**; sayıyı **ters çevirir** (çarpmaya göre tersini alır).\n\n$$a^{-n} = \\frac{1}{a^n}$$\n\nKesirlerde de aynı mantık: kesri ters çevir, kuvveti pozitif yap.\n\n$$\\left(\\frac{a}{b}\\right)^{-n} = \\left(\\frac{b}{a}\\right)^{n}$$",
+      "formulas": [
+        { "label": "Negatif kuvvet", "latex": "a^{-n} = \\frac{1}{a^n} \\quad (a \\neq 0)" },
+        { "label": "Kesrin negatif kuvveti", "latex": "\\left(\\frac{a}{b}\\right)^{-n} = \\left(\\frac{b}{a}\\right)^{n}" }
+      ],
+      "examples": [
+        {
+          "title": "Negatif kuvvet ve işaret",
+          "problem": "$-2^{-3}$ ifadesinin değerini bulunuz.",
+          "steps": [
+            "Parantez yok; eksi işareti kuvvetten etkilenmez, en sona kalır: $-(2^{-3})$.",
+            "$2^{-3} = \\frac{1}{2^3} = \\frac{1}{8}$.",
+            "Eksiyi geri koyarız: $-\\frac{1}{8}$."
+          ],
+          "answer": "$-\\frac{1}{8}$"
+        },
+        {
+          "title": "Kesrin negatif kuvveti",
+          "problem": "$\\left(\\frac{3}{5}\\right)^{-2}$ ifadesinin değerini bulunuz.",
+          "steps": [
+            "Kesri ters çevir, kuvveti pozitif yap: $\\left(\\frac{5}{3}\\right)^{2}$.",
+            "Pay ve paydanın karesini al: $\\frac{25}{9}$."
+          ],
+          "answer": "$\\frac{25}{9}$"
+        }
+      ],
+      "tip": "Negatif kuvvet görünce aklına \"ters çevir\" gelsin, \"eksi yap\" değil.",
+      "common_mistakes": [
+        "$2^{-3} = -8$ yazmak (kuvveti çarpmaya çevirme ve işareti tabana taşıma).",
+        "$2^{-3} = -6$ yazmak (tabanı kuvvetle çarpma).",
+        "$\\left(\\frac{2}{3}\\right)^{-2} = \\frac{4}{9}$ yazmak (ters çevirmeyi unutmak)."
+      ]
+    },
+    {
+      "id": "top-9-exp-rules",
+      "title": "Üslü İfadelerde İşlem Kuralları",
+      "body": "Tabanlar aynıysa işler kolaylaşır:\n\n- **Çarpma:** $2^3 \\cdot 2^4$ demek $2$'yi önce $3$, sonra $4$ kez çarpmak; toplam $7$ kez. Üsler **toplanır**, taban aynı kalır.\n- **Bölme:** Üsler **çıkarılır**.\n- **Kuvvetin kuvveti:** $(2^3)^2 = 2^3 \\cdot 2^3 = 2^6$. Üsler **çarpılır**.\n\nÜsler aynı, tabanlar farklıysa tabanları çarpabilirsin: $2^5 \\cdot 5^5 = 10^5$.\n\nTabanlar ve üsler farklıysa (örneğin $2^3 + 3^2$) kural yok; tek tek hesapla.",
+      "formulas": [
+        { "label": "Çarpma (aynı taban)", "latex": "a^m \\cdot a^n = a^{m+n}" },
+        { "label": "Bölme (aynı taban)", "latex": "\\frac{a^m}{a^n} = a^{m-n}" },
+        { "label": "Kuvvetin kuvveti", "latex": "(a^m)^n = a^{m \\cdot n}" },
+        { "label": "Aynı üs", "latex": "a^n \\cdot b^n = (a \\cdot b)^n" }
+      ],
+      "examples": [
+        {
+          "title": "Kuralları birleştirelim",
+          "problem": "$\\frac{(3^2)^3 \\cdot 3^{-1}}{3^4}$ ifadesini $3$'ün kuvveti olarak yazınız.",
+          "steps": [
+            "Kuvvetin kuvveti: $(3^2)^3 = 3^{6}$.",
+            "Çarpma: $3^6 \\cdot 3^{-1} = 3^{6 + (-1)} = 3^5$.",
+            "Bölme: $\\frac{3^5}{3^4} = 3^{5-4} = 3^1$."
+          ],
+          "answer": "$3$"
+        }
+      ],
+      "tip": "Üsleri toplamadan önce tabanların gerçekten aynı olduğundan emin ol. $2^3 \\cdot 3^2$ ifadesinde toplanacak üs yok!",
+      "common_mistakes": [
+        "$2^3 \\cdot 2^4 = 2^{12}$ yazmak (çarpmada üsleri çarpmak).",
+        "$2^3 \\cdot 2^4 = 4^7$ yazmak (tabanları da çarpmak).",
+        "$(2^3)^2 = 2^9$ yazmak; $(2^3)^2$ ile $2^{3^2}$ farklıdır."
+      ]
+    },
+    {
+      "id": "top-9-exp-eq",
+      "title": "Üslü Denklemler",
+      "body": "Bir üslü denklemde amacımız **iki tarafı aynı tabana** getirmek. Tabanlar eşitlenince (taban $0$, $1$ ve $-1$ değilse) üsler de eşit olmak zorundadır.\n\n$$a^x = a^y \\Rightarrow x = y \\quad (a > 0,\\ a \\neq 1)$$\n\nAdımlar:\n1. Her iki tarafı aynı tabanın kuvveti olarak yaz.\n2. Üsleri eşitle.\n3. Oluşan birinci dereceden denklemi çöz.",
+      "formulas": [
+        { "label": "Tabanları eşitleme", "latex": "a^{f(x)} = a^{g(x)} \\Rightarrow f(x) = g(x)" }
+      ],
+      "examples": [
+        {
+          "title": "Tabanı eşitle, üssü eşitle",
+          "problem": "$4^{x-1} = 32$ denklemini çözünüz.",
+          "steps": [
+            "Her iki tarafı $2$ tabanında yaz: $4^{x-1} = (2^2)^{x-1} = 2^{2x-2}$ ve $32 = 2^5$.",
+            "Üsleri eşitle: $2x - 2 = 5$.",
+            "Çöz: $2x = 7 \\Rightarrow x = \\frac{7}{2}$."
+          ],
+          "answer": "$x = \\frac{7}{2}$"
+        }
+      ],
+      "tip": "Kuvvet bir çarpma işlemi değildir: $3^{x+1} = 27$ denkleminde $3 \\cdot (x+1) = 27$ yazamazsın.",
+      "common_mistakes": [
+        "Üssü tabanla çarpılıyormuş gibi düşünmek: $3^{x+1} = 27 \\Rightarrow 3(x+1) = 27$.",
+        "Üsteki ifadenin bir kısmını unutmak: $3^{x+1} = 3^3 \\Rightarrow x = 3$."
+      ]
+    }
+  ],
+  "reinforcement_question_ids": [
+    "q-9-exp-001",
+    "q-9-exp-002",
+    "q-9-exp-003",
+    "q-9-exp-004",
+    "q-9-exp-005",
+    "q-9-exp-006",
+    "q-9-exp-007"
+  ],
+  "visualizations": []
+}

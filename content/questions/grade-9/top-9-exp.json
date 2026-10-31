@@ -1,0 +1,328 @@
+{
+  "version": "1.0",
+  "grade": 9,
+  "topic_id": "top-9-exp",
+  "questions": [
+    {
+      "id": "q-9-exp-001",
+      "version": "1.0",
+      "grade": 9,
+      "topic_id": "top-9-exp",
+      "topic": "Üslü İfadeler ve Denklemler",
+      "subtopic_id": "top-9-exp-neg",
+      "subtopic": "Negatif Kuvvet",
+      "learning_outcome": "MAT.9.1.2",
+      "difficulty": "medium",
+      "question_text": "$-2^{-3}$ ifadesinin değeri kaçtır?",
+      "options": [
+        {
+          "key": "A",
+          "text": "$-8$",
+          "is_correct": false,
+          "misconception_tag": "MISC_EXP_NEG_POWER_AS_MULTIPLICATION",
+          "misconception_detail": "Negatif kuvveti ters çevirme yerine kuvveti pozitifmiş gibi alıp işareti sonuca taşıma yanılgısı.",
+          "recommended_subtopic_id": "top-9-exp-neg"
+        },
+        {
+          "key": "B",
+          "text": "$\\frac{1}{8}$",
+          "is_correct": false,
+          "misconception_tag": "MISC_EXP_NEG_SIGN_CONFUSION",
+          "misconception_detail": "Parantez olmadığı hâlde baştaki eksi işaretinin kuvvetten etkilendiğini düşünme yanılgısı.",
+          "recommended_subtopic_id": "top-9-exp-sign"
+        },
+        {
+          "key": "C",
+          "text": "$-\\frac{1}{8}$",
+          "is_correct": true,
+          "misconception_tag": null,
+          "misconception_detail": null,
+          "recommended_subtopic_id": null
+        },
+        {
+          "key": "D",
+          "text": "$6$",
+          "is_correct": false,
+          "misconception_tag": "MISC_EXP_BASE_TIMES_EXPONENT",
+          "misconception_detail": "Tabanı kuvvetle çarpma yanılgısı: $(-2) \\cdot (-3) = 6$.",
+          "recommended_subtopic_id": "top-9-exp-def"
+        }
+      ],
+      "step_by_step_solution": "1. Parantez olmadığı için eksi işareti kuvvetten etkilenmez: $-2^{-3} = -(2^{-3})$.\n2. $2^{-3} = \\frac{1}{2^3} = \\frac{1}{8}$.\n3. Sonuç $-\\frac{1}{8}$ olur."
+    },
+    {
+      "id": "q-9-exp-002",
+      "version": "1.0",
+      "grade": 9,
+      "topic_id": "top-9-exp",
+      "topic": "Üslü İfadeler ve Denklemler",
+      "subtopic_id": "top-9-exp-sign",
+      "subtopic": "Negatif Tabanlar ve Parantez Kuralı",
+      "learning_outcome": "MAT.9.1.2",
+      "difficulty": "easy",
+      "question_text": "$-3^2 + (-3)^2$ işleminin sonucu kaçtır?",
+      "options": [
+        {
+          "key": "A",
+          "text": "$-18$",
+          "is_correct": false,
+          "misconception_tag": "MISC_EXP_NEG_BASE_EVEN_POWER",
+          "misconception_detail": "Negatif tabanın çift kuvvetinin de negatif olduğunu düşünme yanılgısı: $(-3)^2 = -9$.",
+          "recommended_subtopic_id": "top-9-exp-sign"
+        },
+        {
+          "key": "B",
+          "text": "$-12$",
+          "is_correct": false,
+          "misconception_tag": "MISC_EXP_BASE_TIMES_EXPONENT",
+          "misconception_detail": "Tabanı kuvvetle çarpma yanılgısı: $3^2 = 6$ kabul etme.",
+          "recommended_subtopic_id": "top-9-exp-def"
+        },
+        {
+          "key": "C",
+          "text": "$0$",
+          "is_correct": true,
+          "misconception_tag": null,
+          "misconception_detail": null,
+          "recommended_subtopic_id": null
+        },
+        {
+          "key": "D",
+          "text": "$18$",
+          "is_correct": false,
+          "misconception_tag": "MISC_EXP_NEG_SIGN_CONFUSION",
+          "misconception_detail": "Parantezsiz $-3^2$ ifadesinde eksinin de kareye dahil olduğunu düşünme yanılgısı.",
+          "recommended_subtopic_id": "top-9-exp-sign"
+        }
+      ],
+      "step_by_step_solution": "1. $-3^2$ ifadesinde parantez yok: $-(3^2) = -9$.\n2. $(-3)^2$ ifadesinde parantez var: $(-3) \\cdot (-3) = 9$.\n3. Toplam: $-9 + 9 = 0$."
+    },
+    {
+      "id": "q-9-exp-003",
+      "version": "1.0",
+      "grade": 9,
+      "topic_id": "top-9-exp",
+      "topic": "Üslü İfadeler ve Denklemler",
+      "subtopic_id": "top-9-exp-rules",
+      "subtopic": "Üslü İfadelerde İşlem Kuralları",
+      "learning_outcome": "MAT.9.1.2",
+      "difficulty": "easy",
+      "question_text": "$2^3 \\cdot 2^4$ çarpımının eşiti aşağıdakilerden hangisidir?",
+      "options": [
+        {
+          "key": "A",
+          "text": "$2^{12}$",
+          "is_correct": false,
+          "misconception_tag": "MISC_EXP_PRODUCT_MULTIPLY_EXPONENTS",
+          "misconception_detail": "Aynı tabanlı çarpmada üsleri toplamak yerine çarpma yanılgısı.",
+          "recommended_subtopic_id": "top-9-exp-rules"
+        },
+        {
+          "key": "B",
+          "text": "$4^7$",
+          "is_correct": false,
+          "misconception_tag": "MISC_EXP_PRODUCT_MULTIPLY_BASES",
+          "misconception_detail": "Aynı tabanlı çarpmada tabanları da çarpma yanılgısı.",
+          "recommended_subtopic_id": "top-9-exp-rules"
+        },
+        {
+          "key": "C",
+          "text": "$2^7$",
+          "is_correct": true,
+          "misconception_tag": null,
+          "misconception_detail": null,
+          "recommended_subtopic_id": null
+        },
+        {
+          "key": "D",
+          "text": "$4^{12}$",
+          "is_correct": false,
+          "misconception_tag": "MISC_EXP_PRODUCT_MULTIPLY_BASES",
+          "misconception_detail": "Hem tabanları hem üsleri çarpma yanılgısı.",
+          "recommended_subtopic_id": "top-9-exp-rules"
+        }
+      ],
+      "step_by_step_solution": "1. Tabanlar aynı ($2$), bu yüzden üsler toplanır.\n2. $2^3 \\cdot 2^4 = 2^{3+4} = 2^7$.\n3. Taban değişmez; sonuç $2^7 = 128$."
+    },
+    {
+      "id": "q-9-exp-004",
+      "version": "1.0",
+      "grade": 9,
+      "topic_id": "top-9-exp",
+      "topic": "Üslü İfadeler ve Denklemler",
+      "subtopic_id": "top-9-exp-rules",
+      "subtopic": "Üslü İfadelerde İşlem Kuralları",
+      "learning_outcome": "MAT.9.1.2",
+      "difficulty": "easy",
+      "question_text": "$(2^3)^2$ ifadesinin eşiti aşağıdakilerden hangisidir?",
+      "options": [
+        {
+          "key": "A",
+          "text": "$2^5$",
+          "is_correct": false,
+          "misconception_tag": "MISC_EXP_POWER_OF_POWER_ADD",
+          "misconception_detail": "Kuvvetin kuvvetinde üsleri çarpmak yerine toplama yanılgısı.",
+          "recommended_subtopic_id": "top-9-exp-rules"
+        },
+        {
+          "key": "B",
+          "text": "$2^6$",
+          "is_correct": true,
+          "misconception_tag": null,
+          "misconception_detail": null,
+          "recommended_subtopic_id": null
+        },
+        {
+          "key": "C",
+          "text": "$2^9$",
+          "is_correct": false,
+          "misconception_tag": "MISC_EXP_POWER_OF_POWER_AS_TOWER",
+          "misconception_detail": "$(2^3)^2$ ifadesini $2^{3^2}$ gibi kule üs olarak yorumlama yanılgısı.",
+          "recommended_subtopic_id": "top-9-exp-rules"
+        },
+        {
+          "key": "D",
+          "text": "$6^2$",
+          "is_correct": false,
+          "misconception_tag": "MISC_EXP_BASE_TIMES_EXPONENT",
+          "misconception_detail": "İçteki $2^3$ ifadesini tabanla üssü çarparak $6$ kabul etme yanılgısı.",
+          "recommended_subtopic_id": "top-9-exp-def"
+        }
+      ],
+      "step_by_step_solution": "1. Kuvvetin kuvvetinde üsler çarpılır: $(a^m)^n = a^{m \\cdot n}$.\n2. $(2^3)^2 = 2^{3 \\cdot 2} = 2^6$.\n3. Kontrol: $2^3 \\cdot 2^3 = 8 \\cdot 8 = 64 = 2^6$."
+    },
+    {
+      "id": "q-9-exp-005",
+      "version": "1.0",
+      "grade": 9,
+      "topic_id": "top-9-exp",
+      "topic": "Üslü İfadeler ve Denklemler",
+      "subtopic_id": "top-9-exp-def",
+      "subtopic": "Üslü İfade Kavramı ve Sıfırıncı Kuvvet",
+      "learning_outcome": "MAT.9.1.2",
+      "difficulty": "easy",
+      "question_text": "$5^0 + 0^5$ işleminin sonucu kaçtır?",
+      "options": [
+        {
+          "key": "A",
+          "text": "$0$",
+          "is_correct": false,
+          "misconception_tag": "MISC_EXP_ZERO_POWER_IS_ZERO",
+          "misconception_detail": "Bir sayının sıfırıncı kuvvetinin $0$ olduğunu düşünme yanılgısı.",
+          "recommended_subtopic_id": "top-9-exp-def"
+        },
+        {
+          "key": "B",
+          "text": "$1$",
+          "is_correct": true,
+          "misconception_tag": null,
+          "misconception_detail": null,
+          "recommended_subtopic_id": null
+        },
+        {
+          "key": "C",
+          "text": "$2$",
+          "is_correct": false,
+          "misconception_tag": "MISC_EXP_ZERO_BASE_POWER_IS_ONE",
+          "misconception_detail": "Sıfırın pozitif kuvvetinin de $1$ olduğunu düşünme yanılgısı: $0^5 = 1$.",
+          "recommended_subtopic_id": "top-9-exp-def"
+        },
+        {
+          "key": "D",
+          "text": "$5$",
+          "is_correct": false,
+          "misconception_tag": "MISC_EXP_ZERO_POWER_IS_BASE",
+          "misconception_detail": "Kuvvet sıfırken sayının değişmeden kaldığını düşünme yanılgısı: $5^0 = 5$.",
+          "recommended_subtopic_id": "top-9-exp-def"
+        }
+      ],
+      "step_by_step_solution": "1. Sıfırdan farklı her sayının sıfırıncı kuvveti $1$'dir: $5^0 = 1$.\n2. Sıfırın pozitif kuvveti $0$'dır: $0^5 = 0$.\n3. Toplam: $1 + 0 = 1$."
+    },
+    {
+      "id": "q-9-exp-006",
+      "version": "1.0",
+      "grade": 9,
+      "topic_id": "top-9-exp",
+      "topic": "Üslü İfadeler ve Denklemler",
+      "subtopic_id": "top-9-exp-eq",
+      "subtopic": "Üslü Denklemler",
+      "learning_outcome": "MAT.9.1.2",
+      "difficulty": "medium",
+      "question_text": "$3^{x+1} = 27$ olduğuna göre $x$ kaçtır?",
+      "options": [
+        {
+          "key": "A",
+          "text": "$2$",
+          "is_correct": true,
+          "misconception_tag": null,
+          "misconception_detail": null,
+          "recommended_subtopic_id": null
+        },
+        {
+          "key": "B",
+          "text": "$3$",
+          "is_correct": false,
+          "misconception_tag": "MISC_EXP_EQ_EXPONENT_SHIFT_IGNORED",
+          "misconception_detail": "Tabanları eşitledikten sonra üsteki ifadenin tamamını değil yalnızca $x$'i eşitleme yanılgısı.",
+          "recommended_subtopic_id": "top-9-exp-eq"
+        },
+        {
+          "key": "C",
+          "text": "$8$",
+          "is_correct": false,
+          "misconception_tag": "MISC_EXP_POWER_AS_MULTIPLICATION",
+          "misconception_detail": "Kuvveti çarpma işlemi gibi yorumlama yanılgısı: $3(x+1) = 27$.",
+          "recommended_subtopic_id": "top-9-exp-def"
+        }
+      ],
+      "step_by_step_solution": "1. $27$'yi $3$ tabanında yaz: $27 = 3^3$.\n2. Tabanlar eşit olduğundan üsler eşittir: $x + 1 = 3$.\n3. $x = 2$."
+    },
+    {
+      "id": "q-9-exp-007",
+      "version": "1.0",
+      "grade": 9,
+      "topic_id": "top-9-exp",
+      "topic": "Üslü İfadeler ve Denklemler",
+      "subtopic_id": "top-9-exp-neg",
+      "subtopic": "Negatif Kuvvet",
+      "learning_outcome": "MAT.9.1.2",
+      "difficulty": "medium",
+      "question_text": "$\\left(\\frac{2}{3}\\right)^{-2}$ ifadesinin değeri kaçtır?",
+      "options": [
+        {
+          "key": "A",
+          "text": "$-\\frac{4}{9}$",
+          "is_correct": false,
+          "misconception_tag": "MISC_EXP_NEG_POWER_MAKES_NEGATIVE",
+          "misconception_detail": "Negatif kuvvetin sonucu negatif yaptığını düşünme yanılgısı.",
+          "recommended_subtopic_id": "top-9-exp-neg"
+        },
+        {
+          "key": "B",
+          "text": "$\\frac{4}{9}$",
+          "is_correct": false,
+          "misconception_tag": "MISC_EXP_NEG_POWER_IGNORED",
+          "misconception_detail": "Negatif kuvvette kesri ters çevirmeyi unutma yanılgısı.",
+          "recommended_subtopic_id": "top-9-exp-neg"
+        },
+        {
+          "key": "C",
+          "text": "$\\frac{9}{4}$",
+          "is_correct": true,
+          "misconception_tag": null,
+          "misconception_detail": null,
+          "recommended_subtopic_id": null
+        },
+        {
+          "key": "D",
+          "text": "$-\\frac{4}{3}$",
+          "is_correct": false,
+          "misconception_tag": "MISC_EXP_BASE_TIMES_EXPONENT",
+          "misconception_detail": "Tabanı kuvvetle çarpma yanılgısı: $\\frac{2}{3} \\cdot (-2)$.",
+          "recommended_subtopic_id": "top-9-exp-def"
+        }
+      ],
+      "step_by_step_solution": "1. Negatif kuvvette kesir ters çevrilir, kuvvet pozitif olur: $\\left(\\frac{2}{3}\\right)^{-2} = \\left(\\frac{3}{2}\\right)^{2}$.\n2. Pay ve paydanın karesi alınır: $\\frac{9}{4}$."
+    }
+  ]
+}

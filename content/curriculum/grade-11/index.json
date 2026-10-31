@@ -1,0 +1,115 @@
+{
+  "grade": 11,
+  "version": "1.0",
+  "title": "11. Sınıf Matematik",
+  "program": "Türkiye Yüzyılı Maarif Modeli — Ortaöğretim Matematik Dersi Öğretim Programı",
+  "themes": [
+    {
+      "id": "th-11-1",
+      "order": 1,
+      "title": "Trigonometri",
+      "description": "Yönlü açılar, trigonometrik oranlar ve fonksiyonlar.",
+      "topics": [
+        {
+          "id": "top-11-trig",
+          "title": "Trigonometri",
+          "learning_outcomes": [
+            { "code": "MAT.11.1.1", "text": "Birim çember yardımıyla trigonometrik fonksiyonları tanımlar ve değerlerini hesaplar." },
+            { "code": "MAT.11.1.2", "text": "Kosinüs ve sinüs teoremlerini kullanarak üçgen problemlerini çözer." }
+          ],
+          "subtopics": [
+            { "id": "top-11-trig-unit", "title": "Birim Çember ve Trigonometrik Fonksiyonlar" },
+            { "id": "top-11-trig-laws", "title": "Sinüs ve Kosinüs Teoremleri" }
+          ],
+          "content_file": null
+        }
+      ]
+    },
+    {
+      "id": "th-11-2",
+      "order": 2,
+      "title": "Analitik Geometri",
+      "description": "Doğrunun analitik incelenmesi.",
+      "topics": [
+        {
+          "id": "top-11-line",
+          "title": "Doğrunun Analitik İncelenmesi",
+          "learning_outcomes": [
+            { "code": "MAT.11.2.1", "text": "Doğrunun eğimini ve denklemini belirler; iki doğrunun durumunu inceler." }
+          ],
+          "subtopics": [
+            { "id": "top-11-line-slope", "title": "Eğim ve Doğru Denklemi" },
+            { "id": "top-11-line-distance", "title": "Noktanın Doğruya Uzaklığı" }
+          ],
+          "content_file": null
+        }
+      ]
+    },
+    {
+      "id": "th-11-3",
+      "order": 3,
+      "title": "Nicelikler ve Değişimler",
+      "description": "İkinci dereceden fonksiyonlar ve denklem/eşitsizlik sistemleri.",
+      "topics": [
+        {
+          "id": "top-11-parab",
+          "title": "İkinci Dereceden Fonksiyonlar ve Parabol",
+          "learning_outcomes": [
+            { "code": "MAT.11.3.1", "text": "İkinci dereceden fonksiyonun grafiğini katsayılara göre yorumlar." }
+          ],
+          "subtopics": [
+            { "id": "top-11-parab-vertex", "title": "Tepe Noktası ve Simetri Ekseni" },
+            { "id": "top-11-parab-coef", "title": "Katsayıların Grafiğe Etkisi" }
+          ],
+          "content_file": null
+        },
+        {
+          "id": "top-11-system",
+          "title": "Denklem ve Eşitsizlik Sistemleri",
+          "learning_outcomes": [
+            { "code": "MAT.11.3.2", "text": "İkinci dereceden denklem ve eşitsizlik sistemlerini çözer." }
+          ],
+          "subtopics": [],
+          "content_file": null
+        }
+      ]
+    },
+    {
+      "id": "th-11-4",
+      "order": 4,
+      "title": "Geometrik Şekiller",
+      "description": "Çember ve daire.",
+      "topics": [
+        {
+          "id": "top-11-circle",
+          "title": "Çember ve Daire",
+          "learning_outcomes": [
+            { "code": "MAT.11.4.1", "text": "Çemberde açı, yay ve teğet özelliklerini kullanarak problemler çözer." }
+          ],
+          "subtopics": [
+            { "id": "top-11-circle-angles", "title": "Çemberde Açılar" },
+            { "id": "top-11-circle-area", "title": "Dairenin Çevresi ve Alanı" }
+          ],
+          "content_file": null
+        }
+      ]
+    },
+    {
+      "id": "th-11-5",
+      "order": 5,
+      "title": "Veriden Olasılığa",
+      "description": "Koşullu olasılık ve deneysel olasılık.",
+      "topics": [
+        {
+          "id": "top-11-prob",
+          "title": "Koşullu Olasılık",
+          "learning_outcomes": [
+            { "code": "MAT.11.5.1", "text": "Koşullu olasılığı hesaplar ve günlük hayat durumlarında yorumlar." }
+          ],
+          "subtopics": [],
+          "content_file": null
+        }
+      ]
+    }
+  ]
+}

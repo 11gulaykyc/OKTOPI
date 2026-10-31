@@ -1,0 +1,5 @@
+# Tüm metin dosyaları depoda LF satır sonuyla saklanır (Windows/macOS/Linux ekip uyumu).
+* text=auto eol=lf
+*.png binary
+*.jpg binary
+*.webp binary

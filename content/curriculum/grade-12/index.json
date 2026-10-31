@@ -1,0 +1,115 @@
+{
+  "grade": 12,
+  "version": "1.0",
+  "title": "12. Sınıf Matematik",
+  "program": "Türkiye Yüzyılı Maarif Modeli — Ortaöğretim Matematik Dersi Öğretim Programı",
+  "themes": [
+    {
+      "id": "th-12-1",
+      "order": 1,
+      "title": "Üstel ve Logaritmik Fonksiyonlar",
+      "description": "Üstel fonksiyon, logaritma fonksiyonu ve denklemleri.",
+      "topics": [
+        {
+          "id": "top-12-log",
+          "title": "Üstel ve Logaritmik Fonksiyonlar",
+          "learning_outcomes": [
+            { "code": "MAT.12.1.1", "text": "Üstel ve logaritmik fonksiyonları tanımlar, özelliklerini kullanarak denklemleri çözer." }
+          ],
+          "subtopics": [
+            { "id": "top-12-log-exp", "title": "Üstel Fonksiyon" },
+            { "id": "top-12-log-def", "title": "Logaritma Fonksiyonu" },
+            { "id": "top-12-log-eq", "title": "Üstel ve Logaritmik Denklemler" }
+          ],
+          "content_file": null
+        }
+      ]
+    },
+    {
+      "id": "th-12-2",
+      "order": 2,
+      "title": "Diziler",
+      "description": "Aritmetik ve geometrik diziler.",
+      "topics": [
+        {
+          "id": "top-12-seq",
+          "title": "Diziler",
+          "learning_outcomes": [
+            { "code": "MAT.12.2.1", "text": "Aritmetik ve geometrik dizilerin genel terimini ve ilk n terim toplamını hesaplar." }
+          ],
+          "subtopics": [
+            { "id": "top-12-seq-arith", "title": "Aritmetik Dizi" },
+            { "id": "top-12-seq-geom", "title": "Geometrik Dizi" }
+          ],
+          "content_file": null
+        }
+      ]
+    },
+    {
+      "id": "th-12-3",
+      "order": 3,
+      "title": "Türev",
+      "description": "Limit, süreklilik ve türev uygulamaları.",
+      "topics": [
+        {
+          "id": "top-12-limit",
+          "title": "Limit ve Süreklilik",
+          "learning_outcomes": [
+            { "code": "MAT.12.3.1", "text": "Bir fonksiyonun bir noktadaki limitini ve sürekliliğini inceler." }
+          ],
+          "subtopics": [],
+          "content_file": null
+        },
+        {
+          "id": "top-12-deriv",
+          "title": "Türev ve Uygulamaları",
+          "learning_outcomes": [
+            { "code": "MAT.12.3.2", "text": "Türev kurallarını kullanır; artan-azalan fonksiyonları ve ekstremum noktalarını belirler." }
+          ],
+          "subtopics": [
+            { "id": "top-12-deriv-rules", "title": "Türev Alma Kuralları" },
+            { "id": "top-12-deriv-apps", "title": "Türevin Uygulamaları" }
+          ],
+          "content_file": null
+        }
+      ]
+    },
+    {
+      "id": "th-12-4",
+      "order": 4,
+      "title": "İntegral",
+      "description": "Belirsiz ve belirli integral, alan hesabı.",
+      "topics": [
+        {
+          "id": "top-12-integ",
+          "title": "İntegral",
+          "learning_outcomes": [
+            { "code": "MAT.12.4.1", "text": "Belirsiz ve belirli integrali hesaplar; eğri altında kalan alanı bulur." }
+          ],
+          "subtopics": [
+            { "id": "top-12-integ-indef", "title": "Belirsiz İntegral" },
+            { "id": "top-12-integ-def", "title": "Belirli İntegral ve Alan" }
+          ],
+          "content_file": null
+        }
+      ]
+    },
+    {
+      "id": "th-12-5",
+      "order": 5,
+      "title": "Analitik Geometri",
+      "description": "Çemberin analitik incelenmesi.",
+      "topics": [
+        {
+          "id": "top-12-circle",
+          "title": "Çemberin Analitik İncelenmesi",
+          "learning_outcomes": [
+            { "code": "MAT.12.5.1", "text": "Çemberin denklemini yazar ve doğru-çember durumlarını inceler." }
+          ],
+          "subtopics": [],
+          "content_file": null
+        }
+      ]
+    }
+  ]
+}

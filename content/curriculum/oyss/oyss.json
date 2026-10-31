@@ -1,0 +1,79 @@
+{
+  "version": "1.0",
+  "academic_year": "2026-2027",
+  "title": "OYSS — Ortak Yazılı Sınav Sistemi",
+  "intro": "Ortak yazılı sınavlar, aynı sınıf düzeyindeki öğrencilerin aynı kazanımlardan ortak hazırlanan sorularla değerlendirildiği yazılı sınavlardır. Bu sayfa, sınavların nasıl işlediğini ve OKTOPİ ile nasıl hazırlanabileceğini özetler.",
+  "about": [
+    "Ortak yazılı sınavlarda sorular, öğretim programındaki kazanımlara göre hazırlanır; bu yüzden konu anlatımlarındaki 'Öğrenme Hedefleri' listesi en iyi çalışma rehberindir.",
+    "Sorular çoğunlukla açık uçludur: sadece sonucu değil, çözüm adımlarını da yazman beklenir.",
+    "Sınav kapsamı ve tarihleri her öğretim yılı için Millî Eğitim Bakanlığı ve okul yönetimi tarafından duyurulur. Kesin bilgi için okulunun duyurularını takip et."
+  ],
+  "calendar_is_official": false,
+  "calendar_source": null,
+  "calendar": [
+    {
+      "grade": 9,
+      "term": 1,
+      "exam_no": 1,
+      "period_label": "1. Dönem — 1. Ortak Yazılı",
+      "start_date": null,
+      "end_date": null,
+      "topic_ids": ["top-9-sets", "top-9-exp", "top-9-root"]
+    },
+    {
+      "grade": 9,
+      "term": 1,
+      "exam_no": 2,
+      "period_label": "1. Dönem — 2. Ortak Yazılı",
+      "start_date": null,
+      "end_date": null,
+      "topic_ids": ["top-9-func", "top-9-abs", "top-9-ineq"]
+    },
+    {
+      "grade": 9,
+      "term": 2,
+      "exam_no": 1,
+      "period_label": "2. Dönem — 1. Ortak Yazılı",
+      "start_date": null,
+      "end_date": null,
+      "topic_ids": ["top-9-logic", "top-9-tri", "top-9-cong", "top-9-sim"]
+    },
+    {
+      "grade": 9,
+      "term": 2,
+      "exam_no": 2,
+      "period_label": "2. Dönem — 2. Ortak Yazılı",
+      "start_date": null,
+      "end_date": null,
+      "topic_ids": ["top-9-stat", "top-9-prob"]
+    }
+  ],
+  "preparation_tips": [
+    {
+      "title": "Kazanım listesini kontrol listesine çevir",
+      "body": "Her konunun öğrenme hedeflerini tek tek oku ve 'Bunu bir arkadaşıma anlatabilir miyim?' diye sor. Anlatamadıkların, tekrar etmen gereken yerlerdir."
+    },
+    {
+      "title": "Çözüm adımlarını yazarak çalış",
+      "body": "Yazılıda adımlar da puanlanır. Soru çözerken sonuca atlamak yerine her adımı ayrı satıra yazmayı alışkanlık hâline getir."
+    },
+    {
+      "title": "Hatalarından öğren",
+      "body": "OKTOPİ, yanlış cevaplarındaki kavram yanılgılarını kaydeder. Sınavdan önce Hata Analizi ekranındaki konulara yeniden göz at."
+    },
+    {
+      "title": "Süre tutarak deneme yap",
+      "body": "Süreli test modunda gerçek sınav temposunu dene; hangi soru tipinde zaman kaybettiğini fark et."
+    }
+  ],
+  "faq": [
+    {
+      "question": "Ortak yazılı sınavın tarihleri ne zaman belli olur?",
+      "answer": "Tarihler her öğretim yılı başında resmî olarak duyurulur. OKTOPİ'deki takvim resmî kaynakla doğrulanana kadar 'tahmini' olarak işaretlenir."
+    },
+    {
+      "question": "Sınavda hangi konular çıkar?",
+      "answer": "Sınav kapsamı ilgili döneme kadar işlenen kazanımlardır. Takvimdeki konu listeleri bir çalışma önerisidir; kesin kapsamı öğretmenine danış."
+    }
+  ]
+}

@@ -1,0 +1,226 @@
+{
+  "version": "1.0",
+  "grade": 9,
+  "topic_id": "top-9-tri",
+  "questions": [
+    {
+      "id": "q-9-tri-001",
+      "version": "1.0",
+      "grade": 9,
+      "topic_id": "top-9-tri",
+      "topic": "Üçgenler",
+      "subtopic_id": "top-9-tri-angles",
+      "subtopic": "Üçgende İç ve Dış Açılar",
+      "learning_outcome": "MAT.9.4.1",
+      "difficulty": "easy",
+      "question_text": "Bir üçgenin iki iç açısının ölçüsü $50^\\circ$ ve $70^\\circ$'dir. Üçüncü iç açının ölçüsü kaç derecedir?",
+      "options": [
+        {
+          "key": "A",
+          "text": "$60^\\circ$",
+          "is_correct": true,
+          "misconception_tag": null,
+          "misconception_detail": null,
+          "recommended_subtopic_id": null
+        },
+        {
+          "key": "B",
+          "text": "$120^\\circ$",
+          "is_correct": false,
+          "misconception_tag": "MISC_TRI_THIRD_ANGLE_AS_SUM",
+          "misconception_detail": "Verilen iki açının toplamını üçüncü açı olarak kabul etme.",
+          "recommended_subtopic_id": "top-9-tri-angles"
+        },
+        {
+          "key": "C",
+          "text": "$240^\\circ$",
+          "is_correct": false,
+          "misconception_tag": "MISC_TRI_ANGLE_SUM_360",
+          "misconception_detail": "Üçgenin iç açıları toplamını $360^\\circ$ sanma yanılgısı.",
+          "recommended_subtopic_id": "top-9-tri-angles"
+        },
+        {
+          "key": "D",
+          "text": "$20^\\circ$",
+          "is_correct": false,
+          "misconception_tag": "MISC_TRI_ANGLE_DIFFERENCE",
+          "misconception_detail": "İç açılar toplamı yerine verilen açıların farkını alma.",
+          "recommended_subtopic_id": "top-9-tri-angles"
+        }
+      ],
+      "step_by_step_solution": "1. Üçgenin iç açıları toplamı $180^\\circ$'dir.\n2. Bilinen açıların toplamı: $50^\\circ + 70^\\circ = 120^\\circ$.\n3. Üçüncü açı: $180^\\circ - 120^\\circ = 60^\\circ$."
+    },
+    {
+      "id": "q-9-tri-002",
+      "version": "1.0",
+      "grade": 9,
+      "topic_id": "top-9-tri",
+      "topic": "Üçgenler",
+      "subtopic_id": "top-9-tri-angles",
+      "subtopic": "Üçgende İç ve Dış Açılar",
+      "learning_outcome": "MAT.9.4.1",
+      "difficulty": "medium",
+      "question_text": "$ABC$ üçgeninde $m(\\widehat{A}) = 40^\\circ$ ve $m(\\widehat{B}) = 65^\\circ$'dir. $C$ köşesindeki dış açının ölçüsü kaç derecedir?",
+      "options": [
+        {
+          "key": "A",
+          "text": "$75^\\circ$",
+          "is_correct": false,
+          "misconception_tag": "MISC_TRI_EXTERIOR_AS_INTERIOR",
+          "misconception_detail": "Dış açı yerine aynı köşedeki iç açıyı bulma.",
+          "recommended_subtopic_id": "top-9-tri-angles"
+        },
+        {
+          "key": "B",
+          "text": "$105^\\circ$",
+          "is_correct": true,
+          "misconception_tag": null,
+          "misconception_detail": null,
+          "recommended_subtopic_id": null
+        },
+        {
+          "key": "C",
+          "text": "$115^\\circ$",
+          "is_correct": false,
+          "misconception_tag": "MISC_TRI_EXTERIOR_WRONG_VERTEX",
+          "misconception_detail": "İstenen köşe yerine başka bir köşenin ($B$) dış açısını hesaplama.",
+          "recommended_subtopic_id": "top-9-tri-angles"
+        },
+        {
+          "key": "D",
+          "text": "$255^\\circ$",
+          "is_correct": false,
+          "misconception_tag": "MISC_TRI_EXTERIOR_FROM_360",
+          "misconception_detail": "Dış açıyı $360^\\circ$'den çıkararak bulma yanılgısı.",
+          "recommended_subtopic_id": "top-9-tri-angles"
+        }
+      ],
+      "step_by_step_solution": "1. Bir üçgende bir köşedeki dış açı, diğer iki iç açının toplamına eşittir.\n2. $C$ köşesindeki dış açı $= m(\\widehat{A}) + m(\\widehat{B}) = 40^\\circ + 65^\\circ = 105^\\circ$.\n3. Kontrol: $C$ iç açısı $180^\\circ - 105^\\circ = 75^\\circ$ olur; dış açı ile iç açı toplamı $180^\\circ$'dir."
+    },
+    {
+      "id": "q-9-tri-003",
+      "version": "1.0",
+      "grade": 9,
+      "topic_id": "top-9-tri",
+      "topic": "Üçgenler",
+      "subtopic_id": "top-9-tri-ineq",
+      "subtopic": "Üçgen Eşitsizliği",
+      "learning_outcome": "MAT.9.4.2",
+      "difficulty": "medium",
+      "question_text": "Kenar uzunlukları $3$ cm, $7$ cm ve $x$ cm olan bir üçgende $x$'in alabileceği kaç farklı tam sayı değeri vardır?",
+      "options": [
+        {
+          "key": "A",
+          "text": "$5$",
+          "is_correct": true,
+          "misconception_tag": null,
+          "misconception_detail": null,
+          "recommended_subtopic_id": null
+        },
+        {
+          "key": "B",
+          "text": "$7$",
+          "is_correct": false,
+          "misconception_tag": "MISC_TRI_INEQ_INCLUSIVE_BOUNDS",
+          "misconception_detail": "Üçgen eşitsizliğinde sınır değerleri ($4$ ve $10$) de dahil etme yanılgısı.",
+          "recommended_subtopic_id": "top-9-tri-ineq"
+        },
+        {
+          "key": "C",
+          "text": "$9$",
+          "is_correct": false,
+          "misconception_tag": "MISC_TRI_INEQ_ONLY_SUM_BOUND",
+          "misconception_detail": "Yalnızca üst sınırı (iki kenarın toplamı) kullanıp alt sınırı (farkı) unutma.",
+          "recommended_subtopic_id": "top-9-tri-ineq"
+        }
+      ],
+      "step_by_step_solution": "1. Üçgen eşitsizliği: $|7 - 3| < x < 7 + 3$.\n2. $4 < x < 10$.\n3. Tam sayı değerleri: $5, 6, 7, 8, 9$; toplam $5$ tane."
+    },
+    {
+      "id": "q-9-tri-004",
+      "version": "1.0",
+      "grade": 9,
+      "topic_id": "top-9-tri",
+      "topic": "Üçgenler",
+      "subtopic_id": "top-9-tri-pyth",
+      "subtopic": "Dik Üçgen ve Pisagor Bağıntısı",
+      "learning_outcome": "MAT.9.4.3",
+      "difficulty": "easy",
+      "question_text": "Dik kenar uzunlukları $6$ cm ve $8$ cm olan bir dik üçgenin hipotenüs uzunluğu kaç cm'dir?",
+      "options": [
+        {
+          "key": "A",
+          "text": "$14$",
+          "is_correct": false,
+          "misconception_tag": "MISC_PYTH_ADD_LEGS",
+          "misconception_detail": "Hipotenüsü dik kenarların doğrudan toplamı olarak bulma yanılgısı.",
+          "recommended_subtopic_id": "top-9-tri-pyth"
+        },
+        {
+          "key": "B",
+          "text": "$10$",
+          "is_correct": true,
+          "misconception_tag": null,
+          "misconception_detail": null,
+          "recommended_subtopic_id": null
+        },
+        {
+          "key": "C",
+          "text": "$100$",
+          "is_correct": false,
+          "misconception_tag": "MISC_PYTH_FORGET_SQRT",
+          "misconception_detail": "Karelerin toplamını bulup karekök almayı unutma.",
+          "recommended_subtopic_id": "top-9-tri-pyth"
+        },
+        {
+          "key": "D",
+          "text": "$2\\sqrt{7}$",
+          "is_correct": false,
+          "misconception_tag": "MISC_PYTH_SUBTRACT_SQUARES",
+          "misconception_detail": "Hipotenüs ararken dik kenarların karelerini toplamak yerine çıkarma.",
+          "recommended_subtopic_id": "top-9-tri-pyth"
+        }
+      ],
+      "step_by_step_solution": "1. Pisagor bağıntısı: $c^2 = a^2 + b^2$.\n2. $c^2 = 6^2 + 8^2 = 36 + 64 = 100$.\n3. $c = \\sqrt{100} = 10$ cm."
+    },
+    {
+      "id": "q-9-tri-005",
+      "version": "1.0",
+      "grade": 9,
+      "topic_id": "top-9-tri",
+      "topic": "Üçgenler",
+      "subtopic_id": "top-9-tri-area",
+      "subtopic": "Üçgende Alan",
+      "learning_outcome": "MAT.9.4.4",
+      "difficulty": "hard",
+      "question_text": "Hipotenüsü $13$ cm ve dik kenarlarından biri $5$ cm olan dik üçgenin alanı kaç cm²'dir?",
+      "options": [
+        {
+          "key": "A",
+          "text": "$30$",
+          "is_correct": true,
+          "misconception_tag": null,
+          "misconception_detail": null,
+          "recommended_subtopic_id": null
+        },
+        {
+          "key": "B",
+          "text": "$60$",
+          "is_correct": false,
+          "misconception_tag": "MISC_TRI_AREA_FORGET_HALF",
+          "misconception_detail": "Üçgenin alanını hesaplarken taban ile yükseklik çarpımını ikiye bölmeyi unutma.",
+          "recommended_subtopic_id": "top-9-tri-area"
+        },
+        {
+          "key": "C",
+          "text": "$\\frac{65}{2}$",
+          "is_correct": false,
+          "misconception_tag": "MISC_TRI_AREA_HYPOTENUSE_AS_HEIGHT",
+          "misconception_detail": "Hipotenüsü, verilen dik kenara ait yükseklik gibi kullanma yanılgısı.",
+          "recommended_subtopic_id": "top-9-tri-area"
+        }
+      ],
+      "step_by_step_solution": "1. Diğer dik kenarı Pisagor ile bul: $13^2 = 5^2 + b^2 \\Rightarrow b^2 = 169 - 25 = 144 \\Rightarrow b = 12$.\n2. Dik üçgende dik kenarlar birbirinin yüksekliğidir.\n3. Alan $= \\frac{5 \\cdot 12}{2} = 30$ cm²."
+    }
+  ]
+}

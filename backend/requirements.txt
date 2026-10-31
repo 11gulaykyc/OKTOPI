@@ -1,0 +1,16 @@
+annotated-types==0.8.0
+asgiref==3.13.0
+Django==5.2.18
+django-cors-headers==4.9.0
+djangorestframework==3.18.3
+djangorestframework_simplejwt==5.5.1
+psycopg==3.3.6
+psycopg-binary==3.3.6
+pydantic==2.14.2
+pydantic_core==2.50.2
+PyJWT==2.15.1
+python-dotenv==1.2.4
+sqlparse==0.6.0
+typing-inspection==0.4.4
+typing_extensions==4.16.0
+tzdata==2026.6
