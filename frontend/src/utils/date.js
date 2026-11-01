@@ -3,13 +3,9 @@ function isoDate(d) {
   return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`
 }
 
-/** Tarih seçici için min/max (yalnızca kullanıcıya kolaylık; asıl denetim sunucudadır). */
-export function birthDateLimits(range) {
-  if (!range) return { min: undefined, max: undefined }
-  const today = new Date()
-  const max = new Date(today.getFullYear() - range.min, today.getMonth(), today.getDate())
-  const min = new Date(today.getFullYear() - range.max - 1, today.getMonth(), today.getDate() + 1)
-  return { min: isoDate(min), max: isoDate(max) }
+/** Tarih seçici için min/max (yaş sınırı yok; yalnızca gelecek tarih ve çok eski yıllar engellenir). */
+export function birthDateLimits(minYear) {
+  return { min: minYear ? `${minYear}-01-01` : undefined, max: isoDate(new Date()) }
 }
 
 export function formatLongDate(value) {

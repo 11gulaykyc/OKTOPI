@@ -4,22 +4,36 @@ from django.conf import settings
 from django.contrib.auth.models import AbstractUser
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
+from django.db.models.functions import Lower
+
+from .validators import UsernameValidator
 
 
 class User(AbstractUser):
-    """Platform kullanıcısı. E-posta benzersizdir ve girişte kullanıcı adı yerine kullanılabilir."""
+    """Platform kullanıcısı. E-posta benzersizdir ve girişte kullanıcı adı yerine kullanılabilir.
+    Kullanıcı adı ve e-posta büyük/küçük harf fark etmeksizin veritabanı düzeyinde benzersizdir."""
 
+    username = models.CharField(
+        "kullanıcı adı",
+        max_length=150,
+        unique=True,
+        validators=[UsernameValidator()],
+        error_messages={"unique": "Bu kullanıcı adı alınmış."},
+    )
     email = models.EmailField("e-posta", unique=True)
 
     class Meta:
         verbose_name = "kullanıcı"
         verbose_name_plural = "kullanıcılar"
+        constraints = [
+            models.UniqueConstraint(Lower("username"), name="user_username_ci_unique"),
+            models.UniqueConstraint(Lower("email"), name="user_email_ci_unique"),
+        ]
 
 
 class StudentProfile(models.Model):
-    # Lise öğrencileri için kabul edilen yaş aralığı (kayıt ve profil güncellemede denetlenir).
-    MIN_AGE = 12
-    MAX_AGE = 25
+    # Doğum tarihinde yaş sınırı yoktur; yalnızca gelecek tarih ve 1900 öncesi (yazım hatası) reddedilir.
+    MIN_BIRTH_YEAR = 1900
 
     class SchoolType(models.TextChoices):
         ANADOLU = "anadolu", "Anadolu Lisesi"

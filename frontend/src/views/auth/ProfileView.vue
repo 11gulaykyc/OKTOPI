@@ -1,14 +1,14 @@
 <script setup>
 import { computed, onMounted, reactive, ref } from 'vue'
-import { Cake, CircleCheck, GraduationCap, LoaderCircle, Mail, Save, School, Sparkles } from 'lucide-vue-next'
+import { Cake, CircleCheck, GraduationCap, LoaderCircle, Mail, Save, School, Gauge } from 'lucide-vue-next'
 import { birthDateLimits, formatLongDate } from '@/utils/date'
 import OktopiMascot from '@/components/layout/OktopiMascot.vue'
 import api, { errorMessage, fieldErrors } from '@/services/api'
 import { useAuthStore } from '@/stores/auth'
 
 const auth = useAuthStore()
-const options = ref({ birth_date_age_range: null, school_types: [], grade_levels: [] })
-const birthDateBounds = computed(() => birthDateLimits(options.value.birth_date_age_range))
+const options = ref({ min_birth_year: null, school_types: [], grade_levels: [] })
+const birthDateBounds = computed(() => birthDateLimits(options.value.min_birth_year))
 const form = reactive({})
 const errors = ref({})
 const generalError = ref('')
@@ -69,7 +69,7 @@ async function save() {
     <section class="card flex flex-col items-center gap-5 p-6 text-center sm:flex-row sm:text-left">
       <OktopiMascot mood="happy" :size="96" />
       <div class="min-w-0 flex-1">
-        <h1 class="truncate text-2xl font-extrabold text-slate-900 dark:text-white">
+        <h1 class="truncate text-2xl font-bold text-slate-900 dark:text-white">
           {{ [auth.user.first_name, auth.user.last_name].filter(Boolean).join(' ') || auth.user.username }}
         </h1>
         <p class="text-slate-500 dark:text-slate-400">@{{ auth.user.username }} · {{ joined }} tarihinden beri üye</p>
@@ -85,17 +85,17 @@ async function save() {
             :title="formatLongDate(auth.user.profile.birth_date)"
           >
             <Cake class="h-3.5 w-3.5" /> {{ auth.user.profile.age }} yaş
-            <template v-if="auth.user.profile.is_birthday_today"> · İyi ki doğdun! 🎉</template>
+            <template v-if="auth.user.profile.is_birthday_today"> · Bugün doğum günün</template>
           </span>
           <span class="inline-flex items-center gap-1.5 rounded-full bg-accent-100 px-3 py-1 text-xs font-bold text-accent-600 dark:bg-accent-600/20 dark:text-accent-400">
-            <Sparkles class="h-3.5 w-3.5" /> Seviye: {{ auth.user.profile.initial_level_display }}
+            <Gauge class="h-3.5 w-3.5" /> Seviye: {{ auth.user.profile.initial_level_display }}
           </span>
         </div>
       </div>
     </section>
 
     <form class="card space-y-5 p-6" novalidate @submit.prevent="save">
-      <h2 class="text-lg font-extrabold text-slate-900 dark:text-white">Bilgilerini güncelle</h2>
+      <h2 class="text-lg font-bold text-slate-900 dark:text-white">Bilgilerini güncelle</h2>
       <div class="grid gap-4 sm:grid-cols-2">
         <div>
           <label class="field-label" for="first_name">Ad</label>

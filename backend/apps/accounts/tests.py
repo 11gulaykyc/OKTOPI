@@ -2,11 +2,14 @@ from datetime import date
 from unittest import mock
 
 from django.contrib.auth import get_user_model
+from django.db import IntegrityError, transaction
+from django.test import SimpleTestCase
 from django.urls import reverse
 from rest_framework import status
 from rest_framework.test import APITestCase
 
 from .models import StudentProfile
+from .validators import UsernameValidator, validate_real_email
 
 User = get_user_model()
 
@@ -24,6 +27,7 @@ VALID_REGISTRATION = {
     "email": "Ayse@Example.com",
     "password": "GucluSifre!2026",
     "first_name": "Ayşe",
+    "last_name": "Yılmaz",
     "birth_date": years_ago(15).isoformat(),
     "school_type": "anadolu",
     "grade_level": 9,
@@ -36,8 +40,22 @@ def make_student(username="ali", email="ali@example.com", password="GucluSifre!2
     return user
 
 
+def setUpModule():
+    # Testler ağ erişimine bağlı olmasın: alan adı DNS kontrolü varsayılan olarak "geçerli" döner.
+    global _dns_patch
+    _dns_patch = mock.patch("apps.accounts.validators._domain_accepts_mail", return_value=True)
+    _dns_patch.start()
+
+
+def tearDownModule():
+    _dns_patch.stop()
+
+
 class RegisterTests(APITestCase):
     url = reverse("auth-register")
+
+    def post(self, **changes):
+        return self.client.post(self.url, {**VALID_REGISTRATION, **changes}, format="json")
 
     def test_register_creates_user_profile_and_returns_tokens(self):
         response = self.client.post(self.url, VALID_REGISTRATION, format="json")
@@ -66,9 +84,73 @@ class RegisterTests(APITestCase):
         self.assertIn("school_type", response.data)
 
     def test_register_rejects_weak_password(self):
-        response = self.client.post(self.url, {**VALID_REGISTRATION, "password": "12345678"}, format="json")
+        response = self.post(password="12345678")
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
         self.assertFalse(User.objects.filter(username="ayse").exists())
+
+    def test_password_needs_8_chars_and_an_uppercase_letter(self):
+        short = self.post(password="Kisa!1")
+        self.assertIn("password", short.data)
+        no_upper = self.post(password="kucukharf!2026")
+        self.assertEqual(no_upper.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertIn("büyük harf", str(no_upper.data["password"]))
+
+    def test_first_name_needs_3_letters_and_last_name_is_required(self):
+        self.assertIn("first_name", self.post(first_name="Al").data)
+        self.assertIn("first_name", self.post(first_name="Ali3").data)
+        payload = {k: v for k, v in VALID_REGISTRATION.items() if k != "last_name"}
+        self.assertIn("last_name", self.client.post(self.url, payload, format="json").data)
+        self.assertIn("last_name", self.post(last_name="K").data)
+
+    def test_names_are_normalized(self):
+        response = self.post(first_name="  Ayşe   Nur ", last_name="Kaya-Demir")
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        self.assertEqual(response.data["user"]["first_name"], "Ayşe Nur")
+
+    def test_username_rules(self):
+        self.assertIn("username", self.post(username="a").data)
+        self.assertIn("username", self.post(username="ay se").data)
+        self.assertIn("username", self.post(username="ayse@example.com").data)
+        response = self.post(username="a1_*!")
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+
+    def test_register_rejects_duplicate_username_case_insensitive(self):
+        make_student(username="Ayse", email="baska@example.com")
+        response = self.post()
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertIn("alınmış", str(response.data["username"]))
+
+    def test_register_rejects_undeliverable_email(self):
+        self.assertIn("email", self.post(email="ayse@").data)
+        self.assertIn("email", self.post(email="ayse@mailinator.com").data)
+        with mock.patch("apps.accounts.validators._domain_accepts_mail", return_value=False):
+            response = self.post(email="ayse@olmayan-alan-adi.xyz")
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertIn("olmayan-alan-adi.xyz", str(response.data["email"]))
+
+
+class UniquenessConstraintTests(APITestCase):
+    def test_database_rejects_case_insensitive_duplicates(self):
+        make_student(username="ali", email="ali@example.com")
+        with self.assertRaises(IntegrityError), transaction.atomic():
+            User.objects.create_user(username="ALI", email="yeni@example.com", password="x")
+        with self.assertRaises(IntegrityError), transaction.atomic():
+            User.objects.create_user(username="yeni", email="ALI@example.com", password="x")
+
+
+class ValidatorUnitTests(SimpleTestCase):
+    def test_username_validator_allows_symbols_and_digits(self):
+        UsernameValidator()("x9")
+        UsernameValidator()("mat.kurdu#7")
+
+    def test_null_mx_and_missing_domain_are_rejected(self):
+        from django.core.exceptions import ValidationError
+
+        with mock.patch("apps.accounts.validators._domain_accepts_mail", return_value=False):
+            with self.assertRaises(ValidationError):
+                validate_real_email("biri@yok.example")
+        with mock.patch("apps.accounts.validators._domain_accepts_mail", return_value=True):
+            self.assertEqual(validate_real_email(" Biri@Gmail.com "), "biri@gmail.com")
 
 
 class LoginTests(APITestCase):
@@ -120,11 +202,11 @@ class MeTests(APITestCase):
     def test_patch_updates_grade_and_name(self):
         self.client.force_authenticate(self.user)
         response = self.client.patch(
-            self.url, {"first_name": "Ali", "profile": {"grade_level": 11}}, format="json"
+            self.url, {"first_name": "Alican", "profile": {"grade_level": 11}}, format="json"
         )
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.user.refresh_from_db()
-        self.assertEqual(self.user.first_name, "Ali")
+        self.assertEqual(self.user.first_name, "Alican")
         self.assertEqual(self.user.profile.grade_level, 11)
         self.assertEqual(self.user.profile.school_type, "fen")
 
@@ -143,6 +225,11 @@ class MeTests(APITestCase):
         self.client.force_authenticate(self.user)
         response = self.client.patch(self.url, {"profile": {"grade_level": 13}}, format="json")
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+
+    def test_patch_rejects_short_or_blank_names(self):
+        self.client.force_authenticate(self.user)
+        self.assertIn("first_name", self.client.patch(self.url, {"first_name": "Al"}, format="json").data)
+        self.assertIn("last_name", self.client.patch(self.url, {"last_name": ""}, format="json").data)
 
     def test_patch_rejects_email_of_another_user(self):
         self.client.force_authenticate(self.user)
@@ -174,9 +261,13 @@ class BirthDateValidationTests(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
         self.assertIn("gelecekte", str(response.data["birth_date"]))
 
-    def test_too_young_and_too_old_rejected(self):
-        self.assertEqual(self.register(years_ago(8).isoformat()).status_code, status.HTTP_400_BAD_REQUEST)
-        self.assertEqual(self.register(years_ago(40).isoformat()).status_code, status.HTTP_400_BAD_REQUEST)
+    def test_no_age_limit(self):
+        response = self.register(years_ago(100).isoformat())
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        self.assertEqual(response.data["user"]["profile"]["age"], 100)
+
+    def test_obviously_mistyped_year_rejected(self):
+        self.assertEqual(self.register("0201-05-05").status_code, status.HTTP_400_BAD_REQUEST)
 
     def test_age_and_birth_date_returned(self):
         response = self.register(years_ago(15).isoformat())

@@ -76,3 +76,35 @@ class MisconceptionLog(models.Model):
 
     def __str__(self):
         return f"{self.user} — {self.misconception_tag} ({self.question_id})"
+
+
+class QuestionAttempt(models.Model):
+    """Öğrencinin bir soruya verdiği her cevap. Panel istatistikleri (çözülen, doğru/yanlış/boş) buradan hesaplanır.
+
+    `selected_option` boşsa soru boş bırakılmıştır (süreli testte).
+    """
+
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="question_attempts")
+    question_id = models.CharField("soru", max_length=64)
+    grade = models.PositiveSmallIntegerField(validators=[MinValueValidator(9), MaxValueValidator(12)])
+    topic_id = models.CharField("konu", max_length=64)
+    selected_option = models.CharField(max_length=1, blank=True)
+    is_correct = models.BooleanField(default=False)
+    source = models.CharField(max_length=16, choices=MisconceptionLog.Source.choices, default=MisconceptionLog.Source.PRACTICE)
+    created_at = models.DateTimeField("tarih", auto_now_add=True)
+
+    class Meta:
+        verbose_name = "soru cevabı"
+        verbose_name_plural = "soru cevapları"
+        ordering = ("-created_at",)
+        indexes = [
+            models.Index(fields=("user", "created_at")),
+            models.Index(fields=("user", "question_id")),
+        ]
+
+    def __str__(self):
+        return f"{self.user} — {self.question_id} ({self.selected_option or 'boş'})"
+
+    @property
+    def is_blank(self):
+        return not self.selected_option

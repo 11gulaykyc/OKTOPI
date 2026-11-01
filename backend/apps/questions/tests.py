@@ -5,6 +5,8 @@ from django.urls import reverse
 from rest_framework import status
 from rest_framework.test import APITestCase
 
+from apps.analytics.models import MisconceptionLog
+
 User = get_user_model()
 
 FORBIDDEN_KEYS = ("is_correct", "misconception_tag", "misconception_detail", "recommended_subtopic_id", "step_by_step_solution")
@@ -20,9 +22,11 @@ class QuestionApiTests(APITestCase):
         for key in FORBIDDEN_KEYS:
             self.assertNotIn(f'"{key}"', raw, f"Cevap anahtarı sızıntısı: {key}")
 
-    def test_requires_authentication(self):
+    def test_guest_can_list_without_answer_key(self):
         self.client.force_authenticate(None)
-        self.assertEqual(self.client.get(reverse("question-list")).status_code, status.HTTP_401_UNAUTHORIZED)
+        response = self.client.get(reverse("question-list"), {"grade": 9})
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assert_no_answer_leak(response)
 
     def test_list_hides_answer_key(self):
         response = self.client.get(reverse("question-list"), {"grade": 9})
@@ -53,3 +57,43 @@ class QuestionApiTests(APITestCase):
 
     def test_unknown_question_404(self):
         self.assertEqual(self.client.get(reverse("question-detail", args=["q-9-exp-999"])).status_code, 404)
+
+
+class CheckAnswerApiTests(APITestCase):
+    def setUp(self):
+        self.user = User.objects.create_user(username="ogrenci", email="o@example.com", password="GucluSifre!2026")
+        self.client.force_authenticate(self.user)
+        self.url = reverse("question-check", args=["q-9-exp-001"])
+
+    def test_guest_cannot_check_answers(self):
+        # Ziyaretçi şıkları tek tek deneyerek cevap anahtarını öğrenemesin.
+        self.client.force_authenticate(None)
+        response = self.client.post(self.url, {"selected_option": "B"}, format="json")
+        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
+        self.assertNotIn("correct_option", response.data)
+
+    def test_correct_answer(self):
+        response = self.client.post(self.url, {"selected_option": "C"}, format="json")
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertTrue(response.data["is_correct"])
+        self.assertEqual(response.data["correct_option"], "C")
+        self.assertIsNone(response.data["misconception"])
+        self.assertTrue(response.data["step_by_step_solution"])
+
+    def test_wrong_answer_returns_misconception_and_logs_it(self):
+        response = self.client.post(self.url, {"selected_option": "B"}, format="json")
+        self.assertFalse(response.data["is_correct"])
+        self.assertEqual(response.data["misconception"]["tag"], "MISC_EXP_NEG_SIGN_CONFUSION")
+        self.assertEqual(
+            response.data["misconception"]["recommended"],
+            {"topic_id": "top-9-exp", "section_id": "top-9-exp-sign", "title": response.data["misconception"]["recommended"]["title"]},
+        )
+        log = MisconceptionLog.objects.get(user=self.user)
+        self.assertEqual(log.source, MisconceptionLog.Source.REINFORCEMENT)
+
+    def test_invalid_option(self):
+        self.assertEqual(self.client.post(self.url, {"selected_option": "Z"}, format="json").status_code, 400)
+
+    def test_unknown_question_404(self):
+        url = reverse("question-check", args=["q-9-exp-999"])
+        self.assertEqual(self.client.post(url, {"selected_option": "A"}, format="json").status_code, 404)
