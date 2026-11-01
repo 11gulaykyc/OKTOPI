@@ -29,6 +29,16 @@ export const useStatsStore = defineStore('stats', () => {
     return gamification.value
   }
 
+  /** Gelişim Haritası: sınıfın tüm konuları için düzey ve tekrar edilmesi gereken alanlar. */
+  async function fetchMasteryMap(grade) {
+    return (await api.get('/analytics/mastery-map/', { params: { grade } })).data
+  }
+
+  /** Kavram yanılgısı örüntüleri ve düzeltilmemiş yanlışlar (cevap anahtarı içermez). */
+  async function fetchErrorAnalysis(grade) {
+    return (await api.get('/analytics/error-analysis/', { params: { grade } })).data
+  }
+
   async function fetchGoals() {
     return (await api.get('/gamification/goals/')).data
   }
@@ -56,6 +66,8 @@ export const useStatsStore = defineStore('stats', () => {
     gamification,
     fetchSummary,
     fetchGamification,
+    fetchMasteryMap,
+    fetchErrorAnalysis,
     fetchGoals,
     saveGoal,
     clearGoal,

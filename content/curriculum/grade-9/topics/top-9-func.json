@@ -1,0 +1,142 @@
+{
+  "id": "top-9-func",
+  "version": "1.0",
+  "grade": 9,
+  "theme_id": "th-9-2",
+  "title": "Fonksiyon Kavramı ve Doğrusal Fonksiyonlar",
+  "summary": "Fonksiyonun ne demek olduğunu, doğrusal fonksiyonların grafiklerini ve eğimin bir doğru hakkında bize ne anlattığını keşfediyoruz.",
+  "estimated_minutes": 35,
+  "learning_objectives": [
+    "Bir eşlemenin fonksiyon olup olmadığına karar verebilmek.",
+    "$f(x) = mx + n$ doğrusal fonksiyonunun grafiğini çizip eksenleri kestiği noktaları bulmak.",
+    "İki noktası bilinen doğrunun eğimini hesaplamak; eğimin işaretini ve büyüklüğünü yorumlamak."
+  ],
+  "sections": [
+    {
+      "id": "top-9-func-def",
+      "title": "Fonksiyon Nedir?",
+      "body": "Bir içecek otomatı düşün: aynı tuşa her bastığında **aynı** içecek düşer. Fonksiyon da böyle çalışır: $A$ kümesindeki (tanım kümesi) **her** elemanı $B$ kümesindeki (değer kümesi) **tek bir** elemana eşler.\n\nBunu $f: A \\to B$ diye yazarız; $x$ elemanının eşlendiği değere de $f(x)$ deriz. Örneğin $f(x) = 2x + 1$ kuralında $f(3) = 2 \\cdot 3 + 1 = 7$ olur.\n\nBir eşlemenin fonksiyon olması için iki şart var:\n- Tanım kümesinde **boşta eleman kalmamalı**.\n- Bir eleman **iki farklı** elemana gitmemeli.\n\nDeğer kümesinde boşta eleman kalabilir; bu fonksiyon olmayı bozmaz. Grafikte pratik bir kontrol yolu da **düşey doğru testi**dir: Tanım kümesinin her noktasından çizilen düşey doğru grafiği tam olarak bir noktada kesiyorsa grafik bir fonksiyon belirtir.",
+      "formulas": [
+        {
+          "label": "Fonksiyon gösterimi",
+          "latex": "f: A \\to B,\\quad x \\mapsto f(x)"
+        }
+      ],
+      "examples": [
+        {
+          "title": "Fonksiyonda değer bulma",
+          "problem": "$f(x) = 3x - 4$ fonksiyonu için $f(2) + f(-1)$ değerini bulunuz.",
+          "steps": [
+            "$f(2) = 3 \\cdot 2 - 4 = 2$",
+            "$f(-1) = 3 \\cdot (-1) - 4 = -7$ ($-1$'i parantez içinde yazmak işaret hatasını önler.)",
+            "Toplam: $2 + (-7) = -5$"
+          ],
+          "answer": "$-5$"
+        }
+      ],
+      "tip": "$f(3)$ bir çarpma işlemi değil! “$f$ fonksiyonunun $3$'teki değeri” demektir.",
+      "common_mistakes": [
+        "Değer kümesinde boşta eleman kalmasını fonksiyon olmamakla karıştırmak.",
+        "$f(-1)$ hesaplarken $-1$'i parantezsiz yazıp işaret hatası yapmak."
+      ]
+    },
+    {
+      "id": "top-9-func-linear",
+      "title": "Doğrusal Fonksiyonlar",
+      "body": "$f(x) = mx + n$ biçimindeki fonksiyonlara **doğrusal fonksiyon** denir. Adı üstünde: grafiği bir **doğrudur**.\n\nBir taksi düşün: açılış ücreti $40$ TL, kilometresi $25$ TL. $x$ km giden yolcunun ödeyeceği tutar $f(x) = 25x + 40$ olur. Burada\n- $n = 40$: hiç yol gitmeden ödenen tutar; grafiğin $y$ eksenini kestiği nokta $(0, 40)$.\n- $m = 25$: her ek kilometrede tutarın ne kadar arttığı.\n\nDoğruyu çizmek için iki nokta yeter. En kolayı eksenleri kestiği noktalar: $x = 0$ yazarak $y$ eksenini, $f(x) = 0$ denklemini çözerek $x$ eksenini kestiği noktayı bulursun.",
+      "formulas": [
+        {
+          "label": "Doğrusal fonksiyon",
+          "latex": "f(x) = mx + n"
+        },
+        {
+          "label": "y eksenini kestiği nokta",
+          "latex": "(0,\\ n)"
+        },
+        {
+          "label": "x eksenini kestiği nokta",
+          "latex": "\\left(-\\frac{n}{m},\\ 0\\right) \\quad (m \\neq 0)"
+        }
+      ],
+      "examples": [
+        {
+          "title": "Eksenleri kestiği noktalar",
+          "problem": "$f(x) = 2x - 6$ doğrusunun eksenleri kestiği noktaları bulunuz.",
+          "steps": [
+            "$y$ ekseni için $x = 0$: $f(0) = -6$, nokta $(0, -6)$.",
+            "$x$ ekseni için $f(x) = 0$: $2x - 6 = 0 \\Rightarrow x = 3$, nokta $(3, 0)$."
+          ],
+          "answer": "$(0, -6)$ ve $(3, 0)$"
+        }
+      ],
+      "tip": "$m = 0$ ise $f(x) = n$ bir **sabit fonksiyondur**; grafiği $x$ eksenine paralel bir doğrudur.",
+      "common_mistakes": [
+        "$x$ eksenini kestiği noktayı bulurken $x = 0$ yazmak (doğrusu $y = 0$).",
+        "$f(x) = mx + n$ ifadesinde $n$'yi eğim sanmak."
+      ]
+    },
+    {
+      "id": "top-9-func-slope",
+      "title": "Eğim: Doğrunun Dikliği",
+      "body": "Eğim, doğrunun ne kadar dik olduğunu söyler: $x$ bir birim artınca $y$ ne kadar değişiyor?\n\nDoğru üzerinde iki nokta $(x_1, y_1)$ ve $(x_2, y_2)$ alırsan eğim\n\n$$m = \\frac{y_2 - y_1}{x_2 - x_1}$$\n\nolur. Yani **dikey değişim / yatay değişim**.\n\n- $m > 0$: doğru soldan sağa **yükselir**.\n- $m < 0$: doğru soldan sağa **alçalır**.\n- $m = 0$: doğru **yataydır**.\n- $|m|$ büyüdükçe doğru **dikleşir**.\n\nAşağıdaki grafikte $m$ ve $n$'yi kaydırıp bunları kendi gözünle gör: $n$ değişince doğru yukarı aşağı kayar, $m$ değişince doğru dönerek dikleşir ya da yatıklaşır.",
+      "formulas": [
+        {
+          "label": "İki noktadan eğim",
+          "latex": "m = \\frac{y_2 - y_1}{x_2 - x_1}"
+        }
+      ],
+      "examples": [
+        {
+          "title": "İki noktadan doğru denklemi",
+          "problem": "$A(1, 2)$ ve $B(4, 11)$ noktalarından geçen doğrunun eğimini ve denklemini bulunuz.",
+          "steps": [
+            "$m = \\frac{11 - 2}{4 - 1} = \\frac{9}{3} = 3$",
+            "Denklem $y = 3x + n$ biçimindedir. $A(1, 2)$ noktasını yerine yaz: $2 = 3 + n \\Rightarrow n = -1$.",
+            "Doğru: $y = 3x - 1$. Kontrol: $B$ için $3 \\cdot 4 - 1 = 11$ ✓"
+          ],
+          "answer": "$m = 3$, $y = 3x - 1$"
+        }
+      ],
+      "tip": "Pay ve paydada **aynı sırayı** koru: payda $y_2 - y_1$ yazdıysan paydaya $x_2 - x_1$ yaz.",
+      "common_mistakes": [
+        "Eğimi $\\frac{x_2 - x_1}{y_2 - y_1}$ diye ters yazmak.",
+        "Pay ve paydada noktaların sırasını karıştırıp eğimin işaretini yanlış bulmak.",
+        "Eğimin işaretiyle büyüklüğünü karıştırmak: işaret yönü, mutlak değer dikliği gösterir."
+      ]
+    }
+  ],
+  "reinforcement_question_ids": [],
+  "visualizations": [
+    {
+      "id": "viz-9-func-slope",
+      "type": "linear",
+      "section_id": "top-9-func-slope",
+      "title": "Eğimi ve kesişimi değiştir",
+      "description": "$m$ doğrunun dikliğini, $n$ ise $y$ eksenini kestiği yeri belirler. Taralı üçgen, $x$ bir birim artınca $y$'nin $m$ kadar değiştiğini gösterir.",
+      "bounds": [
+        -6,
+        6,
+        6,
+        -6
+      ],
+      "sliders": [
+        {
+          "name": "m",
+          "label": "$m$ (eğim)",
+          "min": -4,
+          "max": 4,
+          "step": 0.5,
+          "value": 1
+        },
+        {
+          "name": "n",
+          "label": "$n$ ($y$ eksenini kestiği yer)",
+          "min": -4,
+          "max": 4,
+          "step": 0.5,
+          "value": 1
+        }
+      ]
+    }
+  ]
+}

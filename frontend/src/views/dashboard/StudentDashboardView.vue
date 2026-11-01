@@ -18,6 +18,7 @@ import {
   PencilLine,
   Target,
   Timer,
+  TriangleAlert,
 } from 'lucide-vue-next'
 import AnswerBreakdown from '@/components/dashboard/AnswerBreakdown.vue'
 import BadgeGrid from '@/components/dashboard/BadgeGrid.vue'
@@ -145,8 +146,11 @@ function relativeTime(iso) {
           <p class="mb-4 text-xs text-slate-500 dark:text-slate-400">Tüm zamanlar · {{ s.questions.total }} cevap</p>
           <AnswerBreakdown :correct="s.questions.correct" :incorrect="s.questions.incorrect" :blank="s.questions.blank" />
           <div v-if="s.misconception_count" class="mt-4 space-y-2 rounded-xl bg-rose-50 px-3 py-2 text-xs font-semibold text-wine-600 dark:bg-rose-500/10 dark:text-rose-300">
-            <p>{{ s.misconception_count }} kavram yanılgısı kaydı var. Ayrıntılı hata analizi yakında burada.</p>
-            <RouterLink :to="{ name: 'practice', query: { hata: '1' } }" class="inline-flex items-center gap-1 underline-offset-2 hover:underline">
+            <p>{{ s.misconception_count }} kavram yanılgısı kaydı var.</p>
+            <RouterLink to="/hata-analizi" class="flex items-center gap-1 underline-offset-2 hover:underline">
+              <TriangleAlert class="h-3.5 w-3.5" /> Hata analizini ve gelişim haritanı incele
+            </RouterLink>
+            <RouterLink :to="{ name: 'practice', query: { hata: '1' } }" class="flex items-center gap-1 underline-offset-2 hover:underline">
               <Crosshair class="h-3.5 w-3.5" /> Yanlışlarını Hata Avcısı modunda tekrar çöz
             </RouterLink>
           </div>
@@ -155,8 +159,9 @@ function relativeTime(iso) {
 
       <!-- Konular -->
       <section class="grid gap-4 lg:grid-cols-2">
-        <article class="card p-5">
-          <div class="mb-3 flex items-center justify-between gap-2">
+        <!-- min-w-0: grid öğesi, içindeki kısaltılmış (truncate) konu adları yüzünden mobilde taşmasın -->
+        <article class="card min-w-0 p-5">
+          <div class="mb-3 flex flex-wrap items-center justify-between gap-2">
             <h2 class="font-bold text-slate-900 dark:text-white">Konu başarı oranları</h2>
             <span class="text-xs font-bold text-slate-500 dark:text-slate-400">{{ s.topics.completed }} / {{ s.topics.started }} konu tamamlandı</span>
           </div>
@@ -183,7 +188,7 @@ function relativeTime(iso) {
           </p>
         </article>
 
-        <article class="card p-5">
+        <article class="card min-w-0 p-5">
           <h2 class="mb-3 font-bold text-slate-900 dark:text-white">Son çalışmalar</h2>
           <ul v-if="s.recent_topics.length" class="divide-y divide-slate-100 dark:divide-slate-800">
             <li v-for="t in s.recent_topics" :key="t.topic_id">

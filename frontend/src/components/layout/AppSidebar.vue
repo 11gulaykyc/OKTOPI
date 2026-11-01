@@ -31,7 +31,7 @@ const sections = [
     items: [
       { label: 'Soru Çöz', icon: PencilLine, to: '/soru-coz', account: true },
       { label: 'Süreli Test', icon: Timer, to: '/sureli-test', account: true },
-      { label: 'Hata Analizi', icon: TriangleAlert, soon: true },
+      { label: 'Hata Analizi', icon: TriangleAlert, to: '/hata-analizi', account: true },
       { label: 'Hedeflerim', icon: Target, to: '/hedeflerim', account: true },
     ],
   },

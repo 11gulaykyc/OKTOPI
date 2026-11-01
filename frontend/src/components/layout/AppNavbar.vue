@@ -49,7 +49,10 @@ async function logout() {
         </span>
       </RouterLink>
 
-      <GradeSwitcher class="ml-4 hidden md:inline-flex" />
+      <!-- Sarmalayıcı şart: bileşenin kendi `inline-flex` sınıfı `hidden` ile çakışıp mobilde görünür kalıyordu. -->
+      <div class="ml-4 hidden md:block">
+        <GradeSwitcher />
+      </div>
 
       <div class="ml-auto flex items-center gap-1 sm:gap-2">
         <StudyTimer v-if="auth.isAuthenticated" />

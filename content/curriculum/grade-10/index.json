@@ -54,7 +54,7 @@
             { "id": "top-10-quad-solve", "title": "Çarpanlara Ayırma ve Diskriminant" },
             { "id": "top-10-quad-roots", "title": "Kökler ve Katsayılar Arasındaki İlişki" }
           ],
-          "content_file": null
+          "content_file": "topics/top-10-quad.json"
         }
       ]
     },

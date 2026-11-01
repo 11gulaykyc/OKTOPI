@@ -1,0 +1,127 @@
+{
+  "id": "top-10-quad",
+  "version": "1.0",
+  "grade": 10,
+  "theme_id": "th-10-2",
+  "title": "İkinci Dereceden Denklemler",
+  "summary": "İkinci dereceden denklemleri çözüyor, diskriminantın kök sayısını nasıl haber verdiğini ve katsayıların parabolü nasıl şekillendirdiğini görüyoruz.",
+  "estimated_minutes": 40,
+  "learning_objectives": [
+    "İkinci dereceden bir denklemi çarpanlara ayırarak veya diskriminantla çözmek.",
+    "Diskriminantın işaretinden gerçek kök sayısını yorumlamak.",
+    "$a$, $b$ ve $c$ katsayılarının parabolün şekline ve konumuna etkisini grafik üzerinde açıklamak."
+  ],
+  "sections": [
+    {
+      "id": "top-10-quad-solve",
+      "title": "İkinci Dereceden Denklemleri Çözme",
+      "body": "$a \\neq 0$ olmak üzere $ax^2 + bx + c = 0$ biçimindeki denklemlere **ikinci dereceden denklem** denir. Çözmenin iki temel yolu var:\n\n**1. Çarpanlara ayırma:** $x^2 - 5x + 6 = 0$ için çarpımı $6$, toplamı $-5$ olan iki sayı ara: $-2$ ve $-3$. Böylece $(x - 2)(x - 3) = 0$ olur. Çarpım sıfırsa çarpanlardan biri sıfırdır: $x = 2$ veya $x = 3$.\n\n**2. Diskriminant (her zaman çalışır):** Önce $\\Delta = b^2 - 4ac$ hesaplanır, sonra kökler\n\n$$x_{1,2} = \\frac{-b \\pm \\sqrt{\\Delta}}{2a}$$\n\nformülüyle bulunur.",
+      "formulas": [
+        {
+          "label": "Diskriminant",
+          "latex": "\\Delta = b^2 - 4ac"
+        },
+        {
+          "label": "Kök formülü",
+          "latex": "x_{1,2} = \\frac{-b \\pm \\sqrt{\\Delta}}{2a}"
+        }
+      ],
+      "examples": [
+        {
+          "title": "Diskriminantla çözüm",
+          "problem": "$2x^2 - 3x - 2 = 0$ denkleminin çözüm kümesini bulunuz.",
+          "steps": [
+            "$a = 2$, $b = -3$, $c = -2$",
+            "$\\Delta = (-3)^2 - 4 \\cdot 2 \\cdot (-2) = 9 + 16 = 25$",
+            "$x_{1,2} = \\frac{3 \\pm 5}{4} \\Rightarrow x_1 = 2,\\ x_2 = -\\frac{1}{2}$"
+          ],
+          "answer": "$\\left\\{-\\frac{1}{2},\\ 2\\right\\}$"
+        }
+      ],
+      "tip": "Önce denklemi $ax^2 + bx + c = 0$ biçimine getir; sağ tarafta sayı varken katsayıları okumak hataya yol açar.",
+      "common_mistakes": [
+        "$b$ negatifken $-b$'yi yine negatif almak.",
+        "$-4ac$ hesaplarken $c$'nin işaretini kaybetmek.",
+        "Denklemin iki tarafını $x$'e bölüp $x = 0$ kökünü kaybetmek."
+      ]
+    },
+    {
+      "id": "top-10-quad-roots",
+      "title": "Kökler, Diskriminant ve Parabol",
+      "body": "$y = ax^2 + bx + c$ fonksiyonunun grafiği bir **parabol**dür. Denklemin gerçek kökleri, parabolün $x$ eksenini kestiği noktalardır. Diskriminant bu yüzden bir ön izleme gibidir:\n\n- $\\Delta > 0$: parabol $x$ eksenini **iki** noktada keser; iki farklı gerçek kök vardır.\n- $\\Delta = 0$: parabol $x$ eksenine **teğettir**; çakışık iki kök vardır.\n- $\\Delta < 0$: parabol $x$ eksenini **kesmez**; gerçek kök yoktur.\n\n$a > 0$ ise kollar yukarı, $a < 0$ ise aşağı bakar. Tepe noktasının apsisi $r = -\\frac{b}{2a}$'dır ve parabol $x = r$ doğrusuna göre simetriktir.\n\nKökleri bulmadan da toplamlarını ve çarpımlarını bilebilirsin: $x_1 + x_2 = -\\frac{b}{a}$ ve $x_1 \\cdot x_2 = \\frac{c}{a}$.\n\nAşağıdaki grafikte $c$'yi değiştirerek parabolü yukarı aşağı kaydır ve $\\Delta$'nın işaretinin, kesim noktası sayısıyla birlikte nasıl değiştiğini izle.",
+      "formulas": [
+        {
+          "label": "Kökler toplamı",
+          "latex": "x_1 + x_2 = -\\frac{b}{a}"
+        },
+        {
+          "label": "Kökler çarpımı",
+          "latex": "x_1 \\cdot x_2 = \\frac{c}{a}"
+        },
+        {
+          "label": "Tepe noktasının apsisi",
+          "latex": "r = -\\frac{b}{2a}"
+        }
+      ],
+      "examples": [
+        {
+          "title": "Çakışık kök şartı",
+          "problem": "$x^2 - 4x + m = 0$ denkleminin çakışık iki kökü olması için $m$ kaç olmalıdır?",
+          "steps": [
+            "Çakışık kök için $\\Delta = 0$ olmalı.",
+            "$\\Delta = (-4)^2 - 4 \\cdot 1 \\cdot m = 16 - 4m = 0 \\Rightarrow m = 4$",
+            "Kontrol: $x^2 - 4x + 4 = (x - 2)^2$, kök $x = 2$ ✓"
+          ],
+          "answer": "$m = 4$"
+        }
+      ],
+      "tip": "Soru gerçek köklerden bahsediyorsa önce $\\Delta \\geq 0$ olduğunu kontrol et; toplam ve çarpım formülleri tek başına köklerin gerçek olduğunu göstermez.",
+      "common_mistakes": [
+        "Kökler toplamını işaretsiz, $\\frac{b}{a}$ diye yazmak.",
+        "$\\Delta < 0$ iken parabolün çizilemeyeceğini sanmak; parabol vardır, yalnızca $x$ eksenini kesmez."
+      ]
+    }
+  ],
+  "reinforcement_question_ids": [],
+  "visualizations": [
+    {
+      "id": "viz-10-quad-parabola",
+      "type": "parabola",
+      "section_id": "top-10-quad-roots",
+      "title": "Katsayılarla parabolü şekillendir",
+      "description": "$a$, $b$ ve $c$'yi değiştir. Kırmızı noktalar gerçek kökler, mor nokta tepe noktası; kesikli çizgi simetri ekseni.",
+      "bounds": [
+        -6,
+        8,
+        6,
+        -8
+      ],
+      "sliders": [
+        {
+          "name": "a",
+          "label": "$a$",
+          "min": -3,
+          "max": 3,
+          "step": 0.5,
+          "value": 1
+        },
+        {
+          "name": "b",
+          "label": "$b$",
+          "min": -6,
+          "max": 6,
+          "step": 0.5,
+          "value": -2
+        },
+        {
+          "name": "c",
+          "label": "$c$",
+          "min": -6,
+          "max": 6,
+          "step": 0.5,
+          "value": -3
+        }
+      ]
+    }
+  ]
+}

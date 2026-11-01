@@ -17,8 +17,8 @@ from django.db import IntegrityError, transaction
 from django.utils import timezone
 from rest_framework.exceptions import APIException, ValidationError
 
-from apps.analytics.models import MisconceptionLog, QuestionAttempt
-from apps.analytics.services import record_attempt
+from apps.analytics.models import MisconceptionLog
+from apps.analytics.services import open_mistakes, record_attempt
 from apps.curriculum.content_loader import get_repository
 from apps.gamification import engine
 from apps.questions.serializers import evaluation_result, public_question
@@ -48,14 +48,11 @@ class ExamTimeUp(ExamConflict):
 
 
 def open_mistake_ids(user):
-    """Son cevabı yanlış olan sorular (daha önce yanlış yapılmış ve sonradan doğru çözülmemiş)."""
-    latest = {}
-    for question_id, is_correct in (
-        QuestionAttempt.objects.filter(user=user).exclude(selected_option="").order_by("created_at", "id")
-        .values_list("question_id", "is_correct")
-    ):
-        latest[question_id] = is_correct
-    return {qid for qid, ok in latest.items() if not ok}
+    """Son cevabı yanlış olan sorular (daha önce yanlış yapılmış ve sonradan doğru çözülmemiş).
+
+    Hata Analizi ekranıyla aynı tanımı kullanmak için analytics servisine dayanır.
+    """
+    return set(open_mistakes(user))
 
 
 def pick_questions(user, grade, topic_id="", subtopic_id="", difficulty="", count=DEFAULT_QUESTIONS, mistakes_only=False):

@@ -7,7 +7,25 @@ from apps.curriculum.content_loader import GRADES, get_repository
 from apps.gamification import engine
 
 from .models import TopicProgress
-from .services import complete_topic, dashboard_summary, save_last_section, serialize_progress
+from .services import (
+    complete_topic,
+    dashboard_summary,
+    default_grade,
+    error_analysis,
+    mastery_map,
+    save_last_section,
+    serialize_progress,
+)
+
+
+def _grade_param(request):
+    """?grade=9 değerini okur; verilmezse öğrencinin kendi sınıfı kullanılır."""
+    grade = request.query_params.get("grade")
+    if grade is None:
+        return default_grade(request.user)
+    if not grade.isdigit() or int(grade) not in GRADES:
+        raise ValidationError({"grade": "Geçerli sınıf düzeyleri: 9, 10, 11, 12."})
+    return int(grade)
 
 
 def _topic_or_404(topic_id):
@@ -22,6 +40,20 @@ class DashboardSummaryView(APIView):
 
     def get(self, request):
         return Response(dashboard_summary(request.user))
+
+
+class MasteryMapView(APIView):
+    """Gelişim Haritası: ?grade=9. Yalnızca isteği yapan kullanıcının verisi."""
+
+    def get(self, request):
+        return Response(mastery_map(request.user, _grade_param(request)))
+
+
+class ErrorAnalysisView(APIView):
+    """Kavram yanılgısı örüntüleri ve düzeltilmemiş yanlışlar: ?grade=9. Cevap anahtarı içermez."""
+
+    def get(self, request):
+        return Response(error_analysis(request.user, _grade_param(request)))
 
 
 class TopicProgressListView(APIView):

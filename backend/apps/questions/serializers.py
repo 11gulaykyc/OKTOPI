@@ -27,7 +27,7 @@ def public_question(question):
     return data
 
 
-def _recommendation(target_id):
+def recommendation(target_id):
     """Önerilen alt konu (veya konu) kimliğini, yönlendirme için konu + başlık bilgisine çevirir."""
     repo = get_repository()
     topic_id = repo.subtopic_parent.get(target_id, target_id)
@@ -58,6 +58,6 @@ def evaluation_result(question, option, first_try=None):
         result["misconception"] = {
             "tag": option.misconception_tag,
             "detail": option.misconception_detail,
-            "recommended": _recommendation(option.recommended_subtopic_id) if option.recommended_subtopic_id else None,
+            "recommended": recommendation(option.recommended_subtopic_id) if option.recommended_subtopic_id else None,
         }
     return result

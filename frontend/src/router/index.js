@@ -95,6 +95,12 @@ const routes = [
     meta: { requiresAuth: true, title: 'Sonuçlar' },
   },
   {
+    path: '/hata-analizi',
+    name: 'error-analysis',
+    component: () => import('@/views/dashboard/ErrorAnalysisView.vue'),
+    meta: { requiresAuth: true, title: 'Hata Analizi' },
+  },
+  {
     path: '/hedeflerim',
     name: 'goals',
     component: () => import('@/views/dashboard/GoalsView.vue'),

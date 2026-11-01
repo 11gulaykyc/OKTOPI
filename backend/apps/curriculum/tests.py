@@ -97,6 +97,36 @@ class ValidateContentBrokenTests(ContentCopyMixin, SimpleTestCase):
         )
         self.assert_error_contains("Pekiştirme sorusu 'q-9-exp-999' bulunamadı")
 
+    # --- Etkileşimli grafik (visualizations) şeması ---
+    TRI = "curriculum/grade-9/topics/top-9-tri.json"
+
+    def edit_viz(self, mutate):
+        self.edit_json(self.TRI, lambda d: mutate(d["visualizations"][0]))
+
+    def test_visualization_requires_type_specific_sliders(self):
+        self.edit_viz(lambda v: v["sliders"].pop())
+        self.assert_error_contains("'triangle' türü şu kaydırıcıları bekler: A, B")
+
+    def test_visualization_unknown_type(self):
+        self.edit_viz(lambda v: v.update(type="spiral"))
+        self.assert_error_contains("type")
+
+    def test_visualization_section_must_exist(self):
+        self.edit_viz(lambda v: v.update(section_id="top-9-tri-yok"))
+        self.assert_error_contains("var olmayan bölüme")
+
+    def test_visualization_slider_value_in_range(self):
+        self.edit_viz(lambda v: v["sliders"][0].update(value=500))
+        self.assert_error_contains("başlangıç değeri [min, max] aralığında")
+
+    def test_triangle_angles_must_leave_room_for_third(self):
+        self.edit_viz(lambda v: [s.update(value=95) for s in v["sliders"]])
+        self.assert_error_contains("A + B < 180°")
+
+    def test_visualization_bounds_order(self):
+        self.edit_viz(lambda v: v.update(bounds=[5, 5, -5, -5]))
+        self.assert_error_contains("bounds")
+
     def test_command_fails_loudly(self):
         (self.root / self.Q).write_text("[]", encoding="utf-8")
         err = StringIO()
@@ -132,6 +162,14 @@ class CurriculumApiTests(APISimpleTestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data["theme"]["id"], "th-9-1")
         self.assertGreater(len(response.data["content"]["sections"]), 0)
+
+    def test_topic_detail_includes_visualizations(self):
+        for topic_id, kind in (("top-9-exp", "exponential"), ("top-9-func", "linear"), ("top-9-tri", "triangle"), ("top-10-quad", "parabola")):
+            content = self.client.get(reverse("curriculum-topic-detail", args=[topic_id])).data["content"]
+            [viz] = content["visualizations"]
+            self.assertEqual(viz["type"], kind)
+            self.assertEqual(len(viz["bounds"]), 4)
+            self.assertTrue(all({"name", "min", "max", "step", "value"} <= set(s) for s in viz["sliders"]))
 
     def test_topic_without_content(self):
         response = self.client.get(reverse("curriculum-topic-detail", args=["top-12-integ"]))

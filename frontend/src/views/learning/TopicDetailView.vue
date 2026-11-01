@@ -1,5 +1,5 @@
 <script setup>
-import { computed, nextTick, onBeforeUnmount, ref, watch } from 'vue'
+import { computed, defineAsyncComponent, nextTick, onBeforeUnmount, ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import {
   ArrowLeft,
@@ -19,6 +19,9 @@ import WorkedExample from '@/components/learning/WorkedExample.vue'
 import MascotFeedback from '@/components/layout/MascotFeedback.vue'
 import KatexRenderer from '@/components/math/KatexRenderer.vue'
 import api, { errorMessage } from '@/services/api'
+
+// JSXGraph yalnızca etkileşimli grafiği olan konularda yüklenir.
+const GeometryCanvas = defineAsyncComponent(() => import('@/components/math/GeometryCanvas.vue'))
 import { useAuthStore } from '@/stores/auth'
 import { useContentStore } from '@/stores/content'
 import { useGradeStore } from '@/stores/grade'
@@ -42,6 +45,13 @@ const completion = ref(null) // { points, rewards }
 const content = computed(() => topic.value?.content)
 const sections = computed(() => content.value?.sections ?? [])
 const isCompleted = computed(() => progress.value?.status === 'completed')
+const visualizations = computed(() => content.value?.visualizations ?? [])
+const sectionIds = computed(() => new Set(sections.value.map((s) => s.id)))
+// Bir bölüme bağlı olmayan grafikler bölümlerden sonra ayrı bir kartta gösterilir.
+const looseVisualizations = computed(() => visualizations.value.filter((v) => !v.section_id || !sectionIds.value.has(v.section_id)))
+function sectionVisualizations(sectionId) {
+  return visualizations.value.filter((v) => v.section_id === sectionId)
+}
 
 async function load(topicId) {
   loading.value = true
@@ -279,6 +289,8 @@ async function markCompleted() {
           </h2>
           <KatexRenderer :text="s.body" class="leading-relaxed text-slate-700 dark:text-slate-200" />
 
+          <GeometryCanvas v-for="v in sectionVisualizations(s.id)" :key="v.id" :visualization="v" />
+
           <div v-if="s.formulas.length">
             <h3 class="mb-2 flex items-center gap-2 text-sm font-bold uppercase tracking-wider text-slate-500"><Sigma class="h-4 w-4" /> Formüller</h3>
             <div class="grid gap-3 sm:grid-cols-2">
@@ -310,6 +322,11 @@ async function markCompleted() {
               </li>
             </ul>
           </div>
+        </section>
+
+        <section v-if="looseVisualizations.length" class="card space-y-4 p-5 sm:p-6">
+          <h2 class="text-xl font-bold text-slate-900 dark:text-white">Keşfet</h2>
+          <GeometryCanvas v-for="v in looseVisualizations" :key="v.id" :visualization="v" />
         </section>
 
         <!-- Pekiştirme -->
