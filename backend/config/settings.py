@@ -129,6 +129,8 @@ REST_FRAMEWORK = {
     "DEFAULT_PERMISSION_CLASSES": (
         "rest_framework.permissions.IsAuthenticated",
     ),
+    # Tüm hatalar tek biçimde döner: {"detail": "Türkçe mesaj", "code": "...", "fields": {...}}
+    "EXCEPTION_HANDLER": "config.exceptions.api_exception_handler",
 }
 
 SIMPLE_JWT = {

@@ -69,23 +69,34 @@ api.interceptors.response.use(
   },
 )
 
+/*
+ * Sunucu tüm hataları tek biçimde döner (backend/config/exceptions.py):
+ *   { detail: 'Türkçe mesaj', code: 'invalid' | 'not_found' | 'time_up' | ..., fields?: { alan: ['mesaj'] } }
+ */
+
 /** API hatasını kullanıcıya gösterilebilir Türkçe metne çevirir; teknik ayrıntıyı gizler. */
 export function errorMessage(error, fallback = 'Bir şeyler ters gitti. Lütfen tekrar dene.') {
   if (!error?.response) return 'Sunucuya ulaşılamadı. İnternet bağlantını kontrol edip tekrar dene.'
   const data = error.response.data
   if (error.response.status >= 500) return 'Sunucuda bir sorun oluştu. Biraz sonra tekrar dene.'
   if (typeof data?.detail === 'string') return data.detail
-  if (Array.isArray(data?.non_field_errors)) return data.non_field_errors[0]
   return fallback
 }
 
-/** DRF alan hatalarını { alan: 'mesaj' } biçimine çevirir (iç içe profil alanları dahil). */
+/** Hatanın makine okur kodu (ör. 'time_up'); yoksa boş metin. */
+export function errorCode(error) {
+  return error?.response?.data?.code || ''
+}
+
+/** Alan hatalarını { alan: 'mesaj' } biçimine çevirir (iç içe profil alanları dahil). */
 export function fieldErrors(error) {
-  const data = error?.response?.data
+  const data = error?.response?.data?.fields
   if (!data || typeof data !== 'object') return {}
   const result = {}
   const walk = (obj) => {
     for (const [key, value] of Object.entries(obj)) {
+      // Alana bağlı olmayan hata zaten `detail` olarak gelir (errorMessage).
+      if (key === 'non_field_errors') continue
       if (Array.isArray(value)) result[key] = String(value[0])
       else if (value && typeof value === 'object') walk(value)
     }

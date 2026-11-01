@@ -82,7 +82,7 @@ async function submit() {
       email: form.email.trim(),
     })
     useGradeStore().reset() // misafirken göz atılan sınıf taşınmasın
-    router.replace('/')
+    router.replace({ name: 'diagnostic' })
   } catch (e) {
     errors.value = fieldErrors(e)
     if (!Object.keys(errors.value).length) generalError.value = errorMessage(e)

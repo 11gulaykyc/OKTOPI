@@ -13,10 +13,14 @@ import {
   LoaderCircle,
   RefreshCw,
   Award,
+  Crosshair,
+  Gauge,
+  PencilLine,
   Target,
   Timer,
 } from 'lucide-vue-next'
 import AnswerBreakdown from '@/components/dashboard/AnswerBreakdown.vue'
+import BadgeGrid from '@/components/dashboard/BadgeGrid.vue'
 import StatCard from '@/components/dashboard/StatCard.vue'
 import WeeklyStudyChart from '@/components/dashboard/WeeklyStudyChart.vue'
 import MascotFeedback from '@/components/layout/MascotFeedback.vue'
@@ -27,7 +31,13 @@ import { useStatsStore } from '@/stores/stats'
 const auth = useAuthStore()
 const stats = useStatsStore()
 
-onMounted(() => stats.fetchSummary())
+onMounted(() => {
+  stats.fetchSummary()
+  stats.fetchGamification().catch(() => {}) // rozet satırı isteğe bağlı; hata paneli engellemez
+})
+const needsDiagnostic = computed(() => auth.user?.profile?.initial_level_status === 'not_assessed')
+const badges = computed(() => stats.gamification?.badges ?? [])
+const earnedBadges = computed(() => badges.value.filter((b) => b.earned).length)
 
 const s = computed(() => stats.summary)
 // Bugünkü süre, sayaç her ping'de güncellendiği için paneli yenilemeden de güncel kalır.
@@ -67,8 +77,23 @@ function relativeTime(iso) {
         <History class="h-4 w-4" /> Devam et
       </RouterLink>
       <RouterLink to="/konular" class="btn-secondary !py-2 text-xs"><BookOpen class="h-4 w-4" /> Konular</RouterLink>
+      <RouterLink to="/soru-coz" class="btn-secondary !py-2 text-xs"><PencilLine class="h-4 w-4" /> Soru Çöz</RouterLink>
+      <RouterLink to="/sureli-test" class="btn-secondary !py-2 text-xs"><Timer class="h-4 w-4" /> Süreli Test</RouterLink>
       <RouterLink to="/oyss" class="btn-secondary !py-2 text-xs"><CalendarCheck class="h-4 w-4" /> OYSS Hazırlık</RouterLink>
     </MascotFeedback>
+
+    <RouterLink
+      v-if="needsDiagnostic"
+      :to="{ name: 'diagnostic' }"
+      class="flex items-center gap-3 rounded-xl border border-brand-200 bg-white p-4 transition hover:border-brand-400 dark:border-brand-500/30 dark:bg-slate-900"
+    >
+      <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-brand-50 text-brand-600 dark:bg-brand-500/15 dark:text-brand-300"><Gauge class="h-5 w-5" /></span>
+      <span class="min-w-0 flex-1 text-sm">
+        <span class="block font-bold text-slate-900 dark:text-white">Başlangıç seviyeni henüz belirlemedin</span>
+        <span class="block text-slate-500 dark:text-slate-400">Birkaç kısa soruyla sana uygun başlangıç noktasını bulalım.</span>
+      </span>
+      <ArrowRight class="h-4 w-4 shrink-0 text-brand-500" />
+    </RouterLink>
 
     <div class="flex items-center justify-between gap-3">
       <h1 class="text-2xl font-bold text-slate-900 dark:text-white">Öğrenci Paneli</h1>
@@ -119,9 +144,12 @@ function relativeTime(iso) {
           <h2 class="font-bold text-slate-900 dark:text-white">Cevap dağılımı</h2>
           <p class="mb-4 text-xs text-slate-500 dark:text-slate-400">Tüm zamanlar · {{ s.questions.total }} cevap</p>
           <AnswerBreakdown :correct="s.questions.correct" :incorrect="s.questions.incorrect" :blank="s.questions.blank" />
-          <p v-if="s.misconception_count" class="mt-4 rounded-xl bg-rose-50 px-3 py-2 text-xs font-semibold text-wine-600 dark:bg-rose-500/10 dark:text-rose-300">
-            {{ s.misconception_count }} kavram yanılgısı kaydı var. Ayrıntılı hata analizi yakında burada.
-          </p>
+          <div v-if="s.misconception_count" class="mt-4 space-y-2 rounded-xl bg-rose-50 px-3 py-2 text-xs font-semibold text-wine-600 dark:bg-rose-500/10 dark:text-rose-300">
+            <p>{{ s.misconception_count }} kavram yanılgısı kaydı var. Ayrıntılı hata analizi yakında burada.</p>
+            <RouterLink :to="{ name: 'practice', query: { hata: '1' } }" class="inline-flex items-center gap-1 underline-offset-2 hover:underline">
+              <Crosshair class="h-3.5 w-3.5" /> Yanlışlarını Hata Avcısı modunda tekrar çöz
+            </RouterLink>
+          </div>
         </article>
       </section>
 
@@ -151,7 +179,7 @@ function relativeTime(iso) {
             </li>
           </ul>
           <p v-else class="rounded-xl bg-slate-50 p-4 text-sm text-slate-500 dark:bg-slate-800/50 dark:text-slate-400">
-            Henüz soru çözmedin. Konu sonundaki pekiştirme sorularını çözdükçe başarı oranların burada görünecek.
+            Henüz soru çözmedin. <RouterLink to="/soru-coz" class="font-semibold text-brand-600 hover:underline dark:text-brand-400">Soru Çöz</RouterLink> ekranında veya konu sonundaki pekiştirme sorularında çözdükçe başarı oranların burada görünecek.
           </p>
         </article>
 
@@ -186,7 +214,10 @@ function relativeTime(iso) {
       <!-- Görevler & hedefler -->
       <section class="grid gap-4 lg:grid-cols-2">
         <article class="card p-5">
-          <h2 class="mb-3 flex items-center gap-2 font-bold text-slate-900 dark:text-white"><ListTodo class="h-5 w-5 text-brand-500" /> Aktif görevler</h2>
+          <div class="mb-3 flex items-center justify-between gap-2">
+            <h2 class="flex items-center gap-2 font-bold text-slate-900 dark:text-white"><ListTodo class="h-5 w-5 text-brand-500" /> Aktif görevler</h2>
+            <RouterLink to="/hedeflerim" class="text-xs font-bold text-brand-600 hover:underline dark:text-brand-400">Tümü</RouterLink>
+          </div>
           <ul v-if="s.tasks.length" class="space-y-3">
             <li v-for="task in s.tasks" :key="task.id">
               <div class="flex items-center justify-between gap-2 text-sm">
@@ -201,12 +232,15 @@ function relativeTime(iso) {
             </li>
           </ul>
           <p v-else class="rounded-xl bg-slate-50 p-4 text-sm text-slate-500 dark:bg-slate-800/50 dark:text-slate-400">
-            Bugün için atanmış görev yok. Günlük ve haftalık görevler yakında burada olacak.
+            Bugün için atanmış görev yok.
           </p>
         </article>
 
         <article class="card p-5">
-          <h2 class="mb-3 flex items-center gap-2 font-bold text-slate-900 dark:text-white"><Target class="h-5 w-5 text-aqua-500" /> Günlük hedeflerim</h2>
+          <div class="mb-3 flex items-center justify-between gap-2">
+            <h2 class="flex items-center gap-2 font-bold text-slate-900 dark:text-white"><Target class="h-5 w-5 text-aqua-500" /> Günlük hedeflerim</h2>
+            <RouterLink to="/hedeflerim" class="text-xs font-bold text-brand-600 hover:underline dark:text-brand-400">Düzenle</RouterLink>
+          </div>
           <ul v-if="s.goals.length" class="space-y-3">
             <li v-for="goal in s.goals" :key="goal.goal_type">
               <div class="flex items-center justify-between gap-2 text-sm">
@@ -219,9 +253,18 @@ function relativeTime(iso) {
             </li>
           </ul>
           <p v-else class="rounded-xl bg-slate-50 p-4 text-sm text-slate-500 dark:bg-slate-800/50 dark:text-slate-400">
-            Henüz bir günlük hedef belirlemedin. Hedef belirleme ekranı yakında açılacak.
+            Henüz bir günlük hedef belirlemedin. <RouterLink to="/hedeflerim" class="font-semibold text-brand-600 hover:underline dark:text-brand-400">Hedefini belirle</RouterLink>
           </p>
         </article>
+      </section>
+
+      <!-- Rozetler -->
+      <section v-if="badges.length" class="card p-5">
+        <div class="mb-3 flex items-center justify-between gap-2">
+          <h2 class="flex items-center gap-2 font-bold text-slate-900 dark:text-white"><Award class="h-5 w-5 text-accent-600" /> Rozetlerim</h2>
+          <RouterLink to="/hedeflerim" class="text-xs font-bold text-brand-600 hover:underline dark:text-brand-400">{{ earnedBadges }} / {{ badges.length }} · ayrıntılar</RouterLink>
+        </div>
+        <BadgeGrid :badges="badges" compact />
       </section>
     </template>
   </div>

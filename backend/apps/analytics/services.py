@@ -6,7 +6,8 @@ from django.db.models.functions import TruncDate
 from django.utils import timezone
 
 from apps.curriculum.content_loader import get_repository
-from apps.gamification.models import DailyTask, PersonalGoal, PointLedger
+from apps.gamification import engine
+from apps.gamification.models import PersonalGoal, PointLedger
 from apps.gamification.services import TOPIC_COMPLETION_POINTS, award_points, level_info, total_points
 from apps.study_sessions.models import DailyStudyTotal
 
@@ -181,30 +182,17 @@ def dashboard_summary(user, days=7):
         "success": [serialize_progress(p) for p in progress if p.questions_answered],
     }
 
-    # Görevler ve hedefler (görev ataması Faz 3 oyunlaştırma motorundadır; burada yalnızca mevcut kayıtlar okunur)
-    tasks = [
+    # Görevler ve hedefler: oyunlaştırma motoru görevleri atar ve ilerlemeyi gerçek kayıtlardan hesaplar.
+    tasks = [engine.serialize_task(t) for t in engine.refresh_tasks(user)]
+    goals = [
         {
-            "id": t.id,
-            "period": t.period,
-            "title": t.title,
-            "target": t.target,
-            "progress": min(t.progress, t.target),
-            "points_reward": t.points_reward,
-            "completed": t.is_completed,
+            "goal_type": goal.goal_type,
+            "label": goal.get_goal_type_display(),
+            "target": goal.target,
+            "current": engine.goal_progress(user, goal.goal_type, today),
         }
-        for t in DailyTask.objects.filter(
-            Q(period=DailyTask.Period.DAILY, period_start=today)
-            | Q(period=DailyTask.Period.WEEKLY, period_start=week_start),
-            user=user,
-        )
+        for goal in PersonalGoal.objects.filter(user=user, valid_until__isnull=True)
     ]
-    goals = []
-    for goal in PersonalGoal.objects.filter(user=user, valid_until__isnull=True):
-        if goal.goal_type == PersonalGoal.GoalType.DAILY_QUESTIONS:
-            current = questions["today"]
-        else:
-            current = study["today_seconds"] // 60
-        goals.append({"goal_type": goal.goal_type, "label": goal.get_goal_type_display(), "target": goal.target, "current": current})
 
     return {
         "generated_at": timezone.now(),

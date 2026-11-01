@@ -74,14 +74,14 @@ class RegisterTests(APITestCase):
         make_student(email="ayse@example.com")
         response = self.client.post(self.url, VALID_REGISTRATION, format="json")
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
-        self.assertIn("email", response.data)
+        self.assertIn("email", response.data["fields"])
 
     def test_register_rejects_invalid_grade_and_school_type(self):
         payload = {**VALID_REGISTRATION, "grade_level": 8, "school_type": "meslek"}
         response = self.client.post(self.url, payload, format="json")
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
-        self.assertIn("grade_level", response.data)
-        self.assertIn("school_type", response.data)
+        self.assertIn("grade_level", response.data["fields"])
+        self.assertIn("school_type", response.data["fields"])
 
     def test_register_rejects_weak_password(self):
         response = self.post(password="12345678")
@@ -90,17 +90,17 @@ class RegisterTests(APITestCase):
 
     def test_password_needs_8_chars_and_an_uppercase_letter(self):
         short = self.post(password="Kisa!1")
-        self.assertIn("password", short.data)
+        self.assertIn("password", short.data["fields"])
         no_upper = self.post(password="kucukharf!2026")
         self.assertEqual(no_upper.status_code, status.HTTP_400_BAD_REQUEST)
-        self.assertIn("büyük harf", str(no_upper.data["password"]))
+        self.assertIn("büyük harf", str(no_upper.data["fields"]["password"]))
 
     def test_first_name_needs_3_letters_and_last_name_is_required(self):
-        self.assertIn("first_name", self.post(first_name="Al").data)
-        self.assertIn("first_name", self.post(first_name="Ali3").data)
+        self.assertIn("first_name", self.post(first_name="Al").data["fields"])
+        self.assertIn("first_name", self.post(first_name="Ali3").data["fields"])
         payload = {k: v for k, v in VALID_REGISTRATION.items() if k != "last_name"}
-        self.assertIn("last_name", self.client.post(self.url, payload, format="json").data)
-        self.assertIn("last_name", self.post(last_name="K").data)
+        self.assertIn("last_name", self.client.post(self.url, payload, format="json").data["fields"])
+        self.assertIn("last_name", self.post(last_name="K").data["fields"])
 
     def test_names_are_normalized(self):
         response = self.post(first_name="  Ayşe   Nur ", last_name="Kaya-Demir")
@@ -108,9 +108,9 @@ class RegisterTests(APITestCase):
         self.assertEqual(response.data["user"]["first_name"], "Ayşe Nur")
 
     def test_username_rules(self):
-        self.assertIn("username", self.post(username="a").data)
-        self.assertIn("username", self.post(username="ay se").data)
-        self.assertIn("username", self.post(username="ayse@example.com").data)
+        self.assertIn("username", self.post(username="a").data["fields"])
+        self.assertIn("username", self.post(username="ay se").data["fields"])
+        self.assertIn("username", self.post(username="ayse@example.com").data["fields"])
         response = self.post(username="a1_*!")
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
@@ -118,15 +118,15 @@ class RegisterTests(APITestCase):
         make_student(username="Ayse", email="baska@example.com")
         response = self.post()
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
-        self.assertIn("alınmış", str(response.data["username"]))
+        self.assertIn("alınmış", str(response.data["fields"]["username"]))
 
     def test_register_rejects_undeliverable_email(self):
-        self.assertIn("email", self.post(email="ayse@").data)
-        self.assertIn("email", self.post(email="ayse@mailinator.com").data)
+        self.assertIn("email", self.post(email="ayse@").data["fields"])
+        self.assertIn("email", self.post(email="ayse@mailinator.com").data["fields"])
         with mock.patch("apps.accounts.validators._domain_accepts_mail", return_value=False):
             response = self.post(email="ayse@olmayan-alan-adi.xyz")
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
-        self.assertIn("olmayan-alan-adi.xyz", str(response.data["email"]))
+        self.assertIn("olmayan-alan-adi.xyz", str(response.data["fields"]["email"]))
 
 
 class UniquenessConstraintTests(APITestCase):
@@ -228,8 +228,8 @@ class MeTests(APITestCase):
 
     def test_patch_rejects_short_or_blank_names(self):
         self.client.force_authenticate(self.user)
-        self.assertIn("first_name", self.client.patch(self.url, {"first_name": "Al"}, format="json").data)
-        self.assertIn("last_name", self.client.patch(self.url, {"last_name": ""}, format="json").data)
+        self.assertIn("first_name", self.client.patch(self.url, {"first_name": "Al"}, format="json").data["fields"])
+        self.assertIn("last_name", self.client.patch(self.url, {"last_name": ""}, format="json").data["fields"])
 
     def test_patch_rejects_email_of_another_user(self):
         self.client.force_authenticate(self.user)
@@ -254,12 +254,12 @@ class BirthDateValidationTests(APITestCase):
         payload = {k: v for k, v in VALID_REGISTRATION.items() if k != "birth_date"}
         response = self.client.post(self.url, payload, format="json")
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
-        self.assertIn("birth_date", response.data)
+        self.assertIn("birth_date", response.data["fields"])
 
     def test_future_birth_date_rejected(self):
         response = self.register(date(date.today().year + 1, 1, 1).isoformat())
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
-        self.assertIn("gelecekte", str(response.data["birth_date"]))
+        self.assertIn("gelecekte", str(response.data["fields"]["birth_date"]))
 
     def test_no_age_limit(self):
         response = self.register(years_ago(100).isoformat())

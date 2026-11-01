@@ -13,6 +13,7 @@ import {
   Sigma,
   TriangleAlert,
 } from 'lucide-vue-next'
+import RewardNotice from '@/components/dashboard/RewardNotice.vue'
 import ReinforcementQuestion from '@/components/learning/ReinforcementQuestion.vue'
 import WorkedExample from '@/components/learning/WorkedExample.vue'
 import MascotFeedback from '@/components/layout/MascotFeedback.vue'
@@ -36,7 +37,7 @@ const error = ref('')
 const activeSection = ref('')
 const resumeTarget = ref(null)
 const completing = ref(false)
-const completion = ref(null) // { points_awarded }
+const completion = ref(null) // { points, rewards }
 
 const content = computed(() => topic.value?.content)
 const sections = computed(() => content.value?.sections ?? [])
@@ -153,7 +154,7 @@ async function markCompleted() {
   try {
     const { data } = await api.post(`/analytics/topic-progress/${topic.value.id}/complete/`)
     progress.value = data
-    completion.value = { points: data.points_awarded }
+    completion.value = { points: data.points_awarded, rewards: data.rewards }
   } catch (e) {
     error.value = errorMessage(e, 'Konu tamamlanamadı. Tekrar dene.')
   } finally {
@@ -338,8 +339,16 @@ async function markCompleted() {
             "
           >
             <RouterLink to="/konular" class="btn-secondary !py-1.5 text-xs">Sıradaki konuya geç</RouterLink>
+            <RouterLink v-if="topic.question_count" :to="{ name: 'practice', query: { konu: topic.id } }" class="btn-secondary !py-1.5 text-xs">Bu konudan soru çöz</RouterLink>
             <RouterLink to="/panel" class="btn-ghost !py-1.5 text-xs">Paneline bak</RouterLink>
           </MascotFeedback>
+          <!-- Konu puanı yukarıda yazıyor; burada yalnızca ek rozet/görev ödülleri gösterilir. -->
+          <RewardNotice
+            v-if="completion?.rewards?.badges.length || completion?.rewards?.tasks.length"
+            :rewards="{ ...completion.rewards, points: completion.rewards.points - completion.points }"
+            compact
+            class="mt-3"
+          />
           <div v-else-if="!auth.isAuthenticated" class="flex flex-col items-start gap-3 sm:flex-row sm:items-center sm:justify-between">
             <div>
               <p class="font-bold text-slate-900 dark:text-white">İlerlemeni kaydetmek ister misin?</p>

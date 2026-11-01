@@ -37,7 +37,7 @@ class BadgeAndGoalConstraintTests(TestCase):
         self.user = User.objects.create_user(username="ali", email="ali@example.com", password="x")
 
     def test_badge_awarded_once(self):
-        badge = Badge.objects.create(code="ilk-adim", name="İlk Adım", description="İlk soruyu çöz")
+        badge = Badge.objects.get(code="ilk-adim")  # 0002_seed_badges ile gelir
         UserBadge.objects.create(user=self.user, badge=badge)
         with self.assertRaises(IntegrityError):
             UserBadge.objects.create(user=self.user, badge=badge)

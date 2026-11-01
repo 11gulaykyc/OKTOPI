@@ -1,5 +1,6 @@
 import { onBeforeUnmount, onMounted, ref } from 'vue'
 import api from '@/services/api'
+import { useRewardStore } from '@/stores/rewards'
 import { useStatsStore } from '@/stores/stats'
 
 export const HEARTBEAT_INTERVAL_MS = 60_000
@@ -19,6 +20,7 @@ const ACTIVITY_EVENTS = ['pointerdown', 'pointermove', 'keydown', 'wheel', 'touc
  */
 export function useHeartbeat({ context = () => '', keepActive = () => false } = {}) {
   const stats = useStatsStore()
+  const rewardStore = useRewardStore()
   const isActive = ref(true)
   const lastPingAt = ref(null)
   const error = ref(false)
@@ -49,6 +51,8 @@ export function useHeartbeat({ context = () => '', keepActive = () => false } = 
     try {
       const { data } = await api.post('/study-sessions/heartbeat/', { context: context() })
       stats.todaySeconds = data.today_active_seconds
+      // Çalışma süresiyle gelen rozet/hedef/görev ödülleri hangi sayfada olunursa olsun gösterilir.
+      rewardStore.push(data.rewards)
       lastPingAt.value = Date.now()
       error.value = false
     } catch {

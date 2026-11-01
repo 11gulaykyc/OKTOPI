@@ -6,6 +6,7 @@ from rest_framework.views import APIView
 from apps.analytics.models import MisconceptionLog
 from apps.analytics.services import record_attempt
 from apps.curriculum.content_loader import GRADES, get_repository
+from apps.gamification import engine
 
 from .serializers import evaluation_result, public_question
 
@@ -59,7 +60,7 @@ class CheckAnswerView(APIView):
 
     Cevap anahtarı ve çözüm yalnızca öğrenci cevabını gönderdikten sonra döner. Yanlış şıkkın
     kavram yanılgısı MisconceptionLog'a yazılır ve öğrenci önerilen alt konuya yönlendirilir.
-    (Süreli test ve soru çözümü oturumları Faz 3'te `exams` uygulamasındadır.)
+    (Süreli test ve soru çözümü oturumları `exams` uygulamasındadır.)
 
     Giriş gerektirir: ziyaretçiler soruları görebilir ama cevap anahtarına (deneme yoluyla bile) erişemez.
     """
@@ -76,5 +77,6 @@ class CheckAnswerView(APIView):
         if option is None:
             raise ValidationError({"selected_option": "Bu soruda böyle bir şık yok."})
 
-        _, first_try = record_attempt(request.user, question, option, source=MisconceptionLog.Source.REINFORCEMENT)
-        return Response(evaluation_result(question, option, first_try))
+        attempt, first_try = record_attempt(request.user, question, option, source=MisconceptionLog.Source.REINFORCEMENT)
+        rewards = engine.on_answer(request.user, attempt)
+        return Response({**evaluation_result(question, option, first_try), "rewards": rewards.as_dict()})

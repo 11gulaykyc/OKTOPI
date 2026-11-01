@@ -39,19 +39,22 @@ def _recommendation(target_id):
     return {"topic_id": topic_id, "section_id": target_id if target_id != topic_id else None, "title": title}
 
 
-def evaluation_result(question, option, first_try):
-    """Cevap gönderildikten SONRA dönen değerlendirme: doğru şık, çözüm ve (yanlışsa) kavram yanılgısı."""
+def evaluation_result(question, option, first_try=None):
+    """Cevap gönderildikten SONRA dönen değerlendirme: doğru şık, çözüm ve (yanlışsa) kavram yanılgısı.
+
+    `option` None ise soru boş bırakılmıştır (süreli test sonucu).
+    """
     correct = next(o for o in question.options if o.is_correct)
     result = {
         "question_id": question.id,
-        "selected_option": option.key,
-        "is_correct": option.is_correct,
+        "selected_option": option.key if option else "",
+        "is_correct": bool(option and option.is_correct),
         "correct_option": correct.key,
         "step_by_step_solution": question.step_by_step_solution,
         "first_try": first_try,
         "misconception": None,
     }
-    if not option.is_correct and option.misconception_tag:
+    if option and not option.is_correct and option.misconception_tag:
         result["misconception"] = {
             "tag": option.misconception_tag,
             "detail": option.misconception_detail,

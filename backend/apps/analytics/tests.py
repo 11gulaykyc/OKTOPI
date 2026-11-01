@@ -9,7 +9,7 @@ from rest_framework import status
 from rest_framework.test import APITestCase
 
 from apps.curriculum.content_loader import get_repository
-from apps.gamification.models import PersonalGoal
+from apps.gamification.models import PersonalGoal, PointLedger
 from apps.gamification.services import TOPIC_COMPLETION_POINTS, level_info, total_points
 from apps.study_sessions.models import DailyStudyTotal
 
@@ -134,7 +134,11 @@ class TopicProgressApiTests(APITestCase):
         self.assertEqual(first.data["status"], "completed")
         self.assertEqual(first.data["points_awarded"], TOPIC_COMPLETION_POINTS)
         self.assertEqual(second.data["points_awarded"], 0)
-        self.assertEqual(total_points(self.user), TOPIC_COMPLETION_POINTS)
+        topic_entries = PointLedger.objects.filter(user=self.user, reason=PointLedger.Reason.TOPIC_COMPLETED)
+        self.assertEqual(list(topic_entries.values_list("amount", flat=True)), [TOPIC_COMPLETION_POINTS])
+        # Konu tamamlamak haftalık "1 konuyu tamamla" görevini de bitirir; ikinci istek hiçbir şey eklemez.
+        self.assertEqual(second.data["rewards"]["points"], 0)
+        self.assertEqual(first.data["rewards"]["tasks"][0]["title"], "Bu hafta 1 konuyu tamamla")
 
     def test_list_only_own_progress(self):
         other = User.objects.create_user(username="ayse", email="ayse@example.com", password="x")
@@ -162,7 +166,9 @@ class DashboardSummaryApiTests(APITestCase):
         self.assertEqual(data["questions"]["total"], 0)
         self.assertEqual(data["points"]["level"], 1)
         self.assertEqual(len(data["daily"]), 7)
-        self.assertEqual(data["tasks"], [])
+        # Günlük ve haftalık görevler otomatik atanır; ilerleme sıfırdan başlar.
+        self.assertEqual(len(data["tasks"]), 5)
+        self.assertTrue(all(t["progress"] == 0 and not t["completed"] for t in data["tasks"]))
 
     def test_summary_reflects_real_records(self):
         repo = get_repository()
@@ -187,8 +193,12 @@ class DashboardSummaryApiTests(APITestCase):
         self.assertEqual(data["daily"][-1]["questions"], 3)
         self.assertEqual(data["topics"]["completed"], 1)
         self.assertEqual(data["topics"]["success"][0]["success_rate"], 0.5)
-        self.assertEqual(data["points"]["points"], TOPIC_COMPLETION_POINTS)
-        self.assertEqual(data["goals"][0]["current"], 3)
+        # Konu puanı + haftalık "1 konuyu tamamla" görevi (record_attempt tek başına puan vermez)
+        complete_task = next(t for t in data["tasks"] if t["task_type"] == "complete_topic")
+        self.assertTrue(complete_task["completed"])
+        self.assertEqual(data["points"]["points"], TOPIC_COMPLETION_POINTS + complete_task["points_reward"])
+        # Hedef ilerlemesi farklı (boş olmayan) soru sayısıdır: q1 ve q2
+        self.assertEqual(data["goals"][0]["current"], 2)
         self.assertEqual(data["misconception_count"], 1)
 
     def test_other_users_data_is_not_included(self):

@@ -57,6 +57,8 @@ class StudentProfile(models.Model):
         choices=InitialLevel.choices,
         default=InitialLevel.NOT_ASSESSED,
     )
+    # Başlangıç seviye testi bir kez yapılır; yapıldığı an burada tutulur.
+    initial_level_assessed_at = models.DateTimeField("seviye testi tarihi", null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

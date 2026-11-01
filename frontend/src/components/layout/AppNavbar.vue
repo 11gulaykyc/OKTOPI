@@ -4,6 +4,7 @@ import { useRouter } from 'vue-router'
 import StudyTimer from '@/components/dashboard/StudyTimer.vue'
 import api from '@/services/api'
 import { useAuthStore } from '@/stores/auth'
+import { useRewardStore } from '@/stores/rewards'
 import { useStatsStore } from '@/stores/stats'
 import GradeSwitcher from './GradeSwitcher.vue'
 import OktopiMascot from './OktopiMascot.vue'
@@ -22,6 +23,7 @@ async function logout() {
   } catch {}
   auth.logout()
   stats.reset()
+  useRewardStore().clear()
   router.push({ name: 'home' })
 }
 </script>

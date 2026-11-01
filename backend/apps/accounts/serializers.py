@@ -50,9 +50,10 @@ class StudentProfileSerializer(serializers.ModelSerializer):
             "grade_level",
             "initial_level_status",
             "initial_level_display",
+            "initial_level_assessed_at",
         )
-        # Başlangıç seviyesi yalnızca sunucudaki tanılama testiyle (Faz 3) güncellenir.
-        read_only_fields = ("initial_level_status",)
+        # Başlangıç seviyesi yalnızca sunucudaki tanılama testiyle güncellenir.
+        read_only_fields = ("initial_level_status", "initial_level_assessed_at")
         extra_kwargs = {"birth_date": {"validators": [validate_birth_date]}}
 
     def get_age(self, obj):

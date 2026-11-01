@@ -1,5 +1,5 @@
 <script setup>
-import { BookOpen, CalendarCheck, ChartColumn, House, Lock, PencilLine, Target, TriangleAlert, UserRound, X } from 'lucide-vue-next'
+import { BookOpen, CalendarCheck, ChartColumn, House, Lock, PencilLine, Target, Timer, TriangleAlert, UserRound, X } from 'lucide-vue-next'
 import { useAuthStore } from '@/stores/auth'
 import GradeSwitcher from './GradeSwitcher.vue'
 
@@ -29,9 +29,10 @@ const sections = [
   {
     title: 'Pratik',
     items: [
-      { label: 'Soru Çöz & Test', icon: PencilLine, soon: true },
+      { label: 'Soru Çöz', icon: PencilLine, to: '/soru-coz', account: true },
+      { label: 'Süreli Test', icon: Timer, to: '/sureli-test', account: true },
       { label: 'Hata Analizi', icon: TriangleAlert, soon: true },
-      { label: 'Hedeflerim', icon: Target, soon: true },
+      { label: 'Hedeflerim', icon: Target, to: '/hedeflerim', account: true },
     ],
   },
   {
