@@ -128,7 +128,7 @@ oktopi/
 
 ## 5. AŞAMALI GELİŞTİRME PLANI (FAZLAR VE CLAUDE KOMUTLARI)
 
-Geliştirme **4 Fazda** tamamlanacaktır. Her fazda 3 Admin kendi bilgisayarında Claude Code'a aşağıdaki ilgili promptu verecektir. **Faz 1'de önce Admin 1 temel iskeleti kurup Git'e pushlamalı, ardından Admin 2 ve Admin 3 pull yaparak kendi görevlerine başlamalıdır.**
+Geliştirme **4 Fazda** tamamlanacaktır. **Faz 1 (tamamlandı)** ve **Faz 4**'te 3 Admin kendi bilgisayarında Claude Code'a aşağıdaki ilgili promptu verecektir. **Faz 2'nin tamamını Admin 2, Faz 3'ün tamamını Admin 3 tek başına yapacaktır.** **Faz 1'de önce Admin 1 temel iskeleti kurup Git'e pushlamalı, ardından Admin 2 ve Admin 3 pull yaparak kendi görevlerine başlamalıdır.**
 
 ---
 
@@ -162,52 +162,52 @@ Geliştirme **4 Fazda** tamamlanacaktır. Her fazda 3 Admin kendi bilgisayarınd
 
 ### FAZ 2: Konu Anlatımı, KaTeX, OYSS ve Öğrenci Paneli (Dashboard)
 
-#### 👤 Faz 2 — Admin 1 Komutu (Sınıf Geçiş Sistemi, Navigasyon & Maskot Durumları)
+> **Not:** Faz 2'nin tamamı (eski Admin 1, Admin 2 ve Admin 3 görevleri dahil) **yalnızca Admin 2** tarafından yapılır. Bu fazda Admin 2, Bölüm 3'teki klasör sahipliklerinden bağımsız olarak tüm ilgili klasörlerde değişiklik yapabilir.
+
+#### 👤 Faz 2 — Admin 2 Komutu (Sınıf Geçişi, Layout & Maskot + Konu Anlatımı, KaTeX & OYSS + Öğrenci Paneli & Çalışma Sayacı)
 > **Claude Code'a verilecek komut:**
-> "`CLAUDE.md` dosyasını oku. Sen **Admin 1** rolündesin. Faz 2 görevlerini uygula:
+> "`CLAUDE.md` dosyasını oku. Sen **Admin 2** rolündesin. Faz 2'nin tüm görevlerini uygula:
+>
+> **A) Sınıf Geçiş Sistemi, Navigasyon & Maskot Durumları**
 > 1. Öğrencinin kendi sınıfını varsayılan görmesini ancak üst bardaki 'Sınıf Seçici' (9, 10, 11, 12. Sınıf) ile kısıtlama olmadan diğer sınıfların içeriklerine geçiş yapabilmesini sağlayan global Pinia state (`useAuthStore` / `useGradeStore`) yapısını kur.
 > 2. Ahtapot maskotunun bağlama göre değişen durum bileşenini (`MascotFeedback.vue`) geliştir: Karşılama, Doğru Cevap, Rozet Kazanımı ve Zorlanma/Hata durumlarında teşvik edici ('Harikasın böyle devam!', 'Bu kavramı birlikte tekrar inceleyelim') mesajlar göstersin.
-> 3. Tüm sayfalar için mobil ve masaüstü tam uyumlu (responsive) AppLayout yapısını ve korumalı rota (Navigation Guard) kurallarını tamamla."
-
-#### 👤 Faz 2 — Admin 2 Komutu (Konu Anlatımı, KaTeX Render ve OYSS Ekranları)
-> **Claude Code'a verilecek komut:**
-> "`CLAUDE.md` dosyasını oku. Sen **Admin 2** rolündesin. Faz 2 görevlerini uygula:
-> 1. Frontend'de `components/math/KatexRenderer.vue` bileşenini oluştur. Metin içindeki satır içi (`$...$`) ve blok (`$$...$$`) LaTeX ifadelerini KaTeX ile hatasız render etsin.
-> 2. `TopicListView.vue` ve `TopicDetailView.vue` ekranlarını geliştir: Öğrenme hedefleri, akran diliyle samimi konu anlatımı, formüller, adım adım çözümlü örnekler, konu sonu pekiştirme soruları, son kalınan yeri hatırlama ve 'Tamamlandı Olarak İşaretle' butonu bulunsun.
-> 3. OYSS (Ortak Yazılı Sınav Sistemi) bilgilendirme, sınav takvimi ve yazılıya hazırlık ekranını (`OyssView.vue`) oluştur."
-
-#### 👤 Faz 2 — Admin 3 Komutu (Öğrenci Paneli / Dashboard & Çalışma Sayacı UI)
-> **Claude Code'a verilecek komut:**
-> "`CLAUDE.md` dosyasını oku. Sen **Admin 3** rolündesin. Faz 2 görevlerini uygula:
-> 1. Backend'de Öğrenci Paneli özet verilerini tek seferde veya modüler sunan `/api/analytics/dashboard-summary/` uç noktasını yaz (gerçek veritabanı kayıtlarından: toplam çalışma süresi, günlük/haftalık istatistik, çözülen soru, doğru/yanlış/boş, konu başarı oranları, güncel puan/seviye).
-> 2. Frontend'de aktif çalışma süresini takip eden ve her 60 saniyede bir aktif etkileşim varsa backend'e heartbeat gönderen `StudyTimer.vue` bileşenini ve composable (`useHeartbeat.js`) yapısını kur.
-> 3. `StudentDashboardView.vue` ekranını bilgi yoğunluğu dengeli, modern kartlarla (hızlı erişim, istatistik grafik kartları, son çalışmalar, aktif görevler) oluştur."
+> 3. Tüm sayfalar için mobil ve masaüstü tam uyumlu (responsive) AppLayout yapısını ve korumalı rota (Navigation Guard) kurallarını tamamla.
+>
+> **B) Konu Anlatımı, KaTeX Render ve OYSS Ekranları**
+> 4. Frontend'de `components/math/KatexRenderer.vue` bileşenini oluştur. Metin içindeki satır içi (`$...$`) ve blok (`$$...$$`) LaTeX ifadelerini KaTeX ile hatasız render etsin.
+> 5. `TopicListView.vue` ve `TopicDetailView.vue` ekranlarını geliştir: Öğrenme hedefleri, akran diliyle samimi konu anlatımı, formüller, adım adım çözümlü örnekler, konu sonu pekiştirme soruları, son kalınan yeri hatırlama ve 'Tamamlandı Olarak İşaretle' butonu bulunsun.
+> 6. OYSS (Ortak Yazılı Sınav Sistemi) bilgilendirme, sınav takvimi ve yazılıya hazırlık ekranını (`OyssView.vue`) oluştur.
+>
+> **C) Öğrenci Paneli / Dashboard & Çalışma Sayacı UI**
+> 7. Backend'de Öğrenci Paneli özet verilerini tek seferde veya modüler sunan `/api/analytics/dashboard-summary/` uç noktasını yaz (gerçek veritabanı kayıtlarından: toplam çalışma süresi, günlük/haftalık istatistik, çözülen soru, doğru/yanlış/boş, konu başarı oranları, güncel puan/seviye).
+> 8. Frontend'de aktif çalışma süresini takip eden ve her 60 saniyede bir aktif etkileşim varsa backend'e heartbeat gönderen `StudyTimer.vue` bileşenini ve composable (`useHeartbeat.js`) yapısını kur.
+> 9. `StudentDashboardView.vue` ekranını bilgi yoğunluğu dengeli, modern kartlarla (hızlı erişim, istatistik grafik kartları, son çalışmalar, aktif görevler) oluştur."
 
 ---
 
 ### FAZ 3: Soru Çözümü, Süreli Test Motoru, Kavram Yanılgısı ve Oyunlaştırma
 
-#### 👤 Faz 3 — Admin 1 Komutu (API Güvenliği, Yetkilendirme ve Başlangıç Seviye Soruları)
+> **Not:** Faz 3'ün tamamı (eski Admin 1, Admin 2 ve Admin 3 görevleri dahil) **yalnızca Admin 3** tarafından yapılır. Bu fazda Admin 3, Bölüm 3'teki klasör sahipliklerinden bağımsız olarak tüm ilgili klasörlerde değişiklik yapabilir.
+
+#### 👤 Faz 3 — Admin 3 Komutu (API Güvenliği & Onboarding + Soru Çözümü & Süreli Test Motoru + Oyunlaştırma Motoru)
 > **Claude Code'a verilecek komut:**
-> "`CLAUDE.md` dosyasını oku. Sen **Admin 1** rolündesin. Faz 3 görevlerini uygula:
+> "`CLAUDE.md` dosyasını oku. Sen **Admin 3** rolündesin. Faz 3'ün tüm görevlerini uygula:
+>
+> **A) API Güvenliği, Yetkilendirme ve Başlangıç Seviye Soruları**
 > 1. Kayıt sonrasındaki 'Eğitim seviyesini belirleyici kısa başlangıç soruları' (Onboarding Diagnostic) akışını tamamla ve sonucunu öğrenci profiline işle.
 > 2. Tüm backend uç noktalarında yetkilendirme (permission) denetimi yap: Hiçbir öğrenci başka bir öğrencinin test oturumuna, istatistiğine veya profiline erişemesin (IDOR koruması). Bunun için entegrasyon testleri yaz.
-> 3. API hata yakalama standartlarını (kullanıcı dostu Türkçe hata mesajları, teknik detayların gizlenmesi) frontend ve backend genelinde birleştir."
-
-#### 👤 Faz 3 — Admin 2 Komutu (Soru Çözümü ve Süreli Test Motoru)
-> **Claude Code'a verilecek komut:**
-> "`CLAUDE.md` dosyasını oku. Sen **Admin 2** rolündesin. Faz 3 görevlerini uygula:
-> 1. `backend/apps/exams/` altında Soru Çözümü (`PracticeSession`) ve Süreli Test (`TimedExamSession`) motorunu kodla.
-> 2. Süreli testte başlangıç ve bitiş zamanını sunucu tarafında doğrula; süre dolduğunda testi otomatik tamamla.
-> 3. Cevap değerlendirme API'sini (`/api/exams/submit-answer/` ve `/api/exams/finish-exam/`) yaz: Cevabı sunucuda kontrol et, yanlışsa seçilen şıkkın `misconception_tag` bilgisini Admin 3'ün `MisconceptionLog` servisine kaydet, doğru cevabı ve adım adım çözümü dön.
-> 4. Frontend'de `QuestionPracticeView.vue`, `TimedExamView.vue` (geri sayım sayaçlı) ve `ExamResultView.vue` (doğru/yanlış/boş, kavram yanılgısı uyarısı ve konu özetine yönlendirme butonu) ekranlarını geliştir."
-
-#### 👤 Faz 3 — Admin 3 Komutu (Oyunlaştırma Motoru: Puan, Seviye, Rozet ve Görevler)
-> **Claude Code'a verilecek komut:**
-> "`CLAUDE.md` dosyasını oku. Sen **Admin 3** rolündesin. Faz 3 görevlerini uygula:
-> 1. `backend/apps/gamification/` altında gerçek eylemlere bağlı puan ve rozet motorunu (`transaction.atomic` ve mükerrer ödül korumalı) kodla.
-> 2. Şu 7 rozetin kazanım kurallarını sunucu tarafında tanımla: *İlk Adım*, *Meraklı Zihin*, *İstikrarlı Öğrenci*, *Hata Avcısı* (daha önce yanlış yapılan soruyu doğru çözme), *Hız Ustası*, *Matematik Kaşifi*, *Hedef Tamamlandı*.
-> 3. Günlük/haftalık görev ilerleme motorunu ve öğrencinin kendi günlük soru/süre hedefini geçmiş verileri bozmadan güncelleyebildiği `GoalsView.vue` ekranını oluştur."
+> 3. API hata yakalama standartlarını (kullanıcı dostu Türkçe hata mesajları, teknik detayların gizlenmesi) frontend ve backend genelinde birleştir.
+>
+> **B) Soru Çözümü ve Süreli Test Motoru**
+> 4. `backend/apps/exams/` altında Soru Çözümü (`PracticeSession`) ve Süreli Test (`TimedExamSession`) motorunu kodla.
+> 5. Süreli testte başlangıç ve bitiş zamanını sunucu tarafında doğrula; süre dolduğunda testi otomatik tamamla.
+> 6. Cevap değerlendirme API'sini (`/api/exams/submit-answer/` ve `/api/exams/finish-exam/`) yaz: Cevabı sunucuda kontrol et, yanlışsa seçilen şıkkın `misconception_tag` bilgisini `MisconceptionLog` servisine kaydet, doğru cevabı ve adım adım çözümü dön.
+> 7. Frontend'de `QuestionPracticeView.vue`, `TimedExamView.vue` (geri sayım sayaçlı) ve `ExamResultView.vue` (doğru/yanlış/boş, kavram yanılgısı uyarısı ve konu özetine yönlendirme butonu) ekranlarını geliştir.
+>
+> **C) Oyunlaştırma Motoru: Puan, Seviye, Rozet ve Görevler**
+> 8. `backend/apps/gamification/` altında gerçek eylemlere bağlı puan ve rozet motorunu (`transaction.atomic` ve mükerrer ödül korumalı) kodla.
+> 9. Şu 7 rozetin kazanım kurallarını sunucu tarafında tanımla: *İlk Adım*, *Meraklı Zihin*, *İstikrarlı Öğrenci*, *Hata Avcısı* (daha önce yanlış yapılan soruyu doğru çözme), *Hız Ustası*, *Matematik Kaşifi*, *Hedef Tamamlandı*.
+> 10. Günlük/haftalık görev ilerleme motorunu ve öğrencinin kendi günlük soru/süre hedefini geçmiş verileri bozmadan güncelleyebildiği `GoalsView.vue` ekranını oluştur."
 
 ---
 
