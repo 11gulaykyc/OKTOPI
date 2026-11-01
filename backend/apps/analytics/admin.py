@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import MisconceptionLog, TopicProgress
+from .models import MisconceptionLog, QuestionAttempt, TopicProgress
 
 
 @admin.register(TopicProgress)
@@ -15,3 +15,10 @@ class MisconceptionLogAdmin(admin.ModelAdmin):
     list_display = ("user", "question_id", "misconception_tag", "subtopic_id", "source", "created_at")
     list_filter = ("source",)
     search_fields = ("user__username", "misconception_tag", "question_id")
+
+
+@admin.register(QuestionAttempt)
+class QuestionAttemptAdmin(admin.ModelAdmin):
+    list_display = ("user", "question_id", "topic_id", "selected_option", "is_correct", "source", "created_at")
+    list_filter = ("source", "is_correct", "grade")
+    search_fields = ("user__username", "question_id", "topic_id")

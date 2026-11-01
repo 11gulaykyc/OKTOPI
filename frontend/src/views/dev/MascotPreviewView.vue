@@ -15,7 +15,7 @@ const moods = [
 <template>
   <div class="space-y-8">
     <div>
-      <h1 class="text-2xl font-extrabold text-slate-900 dark:text-white">Maskot Önizleme</h1>
+      <h1 class="text-2xl font-bold text-slate-900 dark:text-white">Maskot Önizleme</h1>
       <p class="text-slate-500 dark:text-slate-400">
         Geliştirme sayfası. Görseli tanımlı olmayan durumlar için yer tutucu SVG gösterilir.
       </p>
@@ -24,7 +24,7 @@ const moods = [
     <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
       <article v-for="m in moods" :key="m.key" class="card flex flex-col items-center p-5 text-center">
         <OktopiMascot :mood="m.key" :size="150" />
-        <h2 class="mt-3 font-extrabold text-slate-900 dark:text-white">{{ m.label }}</h2>
+        <h2 class="mt-3 font-bold text-slate-900 dark:text-white">{{ m.label }}</h2>
         <code class="text-xs text-brand-600 dark:text-brand-400">{{ m.key }}</code>
         <p class="mt-1 text-xs text-slate-500 dark:text-slate-400">{{ m.usage }}</p>
         <span

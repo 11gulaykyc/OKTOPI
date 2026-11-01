@@ -51,7 +51,7 @@ class ProfileOptionsView(generics.GenericAPIView):
 
         return Response(
             {
-                "birth_date_age_range": {"min": StudentProfile.MIN_AGE, "max": StudentProfile.MAX_AGE},
+                "min_birth_year": StudentProfile.MIN_BIRTH_YEAR,
                 "school_types": as_list(StudentProfile.SchoolType.choices),
                 "grade_levels": [{"value": g, "label": f"{g}. Sınıf"} for g in (9, 10, 11, 12)],
             }

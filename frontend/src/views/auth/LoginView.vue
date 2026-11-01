@@ -5,6 +5,7 @@ import { LoaderCircle, LogIn } from 'lucide-vue-next'
 import AuthShell from '@/components/layout/AuthShell.vue'
 import { errorMessage } from '@/services/api'
 import { useAuthStore } from '@/stores/auth'
+import { useGradeStore } from '@/stores/grade'
 
 const auth = useAuthStore()
 const router = useRouter()
@@ -19,8 +20,12 @@ async function submit() {
   loading.value = true
   try {
     await auth.login(form.username.trim(), form.password)
-    const next = typeof route.query.next === 'string' && route.query.next.startsWith('/') ? route.query.next : '/'
-    router.replace(next)
+    // Misafirken göz atılan sınıf taşınmasın; öğrenci kendi sınıfıyla başlar.
+    useGradeStore().reset()
+    // Yalnızca site içi yollar kabul edilir ("//başka-site.com" gibi dış adreslere yönlendirme yapılmaz).
+    const next = route.query.next
+    const safeNext = typeof next === 'string' && next.startsWith('/') && !next.startsWith('//') && !next.startsWith('/\\') ? next : '/'
+    router.replace(safeNext)
   } catch (e) {
     error.value = e.response?.status === 401 ? 'Kullanıcı adı/e-posta veya şifre hatalı.' : errorMessage(e)
   } finally {
@@ -30,7 +35,7 @@ async function submit() {
 </script>
 
 <template>
-  <AuthShell title="Tekrar hoş geldin!" subtitle="Kaldığın yerden devam etmek için giriş yap." mood="welcome" bubble="Seni yeniden görmek harika! 🐙">
+  <AuthShell title="Giriş yap" subtitle="Kaldığın yerden devam et." mood="welcome">
     <form class="space-y-4" novalidate @submit.prevent="submit">
       <div>
         <label class="field-label" for="username">Kullanıcı adı veya e-posta</label>
@@ -53,7 +58,12 @@ async function submit() {
     </form>
     <p class="mt-6 text-center text-sm text-slate-500 dark:text-slate-400">
       Hesabın yok mu?
-      <RouterLink to="/kayit" class="font-bold text-brand-600 hover:underline dark:text-brand-400">Hemen kayıt ol</RouterLink>
+      <RouterLink to="/kayit" class="font-bold text-brand-600 hover:underline dark:text-brand-400">Kayıt ol</RouterLink>
+    </p>
+    <p class="mt-3 text-center text-sm">
+      <RouterLink to="/konular" class="text-slate-500 hover:text-brand-600 hover:underline dark:text-slate-400 dark:hover:text-brand-400">
+        Kayıt olmadan incele →
+      </RouterLink>
     </p>
   </AuthShell>
 </template>

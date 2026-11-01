@@ -1,17 +1,27 @@
 <script setup>
 import { LogOut, Menu, UserRound } from 'lucide-vue-next'
 import { useRouter } from 'vue-router'
+import StudyTimer from '@/components/dashboard/StudyTimer.vue'
+import api from '@/services/api'
 import { useAuthStore } from '@/stores/auth'
+import { useStatsStore } from '@/stores/stats'
+import GradeSwitcher from './GradeSwitcher.vue'
 import OktopiMascot from './OktopiMascot.vue'
 import ThemeToggle from './ThemeToggle.vue'
 
 defineEmits(['toggle-sidebar'])
 
 const auth = useAuthStore()
+const stats = useStatsStore()
 const router = useRouter()
 
-function logout() {
+async function logout() {
+  // Açık çalışma oturumunu kapat; hata olsa da çıkış engellenmez (sunucu zaman aşımıyla zaten dondurur).
+  try {
+    await api.post('/study-sessions/end/')
+  } catch {}
   auth.logout()
+  stats.reset()
   router.push({ name: 'home' })
 }
 </script>
@@ -22,7 +32,6 @@ function logout() {
   >
     <div class="mx-auto flex h-16 max-w-7xl items-center gap-2 px-4">
       <button
-        v-if="auth.isAuthenticated"
         type="button"
         class="btn-ghost !p-2.5 lg:hidden"
         aria-label="Menüyü aç"
@@ -31,14 +40,17 @@ function logout() {
         <Menu class="h-5 w-5" />
       </button>
 
-      <RouterLink to="/" class="flex items-center gap-2" aria-label="OKTOPİ ana sayfa">
+      <RouterLink to="/" class="flex shrink-0 items-center gap-2" aria-label="OKTOPİ ana sayfa">
         <OktopiMascot mood="happy" :size="36" />
-        <span class="text-xl font-extrabold tracking-tight text-brand-800 dark:text-brand-300">
+        <span class="hidden text-xl font-bold tracking-tight text-brand-800 dark:text-brand-300 min-[400px]:inline">
           OKTOP<span class="text-aqua-500">İ</span>
         </span>
       </RouterLink>
 
+      <GradeSwitcher class="ml-4 hidden md:inline-flex" />
+
       <div class="ml-auto flex items-center gap-1 sm:gap-2">
+        <StudyTimer v-if="auth.isAuthenticated" />
         <ThemeToggle />
         <template v-if="auth.isAuthenticated">
           <RouterLink to="/profil" class="btn-ghost !px-3" title="Profil">
@@ -51,7 +63,7 @@ function logout() {
         </template>
         <template v-else>
           <RouterLink to="/giris" class="btn-ghost">Giriş Yap</RouterLink>
-          <RouterLink to="/kayit" class="btn-primary hidden sm:inline-flex">Ücretsiz Kayıt Ol</RouterLink>
+          <RouterLink to="/kayit" class="btn-primary hidden sm:inline-flex">Kayıt ol</RouterLink>
         </template>
       </div>
     </div>
