@@ -4,6 +4,7 @@ import { useRoute } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
 import AppNavbar from './AppNavbar.vue'
 import AppSidebar from './AppSidebar.vue'
+import RewardToast from './RewardToast.vue'
 
 const auth = useAuthStore()
 const route = useRoute()
@@ -52,5 +53,6 @@ onBeforeUnmount(() => {
         <RouterView />
       </main>
     </div>
+    <RewardToast v-if="auth.isAuthenticated" />
   </div>
 </template>

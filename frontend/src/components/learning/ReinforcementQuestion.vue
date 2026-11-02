@@ -2,6 +2,7 @@
 import { computed, ref } from 'vue'
 import { useRoute } from 'vue-router'
 import { ArrowRight, CircleCheck, CircleX, LoaderCircle, RotateCcw } from 'lucide-vue-next'
+import RewardNotice from '@/components/dashboard/RewardNotice.vue'
 import MascotFeedback from '@/components/layout/MascotFeedback.vue'
 import KatexRenderer from '@/components/math/KatexRenderer.vue'
 import api, { errorMessage } from '@/services/api'
@@ -125,6 +126,7 @@ const recommended = computed(() => result.value?.misconception?.recommended)
           <ArrowRight class="h-3.5 w-3.5" /> “{{ recommended.title }}” özetine git
         </button>
       </MascotFeedback>
+      <RewardNotice :rewards="result.rewards" compact />
 
       <details class="rounded-xl border border-slate-200 p-3 dark:border-slate-700" :open="!result.is_correct">
         <summary class="cursor-pointer text-sm font-bold text-slate-800 dark:text-slate-100">Adım adım çözüm</summary>

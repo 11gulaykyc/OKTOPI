@@ -1,4 +1,4 @@
-from typing import Any, Optional
+from typing import Annotated, Literal, Optional
 
 from pydantic import Field, model_validator
 
@@ -28,13 +28,74 @@ class TopicSection(StrictModel):
     common_mistakes: list[NonEmptyStr] = Field(default_factory=list)
 
 
-class Visualization(StrictModel):
-    """Faz 4 etkileşimli geometri modülü için parametreler (şimdilik serbest yapı)."""
+class Slider(StrictModel):
+    """Öğrencinin değiştirebildiği bir parametre (ör. eğim `m`)."""
 
-    id: NonEmptyStr
-    type: NonEmptyStr
-    section_id: Optional[TopicId] = None
-    params: dict[str, Any] = Field(default_factory=dict)
+    name: NonEmptyStr
+    label: NonEmptyStr  # $...$ LaTeX içerebilir
+    min: float
+    max: float
+    step: float = Field(gt=0)
+    value: float
+
+    @model_validator(mode="after")
+    def check_range(self):
+        if self.min >= self.max:
+            raise ValueError(f"Kaydırıcı '{self.name}': min, max değerinden küçük olmalıdır.")
+        if not self.min <= self.value <= self.max:
+            raise ValueError(f"Kaydırıcı '{self.name}': başlangıç değeri [min, max] aralığında olmalıdır.")
+        return self
+
+
+# Her görselleştirme türünün beklediği kaydırıcılar.
+#   linear      → y = m·x + n
+#   parabola    → y = a·x² + b·x + c
+#   exponential → y = aˣ ve x = n noktasındaki değer
+#   triangle    → A ve B iç açıları (derece); C = 180° − A − B
+VISUALIZATION_SLIDERS = {
+    "linear": {"m", "n"},
+    "parabola": {"a", "b", "c"},
+    "exponential": {"a", "n"},
+    "triangle": {"A", "B"},
+}
+
+
+VisualizationId = Annotated[str, Field(pattern=r"^viz-(9|10|11|12)-[a-z0-9]+(-[a-z0-9]+)*$")]
+
+
+class Visualization(StrictModel):
+    """Konu anlatımına bağlanan etkileşimli grafik (frontend: GeometryCanvas.vue / JSXGraph)."""
+
+    id: VisualizationId
+    type: Literal["linear", "parabola", "exponential", "triangle"]
+    section_id: Optional[TopicId] = None  # verilirse o bölümün içinde gösterilir
+    title: NonEmptyStr
+    description: Optional[NonEmptyStr] = None
+    # JSXGraph sırası: [x_min, y_max, x_max, y_min]
+    bounds: tuple[float, float, float, float] = (-6.0, 6.0, 6.0, -6.0)
+    sliders: list[Slider] = Field(min_length=1)
+
+    @model_validator(mode="after")
+    def check_params(self):
+        names = [s.name for s in self.sliders]
+        if len(names) != len(set(names)):
+            raise ValueError(f"{self.id}: kaydırıcı adları benzersiz olmalıdır.")
+        expected = VISUALIZATION_SLIDERS[self.type]
+        if set(names) != expected:
+            raise ValueError(f"{self.id}: '{self.type}' türü şu kaydırıcıları bekler: {', '.join(sorted(expected))}.")
+        x_min, y_max, x_max, y_min = self.bounds
+        if x_min >= x_max or y_min >= y_max:
+            raise ValueError(f"{self.id}: bounds [x_min, y_max, x_max, y_min] sırasında olmalıdır.")
+        by_name = {s.name: s for s in self.sliders}
+        if self.type == "exponential" and by_name["a"].min <= 0:
+            raise ValueError(f"{self.id}: üstel fonksiyonda taban (a) pozitif olmalıdır.")
+        if self.type == "triangle":
+            a, b = by_name["A"], by_name["B"]
+            if a.min <= 0 or b.min <= 0:
+                raise ValueError(f"{self.id}: üçgen açıları 0°'den büyük olmalıdır.")
+            if a.value + b.value >= 180:
+                raise ValueError(f"{self.id}: başlangıçta A + B < 180° olmalıdır.")
+        return self
 
 
 class TopicSchema(StrictModel):
@@ -57,6 +118,12 @@ class TopicSchema(StrictModel):
         ids = [s.id for s in self.sections]
         if len(ids) != len(set(ids)):
             raise ValueError(f"{self.id}: bölüm kimlikleri benzersiz olmalıdır.")
+        viz_ids = [v.id for v in self.visualizations]
+        if len(viz_ids) != len(set(viz_ids)):
+            raise ValueError(f"{self.id}: görselleştirme kimlikleri benzersiz olmalıdır.")
+        for viz in self.visualizations:
+            if viz.section_id and viz.section_id not in ids:
+                raise ValueError(f"{self.id}: görselleştirme '{viz.id}' var olmayan bölüme ({viz.section_id}) bağlı.")
         if not self.theme_id.startswith(f"th-{self.grade}-"):
             raise ValueError(f"{self.id}: tema kimliği sınıf düzeyiyle uyuşmuyor.")
         return self

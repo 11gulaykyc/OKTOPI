@@ -70,7 +70,7 @@
             { "id": "top-9-func-linear", "title": "Doğrusal Fonksiyonlar" },
             { "id": "top-9-func-slope", "title": "Eğim ve Değişim Oranı" }
           ],
-          "content_file": null
+          "content_file": "topics/top-9-func.json"
         },
         {
           "id": "top-9-abs",
@@ -148,7 +148,7 @@
             { "id": "top-9-tri-pyth", "title": "Dik Üçgen ve Pisagor Bağıntısı" },
             { "id": "top-9-tri-area", "title": "Üçgende Alan" }
           ],
-          "content_file": null
+          "content_file": "topics/top-9-tri.json"
         }
       ]
     },

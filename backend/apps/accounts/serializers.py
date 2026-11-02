@@ -50,15 +50,16 @@ class StudentProfileSerializer(serializers.ModelSerializer):
             "grade_level",
             "initial_level_status",
             "initial_level_display",
+            "initial_level_assessed_at",
         )
-        # Başlangıç seviyesi yalnızca sunucudaki tanılama testiyle (Faz 3) güncellenir.
-        read_only_fields = ("initial_level_status",)
+        # Başlangıç seviyesi yalnızca sunucudaki tanılama testiyle güncellenir.
+        read_only_fields = ("initial_level_status", "initial_level_assessed_at")
         extra_kwargs = {"birth_date": {"validators": [validate_birth_date]}}
 
-    def get_age(self, obj):
+    def get_age(self, obj) -> int:
         return obj.age_on(timezone.localdate())
 
-    def get_is_birthday_today(self, obj):
+    def get_is_birthday_today(self, obj) -> bool:
         # Doğum günü kontrolü sunucu saatine (Europe/Istanbul) göre yapılır.
         return obj.is_birthday_on(timezone.localdate())
 

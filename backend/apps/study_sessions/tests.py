@@ -134,6 +134,21 @@ class HeartbeatApiTests(APITestCase):
             response = self.client.post(self.url, {"active_seconds": 99999, "credited_seconds": 99999}, format="json")
         self.assertEqual(response.data["session_active_seconds"], 5)
 
+    def test_heartbeat_returns_study_time_rewards(self):
+        """Süreyle ulaşılan hedef/rozet heartbeat yanıtında döner (istemci bunu bildirim olarak gösterir)."""
+        from apps.gamification.models import PersonalGoal
+
+        self.client.force_authenticate(self.user)
+        PersonalGoal.objects.create(user=self.user, goal_type="daily_minutes", target=10, valid_from=at(-3600))
+        DailyStudyTotal.objects.create(user=self.user, date=at(0).astimezone(ZoneInfo("Europe/Istanbul")).date(), active_seconds=570)
+        with mock.patch("django.utils.timezone.now", return_value=at(0)):
+            first = self.client.post(self.url, {}, format="json")
+        with mock.patch("django.utils.timezone.now", return_value=at(60)):
+            second = self.client.post(self.url, {}, format="json")
+        self.assertEqual(first.data["rewards"]["goals"], [])
+        self.assertEqual(second.data["rewards"]["goals"][0]["goal_type"], "daily_minutes")
+        self.assertEqual([b["code"] for b in second.data["rewards"]["badges"]], ["hedef-tamamlandi"])
+
     def test_end_endpoint(self):
         self.client.force_authenticate(self.user)
         self.assertEqual(self.client.post(reverse("study-end")).status_code, status.HTTP_204_NO_CONTENT)

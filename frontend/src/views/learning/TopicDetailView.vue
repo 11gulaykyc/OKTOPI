@@ -1,5 +1,5 @@
 <script setup>
-import { computed, nextTick, onBeforeUnmount, ref, watch } from 'vue'
+import { computed, defineAsyncComponent, nextTick, onBeforeUnmount, ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import {
   ArrowLeft,
@@ -13,11 +13,15 @@ import {
   Sigma,
   TriangleAlert,
 } from 'lucide-vue-next'
+import RewardNotice from '@/components/dashboard/RewardNotice.vue'
 import ReinforcementQuestion from '@/components/learning/ReinforcementQuestion.vue'
 import WorkedExample from '@/components/learning/WorkedExample.vue'
 import MascotFeedback from '@/components/layout/MascotFeedback.vue'
 import KatexRenderer from '@/components/math/KatexRenderer.vue'
 import api, { errorMessage } from '@/services/api'
+
+// JSXGraph yalnızca etkileşimli grafiği olan konularda yüklenir.
+const GeometryCanvas = defineAsyncComponent(() => import('@/components/math/GeometryCanvas.vue'))
 import { useAuthStore } from '@/stores/auth'
 import { useContentStore } from '@/stores/content'
 import { useGradeStore } from '@/stores/grade'
@@ -36,11 +40,18 @@ const error = ref('')
 const activeSection = ref('')
 const resumeTarget = ref(null)
 const completing = ref(false)
-const completion = ref(null) // { points_awarded }
+const completion = ref(null) // { points, rewards }
 
 const content = computed(() => topic.value?.content)
 const sections = computed(() => content.value?.sections ?? [])
 const isCompleted = computed(() => progress.value?.status === 'completed')
+const visualizations = computed(() => content.value?.visualizations ?? [])
+const sectionIds = computed(() => new Set(sections.value.map((s) => s.id)))
+// Bir bölüme bağlı olmayan grafikler bölümlerden sonra ayrı bir kartta gösterilir.
+const looseVisualizations = computed(() => visualizations.value.filter((v) => !v.section_id || !sectionIds.value.has(v.section_id)))
+function sectionVisualizations(sectionId) {
+  return visualizations.value.filter((v) => v.section_id === sectionId)
+}
 
 async function load(topicId) {
   loading.value = true
@@ -153,7 +164,7 @@ async function markCompleted() {
   try {
     const { data } = await api.post(`/analytics/topic-progress/${topic.value.id}/complete/`)
     progress.value = data
-    completion.value = { points: data.points_awarded }
+    completion.value = { points: data.points_awarded, rewards: data.rewards }
   } catch (e) {
     error.value = errorMessage(e, 'Konu tamamlanamadı. Tekrar dene.')
   } finally {
@@ -278,6 +289,8 @@ async function markCompleted() {
           </h2>
           <KatexRenderer :text="s.body" class="leading-relaxed text-slate-700 dark:text-slate-200" />
 
+          <GeometryCanvas v-for="v in sectionVisualizations(s.id)" :key="v.id" :visualization="v" />
+
           <div v-if="s.formulas.length">
             <h3 class="mb-2 flex items-center gap-2 text-sm font-bold uppercase tracking-wider text-slate-500"><Sigma class="h-4 w-4" /> Formüller</h3>
             <div class="grid gap-3 sm:grid-cols-2">
@@ -311,6 +324,11 @@ async function markCompleted() {
           </div>
         </section>
 
+        <section v-if="looseVisualizations.length" class="card space-y-4 p-5 sm:p-6">
+          <h2 class="text-xl font-bold text-slate-900 dark:text-white">Keşfet</h2>
+          <GeometryCanvas v-for="v in looseVisualizations" :key="v.id" :visualization="v" />
+        </section>
+
         <!-- Pekiştirme -->
         <section v-if="questions.length" id="pekistirme" class="scroll-mt-24 space-y-3">
           <div>
@@ -338,8 +356,16 @@ async function markCompleted() {
             "
           >
             <RouterLink to="/konular" class="btn-secondary !py-1.5 text-xs">Sıradaki konuya geç</RouterLink>
+            <RouterLink v-if="topic.question_count" :to="{ name: 'practice', query: { konu: topic.id } }" class="btn-secondary !py-1.5 text-xs">Bu konudan soru çöz</RouterLink>
             <RouterLink to="/panel" class="btn-ghost !py-1.5 text-xs">Paneline bak</RouterLink>
           </MascotFeedback>
+          <!-- Konu puanı yukarıda yazıyor; burada yalnızca ek rozet/görev ödülleri gösterilir. -->
+          <RewardNotice
+            v-if="completion?.rewards?.badges.length || completion?.rewards?.tasks.length"
+            :rewards="{ ...completion.rewards, points: completion.rewards.points - completion.points }"
+            compact
+            class="mt-3"
+          />
           <div v-else-if="!auth.isAuthenticated" class="flex flex-col items-start gap-3 sm:flex-row sm:items-center sm:justify-between">
             <div>
               <p class="font-bold text-slate-900 dark:text-white">İlerlemeni kaydetmek ister misin?</p>

@@ -1,6 +1,6 @@
 {
   "id": "top-9-exp",
-  "version": "1.0",
+  "version": "1.1",
   "grade": 9,
   "theme_id": "th-9-1",
   "title": "Üslü İfadeler ve Denklemler",
@@ -171,5 +171,37 @@
     "q-9-exp-006",
     "q-9-exp-007"
   ],
-  "visualizations": []
+  "visualizations": [
+    {
+      "id": "viz-9-exp-graph",
+      "type": "exponential",
+      "section_id": "top-9-exp-neg",
+      "title": "Negatif kuvveti grafikte gör",
+      "description": "$a$ tabanını ve $n$ kuvvetini değiştir. $n$ negatifken $a^n$ değerinin $\\frac{1}{a^{-n}}$'ye eşit olduğuna ve hiçbir zaman negatif olmadığına dikkat et.",
+      "bounds": [
+        -4,
+        9,
+        4,
+        -1
+      ],
+      "sliders": [
+        {
+          "name": "a",
+          "label": "$a$ (taban)",
+          "min": 0.5,
+          "max": 3,
+          "step": 0.5,
+          "value": 2
+        },
+        {
+          "name": "n",
+          "label": "$n$ (kuvvet)",
+          "min": -3,
+          "max": 3,
+          "step": 1,
+          "value": -2
+        }
+      ]
+    }
+  ]
 }

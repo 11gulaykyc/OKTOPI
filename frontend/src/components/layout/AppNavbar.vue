@@ -4,6 +4,7 @@ import { useRouter } from 'vue-router'
 import StudyTimer from '@/components/dashboard/StudyTimer.vue'
 import api from '@/services/api'
 import { useAuthStore } from '@/stores/auth'
+import { useRewardStore } from '@/stores/rewards'
 import { useStatsStore } from '@/stores/stats'
 import GradeSwitcher from './GradeSwitcher.vue'
 import OktopiMascot from './OktopiMascot.vue'
@@ -22,6 +23,7 @@ async function logout() {
   } catch {}
   auth.logout()
   stats.reset()
+  useRewardStore().clear()
   router.push({ name: 'home' })
 }
 </script>
@@ -47,7 +49,10 @@ async function logout() {
         </span>
       </RouterLink>
 
-      <GradeSwitcher class="ml-4 hidden md:inline-flex" />
+      <!-- Sarmalayıcı şart: bileşenin kendi `inline-flex` sınıfı `hidden` ile çakışıp mobilde görünür kalıyordu. -->
+      <div class="ml-4 hidden md:block">
+        <GradeSwitcher />
+      </div>
 
       <div class="ml-auto flex items-center gap-1 sm:gap-2">
         <StudyTimer v-if="auth.isAuthenticated" />

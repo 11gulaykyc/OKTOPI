@@ -1,16 +1,29 @@
+from collections import Counter
 from datetime import timedelta
 
+from django.core.exceptions import ObjectDoesNotExist
 from django.db import transaction
 from django.db.models import Count, F, Q, Sum
 from django.db.models.functions import TruncDate
 from django.utils import timezone
 
 from apps.curriculum.content_loader import get_repository
-from apps.gamification.models import DailyTask, PersonalGoal, PointLedger
+from apps.gamification import engine
+from apps.gamification.models import PersonalGoal, PointLedger
 from apps.gamification.services import TOPIC_COMPLETION_POINTS, award_points, level_info, total_points
+from apps.questions.serializers import recommendation
 from apps.study_sessions.models import DailyStudyTotal
 
 from .models import MisconceptionLog, QuestionAttempt, TopicProgress
+
+# --- Gelişim Haritası / Hata Analizi eşikleri ---
+# Bir konuda kesin değerlendirme yapmak için gereken en az (ilk deneme) cevap sayısı.
+# Altında kalan konular "veri yetersiz" olarak sunulur; tanı gibi gösterilmez.
+MIN_ANSWERS_FOR_DIAGNOSIS = 5
+# Bir kavram yanılgısının "tekrarlayan örüntü" sayılması için en az kaç kez görülmesi gerekir.
+MIN_REPEATS_FOR_PATTERN = 2
+MASTERED_RATE = 0.8
+DEVELOPING_RATE = 0.5
 
 
 def log_misconception(user, question, option, source=MisconceptionLog.Source.PRACTICE):
@@ -181,30 +194,17 @@ def dashboard_summary(user, days=7):
         "success": [serialize_progress(p) for p in progress if p.questions_answered],
     }
 
-    # Görevler ve hedefler (görev ataması Faz 3 oyunlaştırma motorundadır; burada yalnızca mevcut kayıtlar okunur)
-    tasks = [
+    # Görevler ve hedefler: oyunlaştırma motoru görevleri atar ve ilerlemeyi gerçek kayıtlardan hesaplar.
+    tasks = [engine.serialize_task(t) for t in engine.refresh_tasks(user)]
+    goals = [
         {
-            "id": t.id,
-            "period": t.period,
-            "title": t.title,
-            "target": t.target,
-            "progress": min(t.progress, t.target),
-            "points_reward": t.points_reward,
-            "completed": t.is_completed,
+            "goal_type": goal.goal_type,
+            "label": goal.get_goal_type_display(),
+            "target": goal.target,
+            "current": engine.goal_progress(user, goal.goal_type, today),
         }
-        for t in DailyTask.objects.filter(
-            Q(period=DailyTask.Period.DAILY, period_start=today)
-            | Q(period=DailyTask.Period.WEEKLY, period_start=week_start),
-            user=user,
-        )
+        for goal in PersonalGoal.objects.filter(user=user, valid_until__isnull=True)
     ]
-    goals = []
-    for goal in PersonalGoal.objects.filter(user=user, valid_until__isnull=True):
-        if goal.goal_type == PersonalGoal.GoalType.DAILY_QUESTIONS:
-            current = questions["today"]
-        else:
-            current = study["today_seconds"] // 60
-        goals.append({"goal_type": goal.goal_type, "label": goal.get_goal_type_display(), "target": goal.target, "current": current})
 
     return {
         "generated_at": timezone.now(),
@@ -217,4 +217,220 @@ def dashboard_summary(user, days=7):
         "tasks": tasks,
         "goals": goals,
         "misconception_count": MisconceptionLog.objects.filter(user=user).count(),
+    }
+
+
+# --- Gelişim Haritası ve Hata Analizi ---
+
+
+def default_grade(user):
+    """Sınıf belirtilmezse öğrencinin profilindeki sınıf (profil yoksa 9) kullanılır."""
+    try:
+        return user.profile.grade_level
+    except ObjectDoesNotExist:
+        return 9
+
+
+def open_mistakes(user, grade=None):
+    """Son cevabı yanlış olan sorular: {soru_id: son QuestionAttempt}.
+
+    Daha sonra doğru çözülen soru listeden düşer; boş bırakılan cevaplar yanlış sayılmaz.
+    """
+    qs = QuestionAttempt.objects.filter(user=user).exclude(selected_option="")
+    if grade is not None:
+        qs = qs.filter(grade=grade)
+    latest = {}
+    for attempt in qs.order_by("created_at", "id"):
+        latest[attempt.question_id] = attempt
+    return {qid: attempt for qid, attempt in latest.items() if not attempt.is_correct}
+
+
+def mastery_level(answered, rate):
+    """Konu düzeyi. Yeterli veri yoksa başarı oranı ne olursa olsun "insufficient" döner."""
+    if not answered:
+        return "not_started"
+    if answered < MIN_ANSWERS_FOR_DIAGNOSIS:
+        return "insufficient"
+    if rate >= MASTERED_RATE:
+        return "mastered"
+    if rate >= DEVELOPING_RATE:
+        return "developing"
+    return "needs_review"
+
+
+def _thresholds():
+    return {
+        "min_answers_for_diagnosis": MIN_ANSWERS_FOR_DIAGNOSIS,
+        "min_repeats_for_pattern": MIN_REPEATS_FOR_PATTERN,
+        "mastered_rate": MASTERED_RATE,
+        "developing_rate": DEVELOPING_RATE,
+    }
+
+
+def _grade_topic_ids(grade):
+    return {tid for tid, (g, _, _) in get_repository().topic_refs.items() if g == grade}
+
+
+def mastery_map(user, grade):
+    """Gelişim Haritası: sınıfın tüm konuları için ilerleme, düzey ve tekrar çalışılması gereken alanlar.
+
+    Başarı oranı TopicProgress'teki ilk deneme cevaplarından hesaplanır (tekrar denemek oranı şişirmez).
+    """
+    repo = get_repository()
+    curriculum = repo.curricula[grade]
+    progress = {p.topic_id: p for p in TopicProgress.objects.filter(user=user, grade=grade)}
+    open_by_topic = Counter(a.topic_id for a in open_mistakes(user, grade).values())
+    misconceptions_by_topic = dict(
+        MisconceptionLog.objects.filter(user=user, topic_id__in=_grade_topic_ids(grade))
+        .values("topic_id")
+        .annotate(n=Count("id"))
+        .values_list("topic_id", "n")
+    )
+    question_counts = repo.question_counts_by_topic()
+
+    themes, levels, review = [], Counter(), []
+    for theme in sorted(curriculum.themes, key=lambda t: t.order):
+        topics = []
+        for ref in theme.topics:
+            p = progress.get(ref.id)
+            answered = p.questions_answered if p else 0
+            rate = p.success_rate if p else None
+            level = mastery_level(answered, rate)
+            item = {
+                "id": ref.id,
+                "title": ref.title,
+                "has_content": ref.id in repo.topics,
+                "question_count": question_counts.get(ref.id, 0),
+                "status": p.status if p else TopicProgress.Status.NOT_STARTED,
+                "questions_answered": answered,
+                "correct_answers": p.correct_answers if p else 0,
+                "success_rate": rate,
+                "level": level,
+                "enough_data": answered >= MIN_ANSWERS_FOR_DIAGNOSIS,
+                "answers_needed": max(0, MIN_ANSWERS_FOR_DIAGNOSIS - answered),
+                "open_mistakes": open_by_topic.get(ref.id, 0),
+                "misconception_count": misconceptions_by_topic.get(ref.id, 0),
+            }
+            # Tekrar listesi: kesin olarak zayıf görünen konular ve hâlâ düzeltilmemiş yanlışı olanlar.
+            item["needs_review"] = level == "needs_review" or item["open_mistakes"] > 0
+            levels[level] += 1
+            if item["needs_review"]:
+                review.append(item)
+            topics.append(item)
+        themes.append({"id": theme.id, "title": theme.title, "topics": topics})
+
+    review.sort(key=lambda t: (t["level"] != "needs_review", -t["open_mistakes"], t["success_rate"] or 0))
+    return {
+        "grade": grade,
+        "thresholds": _thresholds(),
+        "levels": {key: levels.get(key, 0) for key in ("mastered", "developing", "needs_review", "insufficient", "not_started")},
+        "themes": themes,
+        "review": [
+            {"id": t["id"], "title": t["title"], "level": t["level"], "open_mistakes": t["open_mistakes"]} for t in review
+        ],
+    }
+
+
+def _misconception_details():
+    """Etiket → açıklama tablosu; açıklamalar soru JSON'larındaki yanlış şıklardan gelir."""
+    details = {}
+    for question in get_repository().questions.values():
+        for option in question.options:
+            if option.misconception_tag and option.misconception_tag not in details:
+                details[option.misconception_tag] = option.misconception_detail
+    return details
+
+
+def error_analysis(user, grade):
+    """Kavram yanılgısı örüntüleri ve hâlâ düzeltilmemiş yanlış sorular.
+
+    Doğru cevap anahtarı DÖNMEZ: öğrenci bu soruları Hata Avcısı modunda yeniden çözebilir.
+    """
+    repo = get_repository()
+    mistakes = open_mistakes(user, grade)
+    details = _misconception_details()
+
+    patterns = {}
+    logs = (
+        MisconceptionLog.objects.filter(user=user, topic_id__in=_grade_topic_ids(grade))
+        .order_by("-created_at", "-id")
+        .values("misconception_tag", "question_id", "topic_id", "subtopic_id", "created_at")
+    )
+    for log in logs:
+        tag = log["misconception_tag"]
+        pattern = patterns.get(tag)
+        if pattern is None:
+            # Kayıtlar yeniden eskiye sıralı: bir etiketin ilk kaydı en güncel olanıdır.
+            entry = repo.topic_ref(log["topic_id"])
+            pattern = patterns[tag] = {
+                "tag": tag,
+                "detail": details.get(tag, ""),
+                "topic_id": log["topic_id"],
+                "topic_title": entry[2].title if entry else log["topic_id"],
+                "recommended": recommendation(log["subtopic_id"]),
+                "count": 0,
+                "question_ids": set(),
+                "last_seen": log["created_at"],
+            }
+        pattern["count"] += 1
+        pattern["question_ids"].add(log["question_id"])
+
+    result_patterns = []
+    for pattern in patterns.values():
+        question_ids = pattern.pop("question_ids")
+        open_questions = sum(1 for qid in question_ids if qid in mistakes)
+        result_patterns.append(
+            {
+                **pattern,
+                "question_count": len(question_ids),
+                "recurring": pattern["count"] >= MIN_REPEATS_FOR_PATTERN,
+                "open_questions": open_questions,
+                # Bu yanılgının görüldüğü tüm sorular sonradan doğru çözüldüyse yanılgı aşılmış sayılır.
+                "resolved": open_questions == 0,
+            }
+        )
+    result_patterns.sort(key=lambda p: (p["resolved"], -p["count"], -p["last_seen"].timestamp()))
+
+    mistake_items = []
+    for qid, attempt in sorted(mistakes.items(), key=lambda kv: kv[1].created_at, reverse=True):
+        question = repo.questions.get(qid)
+        if question is None:  # içerikten kaldırılmış soru
+            continue
+        option = next((o for o in question.options if o.key == attempt.selected_option), None)
+        mistake_items.append(
+            {
+                "question_id": qid,
+                "topic_id": question.topic_id,
+                "topic": question.topic,
+                "subtopic": question.subtopic,
+                "difficulty": question.difficulty,
+                "question_text": question.question_text,
+                "selected_option": attempt.selected_option,
+                "selected_text": option.text if option else "",
+                "misconception": (
+                    {"tag": option.misconception_tag, "detail": option.misconception_detail}
+                    if option and option.misconception_tag
+                    else None
+                ),
+                "recommended": (
+                    recommendation(option.recommended_subtopic_id) if option and option.recommended_subtopic_id else None
+                ),
+                "answered_at": attempt.created_at,
+            }
+        )
+
+    answered = TopicProgress.objects.filter(user=user, grade=grade).aggregate(n=Sum("questions_answered"))["n"] or 0
+    return {
+        "grade": grade,
+        "thresholds": _thresholds(),
+        "enough_data": answered >= MIN_ANSWERS_FOR_DIAGNOSIS,
+        "totals": {
+            "answered": answered,
+            "misconception_logs": sum(p["count"] for p in result_patterns),
+            "patterns": len(result_patterns),
+            "recurring_patterns": sum(1 for p in result_patterns if p["recurring"] and not p["resolved"]),
+            "open_mistakes": len(mistake_items),
+        },
+        "patterns": result_patterns,
+        "mistakes": mistake_items,
     }

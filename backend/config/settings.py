@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     "rest_framework",
     "rest_framework_simplejwt",
     "corsheaders",
+    "drf_spectacular",
     # OKTOPİ uygulamaları
     "apps.accounts",
     "apps.curriculum",
@@ -129,6 +130,41 @@ REST_FRAMEWORK = {
     "DEFAULT_PERMISSION_CLASSES": (
         "rest_framework.permissions.IsAuthenticated",
     ),
+    # Tüm hatalar tek biçimde döner: {"detail": "Türkçe mesaj", "code": "...", "fields": {...}}
+    "EXCEPTION_HANDLER": "config.exceptions.api_exception_handler",
+    "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
+}
+
+# --- OpenAPI / Swagger (/api/docs/) ---
+# Mobil uygulama da aynı API'yi kullanacağı için şema varsayılan olarak yayındadır;
+# API_DOCS_ENABLED=False ile kapatılabilir.
+API_DOCS_ENABLED = env_bool("API_DOCS_ENABLED", True)
+SPECTACULAR_SETTINGS = {
+    "TITLE": "OKTOPİ API",
+    "DESCRIPTION": (
+        "9–12. sınıf matematik öğrenme platformunun REST API'si.\n\n"
+        "**Kimlik doğrulama:** `POST /api/auth/login/` ile alınan `access` token'ı "
+        "`Authorization: Bearer <token>` başlığıyla gönderin (Swagger'da sağ üstteki *Authorize*). "
+        "Süresi dolan token `POST /api/auth/token/refresh/` ile yenilenir.\n\n"
+        "**Hata biçimi:** Tüm hatalar `{\"detail\": \"Türkçe mesaj\", \"code\": \"...\", \"fields\": {...}}` biçimindedir.\n\n"
+        "**Güvenlik kuralı:** Doğru cevap anahtarı ve çözümler yalnızca cevap gönderildikten "
+        "(süreli testte test bittikten) sonra döner."
+    ),
+    "VERSION": "1.0.0",
+    "SERVE_INCLUDE_SCHEMA": False,
+    "SERVE_PERMISSIONS": ["rest_framework.permissions.AllowAny"],
+    "SCHEMA_PATH_PREFIX": r"/api/",
+    "COMPONENT_SPLIT_REQUEST": True,
+    "TAGS": [
+        {"name": "auth", "description": "Kayıt, JWT giriş, profil ve başlangıç seviye testi"},
+        {"name": "curriculum", "description": "Müfredat ağacı, konu anlatımları, OYSS (herkese açık)"},
+        {"name": "questions", "description": "Soru havuzu (cevap anahtarı gizli) ve pekiştirme kontrolü"},
+        {"name": "exams", "description": "Soru çözümü ve süreli test motoru"},
+        {"name": "study-sessions", "description": "60 sn heartbeat ile aktif çalışma süresi"},
+        {"name": "analytics", "description": "Panel, Gelişim Haritası, Hata Analizi, konu ilerlemesi"},
+        {"name": "gamification", "description": "Puan, seviye, rozet, görev ve hedefler"},
+    ],
+    "SWAGGER_UI_SETTINGS": {"persistAuthorization": True, "displayRequestDuration": True, "docExpansion": "none"},
 }
 
 SIMPLE_JWT = {

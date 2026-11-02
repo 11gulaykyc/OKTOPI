@@ -1,0 +1,183 @@
+{
+  "id": "top-9-tri",
+  "version": "1.0",
+  "grade": 9,
+  "theme_id": "th-9-4",
+  "title": "Üçgenler",
+  "summary": "Üçgende açılar, üçgen eşitsizliği, Pisagor bağıntısı ve alan: geometrinin temel taşlarını birlikte kuruyoruz.",
+  "estimated_minutes": 45,
+  "learning_objectives": [
+    "Üçgenin iç ve dış açıları arasındaki ilişkileri kullanmak.",
+    "Üç uzunlukla üçgen oluşturulup oluşturulamayacağına karar vermek; açı ile karşısındaki kenar arasındaki ilişkiyi açıklamak.",
+    "Dik üçgende Pisagor bağıntısını kullanarak kenar uzunluklarını bulmak.",
+    "Taban ve yükseklikten üçgenin alanını hesaplamak."
+  ],
+  "sections": [
+    {
+      "id": "top-9-tri-angles",
+      "title": "Üçgende Açılar",
+      "body": "Bir üçgenin üç köşesini kesip yan yana koysan düz bir çizgi, yani $180^\\circ$ elde edersin. Bu yüzden **her üçgende iç açıların toplamı $180^\\circ$'dir.**\n\nBir köşedeki **dış açı**, o köşedeki iç açıyla birlikte $180^\\circ$ eder. Buradan çok işe yarayan bir sonuç çıkar: Bir dış açı, kendisine **komşu olmayan iki iç açının toplamına** eşittir.\n\nAşağıdaki üçgende $A$ ve $B$ açılarını değiştir: $C$ açısı hep $180^\\circ - A - B$ olacak şekilde kendini ayarlar. Bir açıyı büyütürken diğerlerinden en az biri mutlaka küçülür.",
+      "formulas": [
+        {
+          "label": "İç açılar toplamı",
+          "latex": "m(\\widehat{A}) + m(\\widehat{B}) + m(\\widehat{C}) = 180^\\circ"
+        },
+        {
+          "label": "C köşesindeki dış açı",
+          "latex": "m(\\widehat{C}_{\\text{dış}}) = m(\\widehat{A}) + m(\\widehat{B})"
+        }
+      ],
+      "examples": [
+        {
+          "title": "Oranlı açılar",
+          "problem": "Bir üçgenin iç açıları $2 : 3 : 4$ oranındadır. En büyük açı kaç derecedir?",
+          "steps": [
+            "Açılara $2k$, $3k$ ve $4k$ diyelim.",
+            "$2k + 3k + 4k = 180^\\circ \\Rightarrow 9k = 180^\\circ \\Rightarrow k = 20^\\circ$",
+            "En büyük açı: $4k = 80^\\circ$"
+          ],
+          "answer": "$80^\\circ$"
+        }
+      ],
+      "tip": "Bir üçgende en fazla **bir** geniş açı ya da **bir** dik açı olabilir; iki tane olsaydı toplam $180^\\circ$'yi geçerdi.",
+      "common_mistakes": [
+        "Dış açıyı komşu iç açıya eşit sanmak (doğrusu: komşu olmayan iki iç açının toplamı).",
+        "İç açılar toplamını dörtgendeki gibi $360^\\circ$ almak."
+      ]
+    },
+    {
+      "id": "top-9-tri-ineq",
+      "title": "Üçgen Eşitsizliği",
+      "body": "Üç çubukla her zaman üçgen kurabilir misin? $2$ cm, $3$ cm ve $10$ cm'lik çubukları dene: kısa iki çubuk uç uca eklense bile $5$ cm eder, $10$ cm'lik çubuğun iki ucuna ulaşamaz.\n\nKural şu: **Bir kenar, diğer iki kenarın farkından büyük, toplamından küçük olmalıdır.** Kenarları $a$, $b$, $c$ olan bir üçgende\n\n$$|b - c| < a < b + c$$\n\nAyrıca **büyük açının karşısında büyük kenar** bulunur. Bir önceki bölümdeki grafikte en büyük açıyı değiştir ve en uzun kenarın nasıl yer değiştirdiğine bak.",
+      "formulas": [
+        {
+          "label": "Üçgen eşitsizliği",
+          "latex": "|b - c| < a < b + c"
+        },
+        {
+          "label": "Açı–kenar ilişkisi",
+          "latex": "m(\\widehat{A}) > m(\\widehat{B}) \\iff a > b"
+        }
+      ],
+      "examples": [
+        {
+          "title": "Kenarın alabileceği değerler",
+          "problem": "Kenar uzunlukları $4$ cm, $9$ cm ve $x$ cm olan bir üçgende $x$'in alabileceği kaç farklı tam sayı değeri vardır?",
+          "steps": [
+            "$9 - 4 < x < 9 + 4 \\Rightarrow 5 < x < 13$",
+            "Tam sayılar: $6, 7, 8, 9, 10, 11, 12$"
+          ],
+          "answer": "$7$"
+        }
+      ],
+      "tip": "Eşitsizlik **kesindir**: $x = 5$ veya $x = 13$ olursa çubuklar düz bir çizgi üzerine yatar, üçgen oluşmaz.",
+      "common_mistakes": [
+        "Sınır değerleri ($|b - c|$ ve $b + c$) de çözüme katmak.",
+        "Yalnızca $a < b + c$ şartını kontrol edip alt sınırı unutmak."
+      ]
+    },
+    {
+      "id": "top-9-tri-pyth",
+      "title": "Pisagor Bağıntısı",
+      "body": "Dik üçgende dik açının karşısındaki kenara **hipotenüs** denir; en uzun kenar odur. Dik kenarlar $a$ ve $b$, hipotenüs $c$ ise\n\n$$a^2 + b^2 = c^2$$\n\nBu bağıntı yalnızca **dik** üçgenlerde geçerlidir. Sık karşılaşılan tam sayı üçlülerini bilmek işini hızlandırır: $(3, 4, 5)$, $(5, 12, 13)$, $(8, 15, 17)$ ve bunların katları, örneğin $(6, 8, 10)$.",
+      "formulas": [
+        {
+          "label": "Pisagor bağıntısı",
+          "latex": "a^2 + b^2 = c^2"
+        },
+        {
+          "label": "Hipotenüs",
+          "latex": "c = \\sqrt{a^2 + b^2}"
+        }
+      ],
+      "examples": [
+        {
+          "title": "Eksik dik kenar",
+          "problem": "Hipotenüsü $10$ cm ve bir dik kenarı $6$ cm olan dik üçgenin diğer dik kenarı kaç cm'dir?",
+          "steps": [
+            "$6^2 + b^2 = 10^2 \\Rightarrow 36 + b^2 = 100$",
+            "$b^2 = 64 \\Rightarrow b = 8$ (uzunluk negatif olamaz)"
+          ],
+          "answer": "$8$ cm"
+        }
+      ],
+      "tip": "Önce hangi kenarın hipotenüs olduğunu belirle: dik açının **karşısındaki** kenar.",
+      "common_mistakes": [
+        "Bir dik kenarı hipotenüs gibi $c$ yerine koymak.",
+        "Kareleri almadan $a + b = c$ diye toplamak.",
+        "$\\sqrt{a^2 + b^2}$ ifadesini $a + b$ diye sadeleştirmek."
+      ]
+    },
+    {
+      "id": "top-9-tri-area",
+      "title": "Üçgende Alan",
+      "body": "Üçgenin alanı, aynı taban ve yüksekliğe sahip dikdörtgenin **yarısıdır**:\n\n$$A = \\frac{\\text{taban} \\cdot \\text{yükseklik}}{2}$$\n\nBurada yükseklik, tabanın karşısındaki köşeden tabana (gerekirse uzantısına) indirilen **dikmenin** uzunluğudur; yandaki eğik kenar değil! Dik üçgende iki dik kenar birbirine dik olduğu için biri taban, diğeri yükseklik olur: $A = \\frac{a \\cdot b}{2}$.",
+      "formulas": [
+        {
+          "label": "Alan",
+          "latex": "A = \\frac{a \\cdot h_a}{2}"
+        },
+        {
+          "label": "Dik üçgende alan",
+          "latex": "A = \\frac{a \\cdot b}{2}"
+        }
+      ],
+      "examples": [
+        {
+          "title": "Hipotenüse ait yükseklik",
+          "problem": "Dik kenarları $9$ cm ve $12$ cm olan dik üçgenin alanını ve hipotenüse ait yüksekliğini bulunuz.",
+          "steps": [
+            "Alan: $\\frac{9 \\cdot 12}{2} = 54$ cm²",
+            "Hipotenüs: $c = \\sqrt{81 + 144} = \\sqrt{225} = 15$ cm",
+            "Alanı hipotenüsle de yaz: $\\frac{15 \\cdot h}{2} = 54 \\Rightarrow h = \\frac{108}{15} = 7{,}2$ cm"
+          ],
+          "answer": "$54$ cm², $h = 7{,}2$ cm"
+        }
+      ],
+      "tip": "Aynı üçgenin alanını iki farklı taban–yükseklik çiftiyle yazıp eşitlemek, bilinmeyen bir yüksekliği bulmanın en hızlı yoludur.",
+      "common_mistakes": [
+        "Eğik kenarı yükseklik sanmak.",
+        "Formüldeki $\\frac{1}{2}$ çarpanını unutup dikdörtgenin alanını bulmak."
+      ]
+    }
+  ],
+  "reinforcement_question_ids": [
+    "q-9-tri-001",
+    "q-9-tri-003",
+    "q-9-tri-004",
+    "q-9-tri-005"
+  ],
+  "visualizations": [
+    {
+      "id": "viz-9-tri-angles",
+      "type": "triangle",
+      "section_id": "top-9-tri-angles",
+      "title": "Açıları değiştir, toplamı izle",
+      "description": "$A$ ve $B$ açılarını kaydır; $C$ açısı kendini ayarlar. En büyük açının karşısındaki kenarın hep en uzun kenar olduğuna dikkat et.",
+      "bounds": [
+        -1,
+        7,
+        11,
+        -1
+      ],
+      "sliders": [
+        {
+          "name": "A",
+          "label": "$m(\\widehat{A})$",
+          "min": 10,
+          "max": 150,
+          "step": 1,
+          "value": 60
+        },
+        {
+          "name": "B",
+          "label": "$m(\\widehat{B})$",
+          "min": 10,
+          "max": 150,
+          "step": 1,
+          "value": 50
+        }
+      ]
+    }
+  ]
+}

@@ -12,3 +12,9 @@ export function formatLongDate(value) {
   if (!value) return ''
   return new Date(`${value}T00:00:00`).toLocaleDateString('tr-TR', { day: 'numeric', month: 'long', year: 'numeric' })
 }
+
+/** Sunucudan gelen tarih-saat (ISO) değerini kısa tarihe çevirir: "3 Kas". */
+export function formatShortDate(value) {
+  if (!value) return ''
+  return new Date(value).toLocaleDateString('tr-TR', { day: 'numeric', month: 'short' })
+}
