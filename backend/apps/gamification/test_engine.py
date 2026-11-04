@@ -65,9 +65,13 @@ class BadgeRuleTests(TestCase):
 
     def test_explorer_needs_correct_answers_in_three_topics(self):
         answer(self.user, "q-9-exp-001")
-        answer(self.user, "q-9-root-001")
-        self.assertNotIn("matematik-kasifi", badge_codes(self.user))
+        answer(self.user, "q-9-root-001")  # aynı konu (1.1): sayılmaz
         answer(self.user, "q-9-tri-001")
+        self.assertNotIn("matematik-kasifi", badge_codes(self.user))
+        # Havuzda henüz sorusu olan üçüncü bir konu yok; kuralı bir sorunun başka konuya taşınmış kopyasıyla dene.
+        question = get_repository().questions["q-9-exp-002"].model_copy(update={"id": "q-9-sets-001", "topic_id": "top-9-sets"})
+        attempt, _ = record_attempt(self.user, question, question.correct_option)
+        engine.on_answer(self.user, attempt)
         self.assertIn("matematik-kasifi", badge_codes(self.user))
 
     def test_curious_mind_after_three_started_topics(self):

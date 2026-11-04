@@ -30,7 +30,9 @@ class DiagnosticSelectionTests(APITestCase):
         self.assertEqual(first, [q.id for q in diagnostic_questions(9)])
         self.assertEqual(len(first), DIAGNOSTIC_SIZE)
         questions = diagnostic_questions(9)
-        self.assertGreaterEqual(len({q.topic_id for q in questions}), 3)
+        # Sorusu olan her konudan (en az 3 konuya kadar) soru gelir.
+        pool_topics = {q.topic_id for q in get_repository().questions.values() if q.grade == 9}
+        self.assertGreaterEqual(len({q.topic_id for q in questions}), min(3, len(pool_topics)))
         self.assertGreaterEqual(len({q.difficulty for q in questions}), 2)
 
     def test_upper_grades_fall_back_to_lower_grade_questions(self):

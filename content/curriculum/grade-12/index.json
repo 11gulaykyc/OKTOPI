@@ -1,26 +1,31 @@
 {
   "grade": 12,
-  "version": "1.0",
+  "version": "2.0",
   "title": "12. Sınıf Matematik",
   "program": "Türkiye Yüzyılı Maarif Modeli — Ortaöğretim Matematik Dersi Öğretim Programı",
   "themes": [
     {
       "id": "th-12-1",
       "order": 1,
-      "title": "Üstel ve Logaritmik Fonksiyonlar",
-      "description": "Üstel fonksiyon, logaritma fonksiyonu ve denklemleri.",
+      "title": "Cebirsel İfadeler",
+      "description": "Polinomlar ve cebirsel ifadelerin çarpanlara ayrılması.",
       "topics": [
         {
-          "id": "top-12-log",
-          "title": "Üstel ve Logaritmik Fonksiyonlar",
+          "id": "top-12-poly",
+          "title": "Polinom Kavramı ve Polinomlarla İşlemler",
           "learning_outcomes": [
-            { "code": "MAT.12.1.1", "text": "Üstel ve logaritmik fonksiyonları tanımlar, özelliklerini kullanarak denklemleri çözer." }
+            { "code": "MAT.12.1.1", "text": "Polinom kavramını açıklar ve polinomlarla işlemler yapar." }
           ],
-          "subtopics": [
-            { "id": "top-12-log-exp", "title": "Üstel Fonksiyon" },
-            { "id": "top-12-log-def", "title": "Logaritma Fonksiyonu" },
-            { "id": "top-12-log-eq", "title": "Üstel ve Logaritmik Denklemler" }
+          "subtopics": [],
+          "content_file": null
+        },
+        {
+          "id": "top-12-factor",
+          "title": "Cebirsel İfadelerin Çarpanlara Ayrılması",
+          "learning_outcomes": [
+            { "code": "MAT.12.1.2", "text": "Cebirsel ifadeleri çarpanlarına ayırır." }
           ],
+          "subtopics": [],
           "content_file": null
         }
       ]
@@ -28,18 +33,22 @@
     {
       "id": "th-12-2",
       "order": 2,
-      "title": "Diziler",
-      "description": "Aritmetik ve geometrik diziler.",
+      "title": "İkinci Dereceden Denklemler",
+      "description": "İkinci dereceden bir bilinmeyenli denklemler, diskriminant ve karmaşık sayılar.",
       "topics": [
         {
-          "id": "top-12-seq",
-          "title": "Diziler",
+          "id": "top-12-quadeq",
+          "title": "İkinci Dereceden Bir Bilinmeyenli Denklemler",
           "learning_outcomes": [
-            { "code": "MAT.12.2.1", "text": "Aritmetik ve geometrik dizilerin genel terimini ve ilk n terim toplamını hesaplar." }
+            { "code": "MAT.12.2.1", "text": "İkinci dereceden bir bilinmeyenli denklemleri çözer; karmaşık sayıları ve kökler ile katsayılar arasındaki bağıntıları kullanır." }
           ],
           "subtopics": [
-            { "id": "top-12-seq-arith", "title": "Aritmetik Dizi" },
-            { "id": "top-12-seq-geom", "title": "Geometrik Dizi" }
+            { "id": "top-12-quadeq-solve", "title": "İkinci Dereceden Bir Bilinmeyenli Denklemlerin Çözümü" },
+            { "id": "top-12-quadeq-disc", "title": "Genel Çözüm ve Diskriminant Kavramı" },
+            { "id": "top-12-quadeq-complex", "title": "Karmaşık Sayılar" },
+            { "id": "top-12-quadeq-abi", "title": "Bir Karmaşık Sayının a + bi Biçiminde Yazılması" },
+            { "id": "top-12-quadeq-conj", "title": "Karmaşık Sayıların Eşleniği" },
+            { "id": "top-12-quadeq-roots", "title": "Kökler ile Katsayılar Arasındaki Bağıntılar" }
           ],
           "content_file": null
         }
@@ -48,28 +57,34 @@
     {
       "id": "th-12-3",
       "order": 3,
-      "title": "Türev",
-      "description": "Limit, süreklilik ve türev uygulamaları.",
+      "title": "Çember ve Daire",
+      "description": "Çemberin temel elemanları, çemberde açılar, dairenin çevresi ve alanı.",
       "topics": [
         {
-          "id": "top-12-limit",
-          "title": "Limit ve Süreklilik",
+          "id": "top-12-circle",
+          "title": "Çemberin Temel Elemanları",
           "learning_outcomes": [
-            { "code": "MAT.12.3.1", "text": "Bir fonksiyonun bir noktadaki limitini ve sürekliliğini inceler." }
+            { "code": "MAT.12.3.1", "text": "Çemberin temel elemanlarını açıklar." }
           ],
           "subtopics": [],
           "content_file": null
         },
         {
-          "id": "top-12-deriv",
-          "title": "Türev ve Uygulamaları",
+          "id": "top-12-circangles",
+          "title": "Çemberde Açılar",
           "learning_outcomes": [
-            { "code": "MAT.12.3.2", "text": "Türev kurallarını kullanır; artan-azalan fonksiyonları ve ekstremum noktalarını belirler." }
+            { "code": "MAT.12.3.2", "text": "Çemberde açıların özelliklerini kullanarak problemler çözer." }
           ],
-          "subtopics": [
-            { "id": "top-12-deriv-rules", "title": "Türev Alma Kuralları" },
-            { "id": "top-12-deriv-apps", "title": "Türevin Uygulamaları" }
+          "subtopics": [],
+          "content_file": null
+        },
+        {
+          "id": "top-12-circarea",
+          "title": "Dairenin Çevresi ve Alanı",
+          "learning_outcomes": [
+            { "code": "MAT.12.3.3", "text": "Dairenin çevresini ve alanını hesaplar." }
           ],
+          "subtopics": [],
           "content_file": null
         }
       ]
@@ -77,36 +92,27 @@
     {
       "id": "th-12-4",
       "order": 4,
-      "title": "İntegral",
-      "description": "Belirsiz ve belirli integral, alan hesabı.",
+      "title": "Uzay Geometrisi",
+      "description": "Katı cisimler: prizmalar, piramitler ve küp.",
       "topics": [
         {
-          "id": "top-12-integ",
-          "title": "İntegral",
+          "id": "top-12-solid",
+          "title": "Katı Cisimler",
           "learning_outcomes": [
-            { "code": "MAT.12.4.1", "text": "Belirsiz ve belirli integrali hesaplar; eğri altında kalan alanı bulur." }
+            { "code": "MAT.12.4.1", "text": "Dik prizma ve dik piramitlerde uzunluk, alan ve hacim hesaplar; katı cisimleri çizer ve açınımlarını oluşturur." }
           ],
           "subtopics": [
-            { "id": "top-12-integ-indef", "title": "Belirsiz İntegral" },
-            { "id": "top-12-integ-def", "title": "Belirli İntegral ve Alan" }
+            { "id": "top-12-solid-overview", "title": "Dik Prizmalar ve Dik Piramitlerde Uzunluk, Alan ve Hacim" },
+            { "id": "top-12-solid-cubedraw", "title": "Küp Çizimi" },
+            { "id": "top-12-solid-cubenet", "title": "Küp Açınımı" },
+            { "id": "top-12-solid-pyramid", "title": "Piramit" },
+            { "id": "top-12-solid-pyrvol", "title": "Düzgün Dik Piramidin Alanı ve Hacmi" },
+            { "id": "top-12-solid-tripyr", "title": "Düzgün Üçgen Piramit Çizimi" },
+            { "id": "top-12-solid-prismvol", "title": "Prizmanın Alanı ve Hacmi" },
+            { "id": "top-12-solid-cuboid", "title": "Dikdörtgenler Prizması" },
+            { "id": "top-12-solid-rightprism", "title": "Dik Prizmalar" },
+            { "id": "top-12-solid-volume", "title": "Hacim" }
           ],
-          "content_file": null
-        }
-      ]
-    },
-    {
-      "id": "th-12-5",
-      "order": 5,
-      "title": "Analitik Geometri",
-      "description": "Çemberin analitik incelenmesi.",
-      "topics": [
-        {
-          "id": "top-12-circle",
-          "title": "Çemberin Analitik İncelenmesi",
-          "learning_outcomes": [
-            { "code": "MAT.12.5.1", "text": "Çemberin denklemini yazar ve doğru-çember durumlarını inceler." }
-          ],
-          "subtopics": [],
           "content_file": null
         }
       ]

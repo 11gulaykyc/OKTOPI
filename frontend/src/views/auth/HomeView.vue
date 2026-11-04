@@ -1,142 +1,174 @@
 <script setup>
-import { onMounted, ref, watch } from 'vue'
+import { onMounted, ref } from 'vue'
+import { useRouter } from 'vue-router'
+import { BookOpen, ChartColumn, ChevronRight, Lightbulb, PencilLine, Timer } from 'lucide-vue-next'
 import MascotBanner from '@/components/layout/MascotBanner.vue'
 import OktopiMascot from '@/components/layout/OktopiMascot.vue'
 import api, { errorMessage } from '@/services/api'
 import { useAuthStore } from '@/stores/auth'
-import { useGradeStore } from '@/stores/grade'
+import { GRADES, useGradeStore } from '@/stores/grade'
 
 const auth = useAuthStore()
 const gradeStore = useGradeStore()
-const grades = ref([])
-const curriculum = ref(null)
+const router = useRouter()
+const grades = ref([]) // /curriculum/grades/ özetleri (tema ve konu sayısı)
 const loadError = ref('')
 
+/*
+ * Bilgilendirme kartları. Görseller hazır olduğunda `frontend/src/assets/home/` altına koyup
+ * `image` alanına import edilen dosyayı vermek yeterli; görsel yokken ikon gösterilir.
+ */
 const features = [
-  { title: 'Konu anlatımı', text: 'Her konu kısa bölümler, formüller ve adım adım çözülmüş örneklerle anlatılıyor.' },
-  { title: 'Hatanın nedeni', text: 'Yanlış bir şık seçtiğinde hangi kavramı karıştırdığını söylüyor ve ilgili bölüme götürüyor.' },
-  { title: 'Çalışma süresi', text: 'Sadece sayfada gerçekten çalışırken sayılıyor; sekmeyi açık unutursan süre artmıyor.' },
-  { title: 'Puan ve hedefler', text: 'Konu bitirdikçe ve soru çözdükçe puan topluyor, kendine günlük hedef koyabiliyorsun.' },
+  {
+    title: 'Konu anlatımı',
+    text: 'Her konu kısa bölümler, formüller ve adım adım çözülmüş örneklerle, akran diliyle anlatılıyor.',
+    icon: BookOpen,
+    image: null,
+  },
+  {
+    title: 'Soru çözümü',
+    text: 'Konu konu soru çöz. Yanlış bir şık seçtiğinde hangi kavramı karıştırdığını söylüyor ve ilgili bölüme götürüyor.',
+    icon: PencilLine,
+    image: null,
+  },
+  {
+    title: 'Süreli çözüm',
+    text: 'İstersen soru çözümüne süre ekle, sınav temposunda kendini dene.',
+    icon: Timer,
+    image: null,
+  },
+  {
+    title: 'Gelişimini gör',
+    text: 'Çalışma süren, başarı oranın, puanın ve rozetlerin panelde. Süre yalnızca gerçekten çalışırken sayılıyor.',
+    icon: ChartColumn,
+    image: null,
+  },
 ]
 
-async function loadGrades() {
+const steps = [
+  { title: 'Sınıfını seç', text: '9, 10, 11 veya 12. sınıf.' },
+  { title: 'Ne yapacağını seç', text: 'Konu anlatımı ya da soru çözümü.' },
+  { title: 'Konunu seç', text: 'Çalışmak istediğin konuya tıkla ve başla.' },
+]
+
+function gradeSummary(grade) {
+  return grades.value.find((g) => g.grade === grade)
+}
+
+function chooseGrade(grade) {
+  gradeStore.setGrade(grade)
+  router.push({ name: 'grade-hub', params: { grade } })
+}
+
+onMounted(async () => {
   try {
     grades.value = (await api.get('/curriculum/grades/')).data
   } catch (e) {
     loadError.value = errorMessage(e)
   }
-}
-
-async function loadCurriculum(grade) {
-  if (!grade) return
-  try {
-    curriculum.value = (await api.get(`/curriculum/grades/${grade}/`)).data
-  } catch (e) {
-    loadError.value = errorMessage(e)
-  }
-}
-
-onMounted(loadGrades)
-// Giriş yapmış öğrenci üst bardaki sınıf seçicide hangi sınıfı seçtiyse onun konu ağacı gösterilir.
-watch(() => (auth.isAuthenticated ? gradeStore.grade : null), loadCurriculum, { immediate: true })
+})
 </script>
 
 <template>
-  <!-- Giriş yapmış öğrenci -->
-  <div v-if="auth.isAuthenticated" class="space-y-6">
-    <MascotBanner
-      v-if="auth.user.profile?.is_birthday_today"
-      mood="celebrate"
-      :title="`İyi ki doğdun, ${auth.displayName}`"
-      :message="`Bugün ${auth.user.profile.age} yaşına girdin. Yeni yaşın sana iyi gelsin.`"
-    >
-      <RouterLink to="/profil" class="btn bg-white/15 text-white hover:bg-white/25">Profilimi Gör</RouterLink>
-    </MascotBanner>
-    <MascotBanner
-      v-else
-      mood="welcome"
-      :title="`Merhaba ${auth.displayName}`"
-      :message="`${auth.grade}. sınıf konuları aşağıda. Panelden ilerlemeni takip edebilirsin.`"
-    >
-      <RouterLink to="/panel" class="btn bg-white text-brand-700 hover:bg-brand-50">Öğrenci Paneli</RouterLink>
-      <RouterLink to="/konular" class="btn bg-white/15 text-white hover:bg-white/25">Konulara Göz At</RouterLink>
-    </MascotBanner>
+  <div class="mx-auto max-w-5xl space-y-12">
+    <!-- Giriş yapmış öğrenciye kısa karşılama -->
+    <template v-if="auth.isAuthenticated">
+      <MascotBanner
+        v-if="auth.user.profile?.is_birthday_today"
+        mood="celebrate"
+        :title="`İyi ki doğdun, ${auth.displayName}`"
+        :message="`Bugün ${auth.user.profile.age} yaşına girdin. Yeni yaşın sana iyi gelsin.`"
+      >
+        <RouterLink to="/profil" class="btn bg-white/15 text-white hover:bg-white/25">Profilimi Gör</RouterLink>
+      </MascotBanner>
+      <MascotBanner
+        v-else
+        mood="welcome"
+        :title="`Merhaba ${auth.displayName}`"
+        message="Aşağıdan sınıfını seçerek konu anlatımına ya da soru çözümüne geçebilirsin."
+      >
+        <a href="#sinif-sec" class="btn bg-white text-brand-700 hover:bg-brand-50">Sınıfını Seç</a>
+        <RouterLink to="/panel" class="btn bg-white/15 text-white hover:bg-white/25">Öğrenci Paneli</RouterLink>
+      </MascotBanner>
+    </template>
 
-    <section v-if="curriculum">
-      <div class="mb-3 flex items-end justify-between gap-2">
-        <div>
-          <h2 class="text-xl font-bold text-slate-900 dark:text-white">{{ curriculum.title }}</h2>
-          <p class="text-sm text-slate-500 dark:text-slate-400">{{ curriculum.program }}</p>
-        </div>
-      </div>
-      <div class="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
-        <article v-for="theme in curriculum.themes" :key="theme.id" class="card p-5">
-          <div class="flex items-center gap-3">
-            <span class="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-brand-600 text-sm font-bold text-white">
-              {{ theme.order }}
-            </span>
-            <h3 class="font-bold text-slate-900 dark:text-white">{{ theme.title }}</h3>
-          </div>
-          <p class="mt-2 text-sm text-slate-500 dark:text-slate-400">{{ theme.description }}</p>
-          <ul class="mt-3 space-y-1.5">
-            <li v-for="topic in theme.topics" :key="topic.id" class="flex items-center justify-between gap-2 text-sm">
-              <RouterLink
-                :to="{ name: 'topic-detail', params: { topicId: topic.id } }"
-                class="truncate font-semibold text-slate-700 hover:text-brand-600 dark:text-slate-200 dark:hover:text-brand-300"
-              >
-                {{ topic.title }}
-              </RouterLink>
-              <span v-if="topic.has_content" class="shrink-0 rounded-full bg-aqua-50 px-2 py-0.5 text-[11px] font-bold text-aqua-700 dark:bg-aqua-500/15 dark:text-aqua-300">
-                Anlatım hazır
-              </span>
-              <span v-else-if="topic.question_count" class="shrink-0 rounded-full bg-brand-50 px-2 py-0.5 text-[11px] font-bold text-brand-700 dark:bg-brand-500/15 dark:text-brand-300">
-                {{ topic.question_count }} soru
-              </span>
-            </li>
-          </ul>
-        </article>
-      </div>
-    </section>
-    <p v-if="loadError" class="text-sm font-semibold text-rose-600">{{ loadError }}</p>
-  </div>
-
-  <!-- Ziyaretçi -->
-  <div v-else class="mx-auto max-w-4xl space-y-10">
-    <section class="flex flex-col items-center gap-8 pt-4 sm:flex-row sm:items-center">
+    <!-- Tanıtım -->
+    <section v-else class="flex flex-col items-center gap-8 pt-4 sm:flex-row sm:items-center">
       <div class="flex-1 text-center sm:text-left">
         <h1 class="text-4xl font-bold leading-tight text-slate-900 dark:text-white sm:text-5xl">Lise matematiği, kendi hızında.</h1>
         <p class="mt-4 text-lg text-slate-600 dark:text-slate-300">
-          9, 10, 11 ve 12. sınıf konuları Maarif Modeli programına göre sıralı. Konuyu oku, soruları çöz,
-          nerede takıldığını gör.
+          OKTOPİ, 9–12. sınıf matematik konularını Türkiye Yüzyılı Maarif Modeli programına göre anlatan ve
+          soru çözerken nerede takıldığını gösteren bir öğrenme platformu.
         </p>
         <div class="mt-6 flex flex-wrap justify-center gap-3 sm:justify-start">
-          <RouterLink to="/kayit" class="btn-primary text-base">Hesap oluştur</RouterLink>
-          <RouterLink to="/giris" class="btn-secondary text-base">Giriş yap</RouterLink>
-          <RouterLink to="/konular" class="btn-ghost text-base">Kayıt olmadan incele →</RouterLink>
+          <a href="#sinif-sec" class="btn-primary text-base">Sınıfını seç</a>
+          <RouterLink to="/kayit" class="btn-secondary text-base">Hesap oluştur</RouterLink>
+          <RouterLink to="/giris" class="btn-ghost text-base">Giriş yap</RouterLink>
         </div>
       </div>
       <OktopiMascot mood="welcome" :size="200" class="shrink-0" />
     </section>
 
-    <section class="border-t border-slate-200 pt-8 dark:border-slate-800">
-      <h2 class="text-xl font-bold text-slate-900 dark:text-white">Neler var?</h2>
-      <dl class="mt-4 grid gap-x-10 gap-y-5 sm:grid-cols-2">
-        <div v-for="f in features" :key="f.title">
-          <dt class="font-semibold text-slate-900 dark:text-white">{{ f.title }}</dt>
-          <dd class="mt-1 text-slate-600 dark:text-slate-400">{{ f.text }}</dd>
-        </div>
-      </dl>
+    <!-- İçerik hakkında -->
+    <section>
+      <h2 class="text-xl font-bold text-slate-900 dark:text-white">OKTOPİ'de neler var?</h2>
+      <div class="mt-4 grid gap-4 sm:grid-cols-2">
+        <article v-for="f in features" :key="f.title" class="card overflow-hidden">
+          <img v-if="f.image" :src="f.image" :alt="f.title" class="aspect-[16/9] w-full object-cover" />
+          <div v-else class="flex aspect-[16/9] items-center justify-center bg-gradient-to-br from-brand-50 to-aqua-50 dark:from-brand-500/10 dark:to-aqua-500/10">
+            <component :is="f.icon" class="h-14 w-14 text-brand-500 dark:text-brand-300" aria-hidden="true" />
+          </div>
+          <div class="p-5">
+            <h3 class="font-bold text-slate-900 dark:text-white">{{ f.title }}</h3>
+            <p class="mt-1 text-sm text-slate-600 dark:text-slate-400">{{ f.text }}</p>
+          </div>
+        </article>
+      </div>
     </section>
 
-    <section v-if="grades.length" class="border-t border-slate-200 pt-8 dark:border-slate-800">
-      <h2 class="text-xl font-bold text-slate-900 dark:text-white">Sınıflar</h2>
-      <ul class="mt-4 divide-y divide-slate-200 rounded-xl border border-slate-200 bg-white dark:divide-slate-800 dark:border-slate-800 dark:bg-slate-900">
-        <li v-for="g in grades" :key="g.grade" class="flex items-center justify-between gap-3 px-4 py-3">
-          <span class="font-semibold text-slate-900 dark:text-white">{{ g.title }}</span>
-          <span class="text-sm text-slate-500 dark:text-slate-400">{{ g.theme_count }} tema, {{ g.topic_count }} konu</span>
+    <!-- Nasıl çalışır -->
+    <section>
+      <h2 class="text-xl font-bold text-slate-900 dark:text-white">Nasıl çalışır?</h2>
+      <ol class="mt-4 grid gap-4 sm:grid-cols-3">
+        <li v-for="(s, i) in steps" :key="s.title" class="flex gap-3">
+          <span class="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-brand-600 text-sm font-bold text-white">{{ i + 1 }}</span>
+          <div>
+            <p class="font-semibold text-slate-900 dark:text-white">{{ s.title }}</p>
+            <p class="text-sm text-slate-600 dark:text-slate-400">{{ s.text }}</p>
+          </div>
         </li>
-      </ul>
+      </ol>
     </section>
-    <p v-if="loadError" class="text-sm font-semibold text-rose-600">{{ loadError }}</p>
+
+    <!-- Sınıf seçimi -->
+    <section id="sinif-sec" class="scroll-mt-20 rounded-3xl bg-brand-50/70 p-6 dark:bg-brand-500/10 sm:p-8">
+      <div class="flex items-center gap-2">
+        <Lightbulb class="h-5 w-5 text-brand-600 dark:text-brand-300" aria-hidden="true" />
+        <h2 class="text-xl font-bold text-slate-900 dark:text-white">Kaçıncı sınıftasın?</h2>
+      </div>
+      <p class="mt-1 text-sm text-slate-600 dark:text-slate-400">Sınıfını seç, sonra konu anlatımı ya da soru çözümüyle devam et.</p>
+
+      <div class="mt-5 grid grid-cols-2 gap-3 lg:grid-cols-4">
+        <button
+          v-for="g in GRADES"
+          :key="g"
+          type="button"
+          class="card group flex flex-col items-start p-5 text-left transition hover:-translate-y-0.5 hover:border-brand-300 hover:shadow-md dark:hover:border-brand-500/50"
+          :class="{ 'ring-2 ring-brand-500': auth.isAuthenticated && g === gradeStore.ownGrade }"
+          @click="chooseGrade(g)"
+        >
+          <span class="text-3xl font-bold text-brand-700 dark:text-brand-300">{{ g }}.</span>
+          <span class="font-semibold text-slate-900 dark:text-white">Sınıf</span>
+          <span v-if="gradeSummary(g)" class="mt-2 text-xs text-slate-500 dark:text-slate-400">
+            {{ gradeSummary(g).theme_count }} tema · {{ gradeSummary(g).topic_count }} konu
+          </span>
+          <span v-if="auth.isAuthenticated && g === gradeStore.ownGrade" class="mt-2 rounded-full bg-brand-600 px-2 py-0.5 text-[11px] font-bold text-white">
+            Senin sınıfın
+          </span>
+          <ChevronRight class="mt-3 h-4 w-4 text-slate-400 transition group-hover:translate-x-0.5 group-hover:text-brand-600" aria-hidden="true" />
+        </button>
+      </div>
+      <p v-if="loadError" class="mt-3 text-sm font-semibold text-rose-600">{{ loadError }}</p>
+    </section>
   </div>
 </template>

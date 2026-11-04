@@ -151,7 +151,7 @@ class CurriculumApiTests(APISimpleTestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         topics = {t["id"]: t for th in response.data["themes"] for t in th["topics"]}
         self.assertTrue(topics["top-9-exp"]["has_content"])
-        self.assertEqual(topics["top-9-exp"]["question_count"], 7)
+        self.assertEqual(topics["top-9-exp"]["question_count"], 11)  # üslü (7) + köklü (4) ifadeler
 
     def test_invalid_grade_404(self):
         self.assertEqual(self.client.get(reverse("curriculum-grade-detail", args=[8])).status_code, 404)
@@ -172,7 +172,7 @@ class CurriculumApiTests(APISimpleTestCase):
             self.assertTrue(all({"name", "min", "max", "step", "value"} <= set(s) for s in viz["sliders"]))
 
     def test_topic_without_content(self):
-        response = self.client.get(reverse("curriculum-topic-detail", args=["top-12-integ"]))
+        response = self.client.get(reverse("curriculum-topic-detail", args=["top-12-poly"]))
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertFalse(response.data["has_content"])
         self.assertIsNone(response.data["content"])

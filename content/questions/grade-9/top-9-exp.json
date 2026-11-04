@@ -8,10 +8,10 @@
       "version": "1.0",
       "grade": 9,
       "topic_id": "top-9-exp",
-      "topic": "Üslü İfadeler ve Denklemler",
+      "topic": "Gerçel Sayıların Üslü ve Köklü Gösterimleriyle Yapılan İşlemler",
       "subtopic_id": "top-9-exp-neg",
       "subtopic": "Negatif Kuvvet",
-      "learning_outcome": "MAT.9.1.2",
+      "learning_outcome": "MAT.9.1.1",
       "difficulty": "medium",
       "question_text": "$-2^{-3}$ ifadesinin değeri kaçtır?",
       "options": [
@@ -55,10 +55,10 @@
       "version": "1.0",
       "grade": 9,
       "topic_id": "top-9-exp",
-      "topic": "Üslü İfadeler ve Denklemler",
+      "topic": "Gerçel Sayıların Üslü ve Köklü Gösterimleriyle Yapılan İşlemler",
       "subtopic_id": "top-9-exp-sign",
       "subtopic": "Negatif Tabanlar ve Parantez Kuralı",
-      "learning_outcome": "MAT.9.1.2",
+      "learning_outcome": "MAT.9.1.1",
       "difficulty": "easy",
       "question_text": "$-3^2 + (-3)^2$ işleminin sonucu kaçtır?",
       "options": [
@@ -102,10 +102,10 @@
       "version": "1.0",
       "grade": 9,
       "topic_id": "top-9-exp",
-      "topic": "Üslü İfadeler ve Denklemler",
+      "topic": "Gerçel Sayıların Üslü ve Köklü Gösterimleriyle Yapılan İşlemler",
       "subtopic_id": "top-9-exp-rules",
       "subtopic": "Üslü İfadelerde İşlem Kuralları",
-      "learning_outcome": "MAT.9.1.2",
+      "learning_outcome": "MAT.9.1.1",
       "difficulty": "easy",
       "question_text": "$2^3 \\cdot 2^4$ çarpımının eşiti aşağıdakilerden hangisidir?",
       "options": [
@@ -149,10 +149,10 @@
       "version": "1.0",
       "grade": 9,
       "topic_id": "top-9-exp",
-      "topic": "Üslü İfadeler ve Denklemler",
+      "topic": "Gerçel Sayıların Üslü ve Köklü Gösterimleriyle Yapılan İşlemler",
       "subtopic_id": "top-9-exp-rules",
       "subtopic": "Üslü İfadelerde İşlem Kuralları",
-      "learning_outcome": "MAT.9.1.2",
+      "learning_outcome": "MAT.9.1.1",
       "difficulty": "easy",
       "question_text": "$(2^3)^2$ ifadesinin eşiti aşağıdakilerden hangisidir?",
       "options": [
@@ -196,10 +196,10 @@
       "version": "1.0",
       "grade": 9,
       "topic_id": "top-9-exp",
-      "topic": "Üslü İfadeler ve Denklemler",
+      "topic": "Gerçel Sayıların Üslü ve Köklü Gösterimleriyle Yapılan İşlemler",
       "subtopic_id": "top-9-exp-def",
       "subtopic": "Üslü İfade Kavramı ve Sıfırıncı Kuvvet",
-      "learning_outcome": "MAT.9.1.2",
+      "learning_outcome": "MAT.9.1.1",
       "difficulty": "easy",
       "question_text": "$5^0 + 0^5$ işleminin sonucu kaçtır?",
       "options": [
@@ -243,10 +243,10 @@
       "version": "1.0",
       "grade": 9,
       "topic_id": "top-9-exp",
-      "topic": "Üslü İfadeler ve Denklemler",
+      "topic": "Gerçel Sayıların Üslü ve Köklü Gösterimleriyle Yapılan İşlemler",
       "subtopic_id": "top-9-exp-eq",
       "subtopic": "Üslü Denklemler",
-      "learning_outcome": "MAT.9.1.2",
+      "learning_outcome": "MAT.9.1.1",
       "difficulty": "medium",
       "question_text": "$3^{x+1} = 27$ olduğuna göre $x$ kaçtır?",
       "options": [
@@ -282,10 +282,10 @@
       "version": "1.0",
       "grade": 9,
       "topic_id": "top-9-exp",
-      "topic": "Üslü İfadeler ve Denklemler",
+      "topic": "Gerçel Sayıların Üslü ve Köklü Gösterimleriyle Yapılan İşlemler",
       "subtopic_id": "top-9-exp-neg",
       "subtopic": "Negatif Kuvvet",
-      "learning_outcome": "MAT.9.1.2",
+      "learning_outcome": "MAT.9.1.1",
       "difficulty": "medium",
       "question_text": "$\\left(\\frac{2}{3}\\right)^{-2}$ ifadesinin değeri kaçtır?",
       "options": [
@@ -323,6 +323,178 @@
         }
       ],
       "step_by_step_solution": "1. Negatif kuvvette kesir ters çevrilir, kuvvet pozitif olur: $\\left(\\frac{2}{3}\\right)^{-2} = \\left(\\frac{3}{2}\\right)^{2}$.\n2. Pay ve paydanın karesi alınır: $\\frac{9}{4}$."
+    },
+    {
+      "id": "q-9-root-001",
+      "version": "1.0",
+      "grade": 9,
+      "topic_id": "top-9-exp",
+      "topic": "Gerçel Sayıların Üslü ve Köklü Gösterimleriyle Yapılan İşlemler",
+      "subtopic_id": "top-9-root-def",
+      "subtopic": "Karekök Kavramı",
+      "learning_outcome": "MAT.9.1.1",
+      "difficulty": "easy",
+      "question_text": "$\\sqrt{9 + 16}$ işleminin sonucu kaçtır?",
+      "options": [
+        {
+          "key": "A",
+          "text": "$5$",
+          "is_correct": true,
+          "misconception_tag": null,
+          "misconception_detail": null,
+          "recommended_subtopic_id": null
+        },
+        {
+          "key": "B",
+          "text": "$7$",
+          "is_correct": false,
+          "misconception_tag": "MISC_ROOT_SUM_SPLIT",
+          "misconception_detail": "Toplamın karekökünü, kareköklerin toplamı gibi ayırma yanılgısı: $\\sqrt{9+16} = \\sqrt{9} + \\sqrt{16}$.",
+          "recommended_subtopic_id": "top-9-root-def"
+        },
+        {
+          "key": "C",
+          "text": "$25$",
+          "is_correct": false,
+          "misconception_tag": "MISC_ROOT_FORGET_ROOT",
+          "misconception_detail": "Kök içini hesaplayıp karekök almayı unutma.",
+          "recommended_subtopic_id": "top-9-root-def"
+        }
+      ],
+      "step_by_step_solution": "1. Önce kök içindeki işlemi yap: $9 + 16 = 25$.\n2. $\\sqrt{25} = 5$.\n3. Dikkat: $\\sqrt{9} + \\sqrt{16} = 7$ farklı bir işlemdir; karekök toplama üzerine dağılmaz."
+    },
+    {
+      "id": "q-9-root-002",
+      "version": "1.0",
+      "grade": 9,
+      "topic_id": "top-9-exp",
+      "topic": "Gerçel Sayıların Üslü ve Köklü Gösterimleriyle Yapılan İşlemler",
+      "subtopic_id": "top-9-root-simplify",
+      "subtopic": "Kök Dışına Çıkarma",
+      "learning_outcome": "MAT.9.1.1",
+      "difficulty": "easy",
+      "question_text": "$\\sqrt{50}$ ifadesinin en sade biçimi aşağıdakilerden hangisidir?",
+      "options": [
+        {
+          "key": "A",
+          "text": "$25\\sqrt{2}$",
+          "is_correct": false,
+          "misconception_tag": "MISC_ROOT_SIMPLIFY_NO_ROOT_ON_FACTOR",
+          "misconception_detail": "Tam kare çarpanı kök dışına çıkarırken karekökünü almayı unutma.",
+          "recommended_subtopic_id": "top-9-root-simplify"
+        },
+        {
+          "key": "B",
+          "text": "$5\\sqrt{2}$",
+          "is_correct": true,
+          "misconception_tag": null,
+          "misconception_detail": null,
+          "recommended_subtopic_id": null
+        },
+        {
+          "key": "C",
+          "text": "$2\\sqrt{5}$",
+          "is_correct": false,
+          "misconception_tag": "MISC_ROOT_SIMPLIFY_SWAPPED_FACTORS",
+          "misconception_detail": "Kök dışına çıkan ve içeride kalan çarpanların yerini karıştırma.",
+          "recommended_subtopic_id": "top-9-root-simplify"
+        },
+        {
+          "key": "D",
+          "text": "$5\\sqrt{10}$",
+          "is_correct": false,
+          "misconception_tag": "MISC_ROOT_SIMPLIFY_NON_SQUARE_FACTOR",
+          "misconception_detail": "Tam kare olmayan bir çarpanı ($5$) kök dışına olduğu gibi çıkarma yanılgısı.",
+          "recommended_subtopic_id": "top-9-root-simplify"
+        }
+      ],
+      "step_by_step_solution": "1. $50$'yi bir tam kare ile çarpım olarak yaz: $50 = 25 \\cdot 2$.\n2. $\\sqrt{50} = \\sqrt{25} \\cdot \\sqrt{2}$.\n3. $\\sqrt{25} = 5$ olduğundan sonuç $5\\sqrt{2}$ olur."
+    },
+    {
+      "id": "q-9-root-003",
+      "version": "1.0",
+      "grade": 9,
+      "topic_id": "top-9-exp",
+      "topic": "Gerçel Sayıların Üslü ve Köklü Gösterimleriyle Yapılan İşlemler",
+      "subtopic_id": "top-9-root-ops",
+      "subtopic": "Köklü İfadelerde Toplama ve Çıkarma",
+      "learning_outcome": "MAT.9.1.1",
+      "difficulty": "medium",
+      "question_text": "$\\sqrt{8} + \\sqrt{18}$ işleminin sonucu aşağıdakilerden hangisidir?",
+      "options": [
+        {
+          "key": "A",
+          "text": "$\\sqrt{26}$",
+          "is_correct": false,
+          "misconception_tag": "MISC_ROOT_SUM_UNDER_ONE_ROOT",
+          "misconception_detail": "Köklü ifadeleri toplarken kök içlerini toplama yanılgısı: $\\sqrt{a} + \\sqrt{b} = \\sqrt{a+b}$.",
+          "recommended_subtopic_id": "top-9-root-ops"
+        },
+        {
+          "key": "B",
+          "text": "$5\\sqrt{2}$",
+          "is_correct": true,
+          "misconception_tag": null,
+          "misconception_detail": null,
+          "recommended_subtopic_id": null
+        },
+        {
+          "key": "C",
+          "text": "$5\\sqrt{4}$",
+          "is_correct": false,
+          "misconception_tag": "MISC_ROOT_ADD_RADICANDS",
+          "misconception_detail": "Benzer köklü terimleri toplarken katsayılarla birlikte kök içlerini de toplama yanılgısı.",
+          "recommended_subtopic_id": "top-9-root-ops"
+        }
+      ],
+      "step_by_step_solution": "1. Her terimi sadeleştir: $\\sqrt{8} = 2\\sqrt{2}$, $\\sqrt{18} = 3\\sqrt{2}$.\n2. Kök içleri aynı olduğu için katsayılar toplanır: $2\\sqrt{2} + 3\\sqrt{2} = 5\\sqrt{2}$.\n3. Kök içi ($2$) değişmez."
+    },
+    {
+      "id": "q-9-root-004",
+      "version": "1.0",
+      "grade": 9,
+      "topic_id": "top-9-exp",
+      "topic": "Gerçel Sayıların Üslü ve Köklü Gösterimleriyle Yapılan İşlemler",
+      "subtopic_id": "top-9-root-rational",
+      "subtopic": "Paydayı Rasyonel Yapma",
+      "learning_outcome": "MAT.9.1.1",
+      "difficulty": "medium",
+      "question_text": "$\\frac{6}{\\sqrt{3}}$ ifadesinin paydası rasyonel yapılmış biçimi aşağıdakilerden hangisidir?",
+      "options": [
+        {
+          "key": "A",
+          "text": "$2\\sqrt{3}$",
+          "is_correct": true,
+          "misconception_tag": null,
+          "misconception_detail": null,
+          "recommended_subtopic_id": null
+        },
+        {
+          "key": "B",
+          "text": "$\\sqrt{2}$",
+          "is_correct": false,
+          "misconception_tag": "MISC_ROOT_DIVIDE_INTO_RADICAND",
+          "misconception_detail": "Kök dışındaki sayıyı kök içindeki sayıya bölüp sonucu kök içine yazma yanılgısı.",
+          "recommended_subtopic_id": "top-9-root-rational"
+        },
+        {
+          "key": "C",
+          "text": "$6\\sqrt{3}$",
+          "is_correct": false,
+          "misconception_tag": "MISC_ROOT_RATIONALIZE_FORGET_DENOMINATOR",
+          "misconception_detail": "Payı $\\sqrt{3}$ ile genişletip paydayı da genişletmeyi unutma.",
+          "recommended_subtopic_id": "top-9-root-rational"
+        },
+        {
+          "key": "D",
+          "text": "$\\frac{2\\sqrt{3}}{3}$",
+          "is_correct": false,
+          "misconception_tag": "MISC_ROOT_RATIONALIZE_SQUARE_DENOMINATOR",
+          "misconception_detail": "$\\sqrt{3} \\cdot \\sqrt{3}$ çarpımını $3$ yerine $9$ alma yanılgısı.",
+          "recommended_subtopic_id": "top-9-root-rational"
+        }
+      ],
+      "step_by_step_solution": "1. Pay ve paydayı $\\sqrt{3}$ ile genişlet: $\\frac{6 \\cdot \\sqrt{3}}{\\sqrt{3} \\cdot \\sqrt{3}}$.\n2. $\\sqrt{3} \\cdot \\sqrt{3} = 3$, yani $\\frac{6\\sqrt{3}}{3}$.\n3. Sadeleştir: $2\\sqrt{3}$."
     }
   ]
 }

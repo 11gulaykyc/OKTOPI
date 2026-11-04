@@ -18,7 +18,7 @@
       "period_label": "1. Dönem — 1. Ortak Yazılı",
       "start_date": null,
       "end_date": null,
-      "topic_ids": ["top-9-sets", "top-9-exp", "top-9-root"]
+      "topic_ids": ["top-9-exp", "top-9-intervals", "top-9-sets", "top-9-algebra"]
     },
     {
       "grade": 9,
@@ -36,7 +36,7 @@
       "period_label": "2. Dönem — 1. Ortak Yazılı",
       "start_date": null,
       "end_date": null,
-      "topic_ids": ["top-9-logic", "top-9-tri", "top-9-cong", "top-9-sim"]
+      "topic_ids": ["top-9-tri", "top-9-transform", "top-9-congsim", "top-9-simbuild", "top-9-theorems", "top-9-congsimprob"]
     },
     {
       "grade": 9,
@@ -45,7 +45,7 @@
       "period_label": "2. Dönem — 2. Ortak Yazılı",
       "start_date": null,
       "end_date": null,
-      "topic_ids": ["top-9-stat", "top-9-prob"]
+      "topic_ids": ["top-9-algo", "top-9-logic", "top-9-logicalgo", "top-9-stat", "top-9-statreview", "top-9-probexp", "top-9-probtheo"]
     }
   ],
   "preparation_tips": [

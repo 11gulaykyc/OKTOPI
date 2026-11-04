@@ -249,6 +249,6 @@ class ExamRequiresAuthTests(APITestCase):
 class RandomSelectionTests(ExamApiTestCase):
     def test_count_is_capped_by_pool(self):
         with mock.patch("apps.exams.services.random.sample", side_effect=lambda pool, k: list(pool)[:k]):
-            data = self.start("practice", topic_id="top-9-root", count=30).data
-        self.assertEqual(data["question_count"], len(get_repository().questions_for(topic_id="top-9-root")))
+            data = self.start("practice", topic_id="top-9-tri", count=30).data
+        self.assertEqual(data["question_count"], len(get_repository().questions_for(topic_id="top-9-tri")))
         self.assertEqual(PracticeSession.objects.get(pk=data["id"]).question_count, data["question_count"])

@@ -1,26 +1,31 @@
 {
   "grade": 11,
-  "version": "1.0",
+  "version": "2.0",
   "title": "11. Sınıf Matematik",
   "program": "Türkiye Yüzyılı Maarif Modeli — Ortaöğretim Matematik Dersi Öğretim Programı",
   "themes": [
     {
       "id": "th-11-1",
       "order": 1,
-      "title": "Trigonometri",
-      "description": "Yönlü açılar, trigonometrik oranlar ve fonksiyonlar.",
+      "title": "İstatistiksel Araştırma Süreci",
+      "description": "İki nicel değişkenli veriler.",
       "topics": [
         {
-          "id": "top-11-trig",
-          "title": "Trigonometri",
+          "id": "top-11-numdata",
+          "title": "İki Nicel Değişkenli Veriler",
           "learning_outcomes": [
-            { "code": "MAT.11.1.1", "text": "Birim çember yardımıyla trigonometrik fonksiyonları tanımlar ve değerlerini hesaplar." },
-            { "code": "MAT.11.1.2", "text": "Kosinüs ve sinüs teoremlerini kullanarak üçgen problemlerini çözer." }
+            { "code": "MAT.11.1.1", "text": "İki nicel değişkenli verileri düzenler, gösterir ve yorumlar." }
           ],
-          "subtopics": [
-            { "id": "top-11-trig-unit", "title": "Birim Çember ve Trigonometrik Fonksiyonlar" },
-            { "id": "top-11-trig-laws", "title": "Sinüs ve Kosinüs Teoremleri" }
+          "subtopics": [],
+          "content_file": null
+        },
+        {
+          "id": "top-11-numreview",
+          "title": "Başkaları Tarafından Oluşturulan İki Nicel Değişkenli Verileri İnceleme",
+          "learning_outcomes": [
+            { "code": "MAT.11.1.2", "text": "Başkaları tarafından oluşturulan iki nicel değişkenli verileri inceler." }
           ],
+          "subtopics": [],
           "content_file": null
         }
       ]
@@ -28,19 +33,52 @@
     {
       "id": "th-11-2",
       "order": 2,
-      "title": "Analitik Geometri",
-      "description": "Doğrunun analitik incelenmesi.",
+      "title": "Geometrik Şekiller",
+      "description": "Dörtgenler, özel dörtgenler ve çokgenler.",
       "topics": [
         {
-          "id": "top-11-line",
-          "title": "Doğrunun Analitik İncelenmesi",
+          "id": "top-11-quadri",
+          "title": "Dörtgenlerin Özellikleri",
           "learning_outcomes": [
-            { "code": "MAT.11.2.1", "text": "Doğrunun eğimini ve denklemini belirler; iki doğrunun durumunu inceler." }
+            { "code": "MAT.11.2.1", "text": "Dörtgenlerin özelliklerini inceler." }
           ],
-          "subtopics": [
-            { "id": "top-11-line-slope", "title": "Eğim ve Doğru Denklemi" },
-            { "id": "top-11-line-distance", "title": "Noktanın Doğruya Uzaklığı" }
+          "subtopics": [],
+          "content_file": null
+        },
+        {
+          "id": "top-11-specialquad",
+          "title": "Özel Dörtgenler Arasındaki İlişkiler",
+          "learning_outcomes": [
+            { "code": "MAT.11.2.2", "text": "Özel dörtgenler arasındaki ilişkileri açıklar." }
           ],
+          "subtopics": [],
+          "content_file": null
+        },
+        {
+          "id": "top-11-polyclass",
+          "title": "Çokgenlerin Sınıflandırılması",
+          "learning_outcomes": [
+            { "code": "MAT.11.2.3", "text": "Çokgenleri sınıflandırır." }
+          ],
+          "subtopics": [],
+          "content_file": null
+        },
+        {
+          "id": "top-11-convex",
+          "title": "Dış Bükey Çokgenlerin Özellikleri",
+          "learning_outcomes": [
+            { "code": "MAT.11.2.4", "text": "Dış bükey çokgenlerin özelliklerini inceler." }
+          ],
+          "subtopics": [],
+          "content_file": null
+        },
+        {
+          "id": "top-11-polyprob",
+          "title": "Çokgenlerle İlgili Problemler",
+          "learning_outcomes": [
+            { "code": "MAT.11.2.5", "text": "Çokgenlerle ilgili problemleri çözer." }
+          ],
+          "subtopics": [],
           "content_file": null
         }
       ]
@@ -48,26 +86,23 @@
     {
       "id": "th-11-3",
       "order": 3,
-      "title": "Nicelikler ve Değişimler",
-      "description": "İkinci dereceden fonksiyonlar ve denklem/eşitsizlik sistemleri.",
+      "title": "Nicelikler ve Değişimler 1",
+      "description": "Trigonometrik fonksiyonlar ve trigonometrik denklem problemleri.",
       "topics": [
         {
-          "id": "top-11-parab",
-          "title": "İkinci Dereceden Fonksiyonlar ve Parabol",
+          "id": "top-11-trig",
+          "title": "Trigonometrik Fonksiyonlar ve Nitel Özellikleri",
           "learning_outcomes": [
-            { "code": "MAT.11.3.1", "text": "İkinci dereceden fonksiyonun grafiğini katsayılara göre yorumlar." }
+            { "code": "MAT.11.3.1", "text": "Trigonometrik fonksiyonları ve nitel özelliklerini inceler." }
           ],
-          "subtopics": [
-            { "id": "top-11-parab-vertex", "title": "Tepe Noktası ve Simetri Ekseni" },
-            { "id": "top-11-parab-coef", "title": "Katsayıların Grafiğe Etkisi" }
-          ],
+          "subtopics": [],
           "content_file": null
         },
         {
-          "id": "top-11-system",
-          "title": "Denklem ve Eşitsizlik Sistemleri",
+          "id": "top-11-trigeq",
+          "title": "Trigonometrik Fonksiyonlarla İfade Edilebilen Denklemler İçeren Problemler",
           "learning_outcomes": [
-            { "code": "MAT.11.3.2", "text": "İkinci dereceden denklem ve eşitsizlik sistemlerini çözer." }
+            { "code": "MAT.11.3.2", "text": "Trigonometrik fonksiyonlarla ifade edilebilen denklemler içeren problemleri çözer." }
           ],
           "subtopics": [],
           "content_file": null
@@ -77,19 +112,43 @@
     {
       "id": "th-11-4",
       "order": 4,
-      "title": "Geometrik Şekiller",
-      "description": "Çember ve daire.",
+      "title": "Nicelikler ve Değişimler 2",
+      "description": "Üstel ve logaritmik fonksiyonlar, ters fonksiyonlar, denklem ve eşitsizlik problemleri.",
       "topics": [
         {
-          "id": "top-11-circle",
-          "title": "Çember ve Daire",
+          "id": "top-11-expfunc",
+          "title": "Üstel Fonksiyonlar ve Nitel Özellikleri",
           "learning_outcomes": [
-            { "code": "MAT.11.4.1", "text": "Çemberde açı, yay ve teğet özelliklerini kullanarak problemler çözer." }
+            { "code": "MAT.11.4.1", "text": "Üstel fonksiyonları ve nitel özelliklerini inceler." }
           ],
-          "subtopics": [
-            { "id": "top-11-circle-angles", "title": "Çemberde Açılar" },
-            { "id": "top-11-circle-area", "title": "Dairenin Çevresi ve Alanı" }
+          "subtopics": [],
+          "content_file": null
+        },
+        {
+          "id": "top-11-expinv",
+          "title": "Üstel Fonksiyonların Ters Fonksiyonları",
+          "learning_outcomes": [
+            { "code": "MAT.11.4.2", "text": "Üstel fonksiyonların ters fonksiyonlarını bulur." }
           ],
+          "subtopics": [],
+          "content_file": null
+        },
+        {
+          "id": "top-11-logfunc",
+          "title": "Logaritmik Fonksiyonlar ve Nitel Özellikleri",
+          "learning_outcomes": [
+            { "code": "MAT.11.4.3", "text": "Logaritmik fonksiyonları ve nitel özelliklerini inceler." }
+          ],
+          "subtopics": [],
+          "content_file": null
+        },
+        {
+          "id": "top-11-explogprob",
+          "title": "Üstel ve Logaritmik Fonksiyonlarla İfade Edilebilen Denklem ve Eşitsizlikler İçeren Problemler",
+          "learning_outcomes": [
+            { "code": "MAT.11.4.4", "text": "Üstel ve logaritmik fonksiyonlarla ifade edilebilen denklem ve eşitsizlikler içeren problemleri çözer." }
+          ],
+          "subtopics": [],
           "content_file": null
         }
       ]
@@ -97,14 +156,23 @@
     {
       "id": "th-11-5",
       "order": 5,
-      "title": "Veriden Olasılığa",
-      "description": "Koşullu olasılık ve deneysel olasılık.",
+      "title": "Nicelikler ve Değişimler 3",
+      "description": "Fonksiyonların bileşkesi ve fonksiyonlarda dört işlem.",
       "topics": [
         {
-          "id": "top-11-prob",
-          "title": "Koşullu Olasılık",
+          "id": "top-11-compose",
+          "title": "Fonksiyonların Bileşkesi",
           "learning_outcomes": [
-            { "code": "MAT.11.5.1", "text": "Koşullu olasılığı hesaplar ve günlük hayat durumlarında yorumlar." }
+            { "code": "MAT.11.5.1", "text": "Fonksiyonların bileşkesini bulur ve yorumlar." }
+          ],
+          "subtopics": [],
+          "content_file": null
+        },
+        {
+          "id": "top-11-funcops",
+          "title": "Fonksiyonlarda Dört İşlem",
+          "learning_outcomes": [
+            { "code": "MAT.11.5.2", "text": "Fonksiyonlarda dört işlem yapar." }
           ],
           "subtopics": [],
           "content_file": null

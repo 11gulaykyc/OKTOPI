@@ -1,6 +1,6 @@
 {
   "grade": 9,
-  "version": "1.0",
+  "version": "2.0",
   "title": "9. Sınıf Matematik",
   "program": "Türkiye Yüzyılı Maarif Modeli — Ortaöğretim Matematik Dersi Öğretim Programı",
   "themes": [
@@ -8,47 +8,52 @@
       "id": "th-9-1",
       "order": 1,
       "title": "Sayılar",
-      "description": "Sayı kümeleri, gerçek sayılar, üslü ve köklü ifadelerle işlemler.",
+      "description": "Üslü ve köklü gösterimler, gerçel sayı aralıkları, sayı kümeleri ve işlem özellikleri.",
       "topics": [
         {
-          "id": "top-9-sets",
-          "title": "Sayı Kümeleri ve Gerçek Sayılar",
-          "learning_outcomes": [
-            { "code": "MAT.9.1.1", "text": "Sayı kümelerini ve aralarındaki ilişkileri gerçek sayı ekseni üzerinde açıklar." }
-          ],
-          "subtopics": [
-            { "id": "top-9-sets-kinds", "title": "Sayı Kümeleri" },
-            { "id": "top-9-sets-intervals", "title": "Gerçek Sayı Aralıkları" }
-          ],
-          "content_file": null
-        },
-        {
           "id": "top-9-exp",
-          "title": "Üslü İfadeler ve Denklemler",
+          "title": "Gerçel Sayıların Üslü ve Köklü Gösterimleriyle Yapılan İşlemler",
           "learning_outcomes": [
-            { "code": "MAT.9.1.2", "text": "Üslü ifadelerin özelliklerini kullanarak işlemler yapar ve üslü denklemleri çözer." }
+            { "code": "MAT.9.1.1", "text": "Gerçel sayıların üslü ve köklü gösterimleriyle işlemler yapar." }
           ],
           "subtopics": [
             { "id": "top-9-exp-def", "title": "Üslü İfade Kavramı ve Sıfırıncı Kuvvet" },
             { "id": "top-9-exp-sign", "title": "Negatif Tabanlar ve Parantez Kuralı" },
             { "id": "top-9-exp-neg", "title": "Negatif Kuvvet" },
             { "id": "top-9-exp-rules", "title": "Üslü İfadelerde İşlem Kuralları" },
-            { "id": "top-9-exp-eq", "title": "Üslü Denklemler" }
-          ],
-          "content_file": "topics/top-9-exp.json"
-        },
-        {
-          "id": "top-9-root",
-          "title": "Köklü İfadeler",
-          "learning_outcomes": [
-            { "code": "MAT.9.1.3", "text": "Köklü ifadeleri sadeleştirir, köklü ifadelerle dört işlem yapar ve paydayı rasyonel yapar." }
-          ],
-          "subtopics": [
+            { "id": "top-9-exp-eq", "title": "Üslü Denklemler" },
             { "id": "top-9-root-def", "title": "Karekök Kavramı" },
             { "id": "top-9-root-simplify", "title": "Kök Dışına Çıkarma" },
             { "id": "top-9-root-ops", "title": "Köklü İfadelerde Toplama ve Çıkarma" },
             { "id": "top-9-root-rational", "title": "Paydayı Rasyonel Yapma" }
           ],
+          "content_file": "topics/top-9-exp.json"
+        },
+        {
+          "id": "top-9-intervals",
+          "title": "Gerçel Sayı Aralıklarının Gösterimi ve Aralıklarla İlgili İşlemlerde Küme Sembollerinin Kullanımı",
+          "learning_outcomes": [
+            { "code": "MAT.9.1.2", "text": "Gerçel sayı aralıklarını gösterir ve aralıklarla ilgili işlemlerde küme sembollerini kullanır." }
+          ],
+          "subtopics": [],
+          "content_file": null
+        },
+        {
+          "id": "top-9-sets",
+          "title": "Sayı Kümeleri ve İşlem Özellikleri",
+          "learning_outcomes": [
+            { "code": "MAT.9.1.3", "text": "Sayı kümelerini ve bu kümelerde işlemlerin özelliklerini açıklar." }
+          ],
+          "subtopics": [],
+          "content_file": null
+        },
+        {
+          "id": "top-9-algebra",
+          "title": "Gerçel Sayıların İşlem Özelliklerini Cebirsel Olarak İfade Etme",
+          "learning_outcomes": [
+            { "code": "MAT.9.1.4", "text": "Gerçel sayıların işlem özelliklerini cebirsel olarak ifade eder." }
+          ],
+          "subtopics": [],
           "content_file": null
         }
       ]
@@ -57,13 +62,13 @@
       "id": "th-9-2",
       "order": 2,
       "title": "Nicelikler ve Değişimler",
-      "description": "Fonksiyon kavramı, doğrusal fonksiyonlar, mutlak değer, denklem ve eşitsizlikler.",
+      "description": "Doğrusal fonksiyonlar, mutlak değer fonksiyonu, denklem ve eşitsizlik problemleri.",
       "topics": [
         {
           "id": "top-9-func",
-          "title": "Fonksiyon Kavramı ve Doğrusal Fonksiyonlar",
+          "title": "Doğrusal Fonksiyonlar ve Nitel Özellikleri",
           "learning_outcomes": [
-            { "code": "MAT.9.2.1", "text": "Doğrusal fonksiyonları tablo, grafik ve cebirsel ifadeyle temsil eder; eğimi yorumlar." }
+            { "code": "MAT.9.2.1", "text": "Doğrusal fonksiyonları ve nitel özelliklerini tablo, grafik ve cebirsel ifadeyle inceler." }
           ],
           "subtopics": [
             { "id": "top-9-func-def", "title": "Fonksiyon Kavramı" },
@@ -74,53 +79,18 @@
         },
         {
           "id": "top-9-abs",
-          "title": "Mutlak Değer",
+          "title": "Mutlak Değer Fonksiyonu ve Nitel Özellikleri",
           "learning_outcomes": [
-            { "code": "MAT.9.2.2", "text": "Mutlak değer kavramını sayı ekseninde uzaklık olarak açıklar ve mutlak değerli denklemleri çözer." }
+            { "code": "MAT.9.2.2", "text": "Mutlak değer fonksiyonunu ve nitel özelliklerini inceler." }
           ],
-          "subtopics": [
-            { "id": "top-9-abs-def", "title": "Mutlak Değer Kavramı" },
-            { "id": "top-9-abs-eq", "title": "Mutlak Değerli Denklemler" }
-          ],
+          "subtopics": [],
           "content_file": null
         },
         {
           "id": "top-9-ineq",
-          "title": "Denklem ve Eşitsizlikler",
+          "title": "Doğrusal Fonksiyonlarla İfade Edilebilen Denklem ve Eşitsizlikler İçeren Problemler",
           "learning_outcomes": [
-            { "code": "MAT.9.2.3", "text": "Birinci dereceden denklem ve eşitsizlikleri gerçek hayat problemleriyle ilişkilendirerek çözer." }
-          ],
-          "subtopics": [
-            { "id": "top-9-ineq-linear", "title": "Birinci Dereceden Eşitsizlikler" },
-            { "id": "top-9-ineq-system", "title": "Denklem Sistemleri" }
-          ],
-          "content_file": null
-        }
-      ]
-    },
-    {
-      "id": "th-9-3",
-      "order": 3,
-      "title": "Algoritma ve Bilişim",
-      "description": "Mantık, önermeler ve algoritmik düşünme.",
-      "topics": [
-        {
-          "id": "top-9-logic",
-          "title": "Mantık ve Önermeler",
-          "learning_outcomes": [
-            { "code": "MAT.9.3.1", "text": "Önermeleri, bağlaçları ve niceleyicileri kullanarak matematiksel ifadeleri yorumlar." }
-          ],
-          "subtopics": [
-            { "id": "top-9-logic-prop", "title": "Önermeler ve Bağlaçlar" },
-            { "id": "top-9-logic-quant", "title": "Niceleyiciler" }
-          ],
-          "content_file": null
-        },
-        {
-          "id": "top-9-algo",
-          "title": "Algoritma ve Akış Şemaları",
-          "learning_outcomes": [
-            { "code": "MAT.9.3.2", "text": "Bir problemin çözümü için algoritma ve akış şeması oluşturur." }
+            { "code": "MAT.9.2.3", "text": "Doğrusal fonksiyonlarla ifade edilebilen denklem ve eşitsizlikler içeren problemleri çözer." }
           ],
           "subtopics": [],
           "content_file": null
@@ -128,19 +98,16 @@
       ]
     },
     {
-      "id": "th-9-4",
-      "order": 4,
+      "id": "th-9-3",
+      "order": 3,
       "title": "Geometrik Şekiller",
-      "description": "Üçgenlerde açılar, kenarlar, dik üçgen ve alan.",
+      "description": "Üçgende açı ve kenar özellikleri ile bu özellikler arasındaki ilişkiler.",
       "topics": [
         {
           "id": "top-9-tri",
-          "title": "Üçgenler",
+          "title": "Üçgende Açı ve Kenarla İlgili Özellikler ve Bu Özellikler Arasındaki İlişkiler",
           "learning_outcomes": [
-            { "code": "MAT.9.4.1", "text": "Üçgenin iç ve dış açılarının özelliklerini kullanarak problemler çözer." },
-            { "code": "MAT.9.4.2", "text": "Üçgen eşitsizliğini kullanarak kenar uzunlukları arasındaki ilişkiyi belirler." },
-            { "code": "MAT.9.4.3", "text": "Pisagor bağıntısını kullanarak dik üçgende kenar uzunluklarını hesaplar." },
-            { "code": "MAT.9.4.4", "text": "Üçgenin alanını farklı yollarla hesaplar." }
+            { "code": "MAT.9.3.1", "text": "Üçgende açı ve kenarla ilgili özellikleri ve bu özellikler arasındaki ilişkileri inceler." }
           ],
           "subtopics": [
             { "id": "top-9-tri-angles", "title": "Üçgende İç ve Dış Açılar" },
@@ -153,25 +120,87 @@
       ]
     },
     {
-      "id": "th-9-5",
-      "order": 5,
+      "id": "th-9-4",
+      "order": 4,
       "title": "Eşlik ve Benzerlik",
-      "description": "Üçgenlerde eşlik ve benzerlik kuralları.",
+      "description": "Geometrik dönüşümler, eşlik ve benzerlik koşulları, Thales, Öklit ve Pisagor teoremleri.",
       "topics": [
         {
-          "id": "top-9-cong",
-          "title": "Üçgenlerde Eşlik",
+          "id": "top-9-transform",
+          "title": "Geometrik Dönüşümler",
           "learning_outcomes": [
-            { "code": "MAT.9.5.1", "text": "Üçgenlerde eşlik şartlarını açıklar ve problemlerde kullanır." }
+            { "code": "MAT.9.4.1", "text": "Geometrik dönüşümleri inceler." }
           ],
           "subtopics": [],
           "content_file": null
         },
         {
-          "id": "top-9-sim",
-          "title": "Üçgenlerde Benzerlik",
+          "id": "top-9-congsim",
+          "title": "Eşlik ve Benzerlik Koşulları",
           "learning_outcomes": [
-            { "code": "MAT.9.5.2", "text": "Üçgenlerde benzerlik şartlarını açıklar ve benzerlik oranını kullanarak problemler çözer." }
+            { "code": "MAT.9.4.2", "text": "Üçgenlerde eşlik ve benzerlik koşullarını açıklar." }
+          ],
+          "subtopics": [],
+          "content_file": null
+        },
+        {
+          "id": "top-9-simbuild",
+          "title": "Benzer Üçgenler Oluşturma",
+          "learning_outcomes": [
+            { "code": "MAT.9.4.3", "text": "Benzer üçgenler oluşturur." }
+          ],
+          "subtopics": [],
+          "content_file": null
+        },
+        {
+          "id": "top-9-theorems",
+          "title": "Thales, Öklit ve Pisagor Teoremleri",
+          "learning_outcomes": [
+            { "code": "MAT.9.4.4", "text": "Thales, Öklit ve Pisagor teoremlerini açıklar ve problemlerde kullanır." }
+          ],
+          "subtopics": [],
+          "content_file": null
+        },
+        {
+          "id": "top-9-congsimprob",
+          "title": "Eşlik ve Benzerlik Problemleri",
+          "learning_outcomes": [
+            { "code": "MAT.9.4.5", "text": "Eşlik ve benzerlik içeren problemleri çözer." }
+          ],
+          "subtopics": [],
+          "content_file": null
+        }
+      ]
+    },
+    {
+      "id": "th-9-5",
+      "order": 5,
+      "title": "Algoritma ve Bilişim",
+      "description": "Algoritma temelli problemler, mantık bağlaçları ve niceleyiciler.",
+      "topics": [
+        {
+          "id": "top-9-algo",
+          "title": "Algoritma Temelli Problemler",
+          "learning_outcomes": [
+            { "code": "MAT.9.5.1", "text": "Algoritma temelli problemleri çözer." }
+          ],
+          "subtopics": [],
+          "content_file": null
+        },
+        {
+          "id": "top-9-logic",
+          "title": "Mantık Bağlaçları ve Niceleyiciler",
+          "learning_outcomes": [
+            { "code": "MAT.9.5.2", "text": "Mantık bağlaçlarını ve niceleyicileri kullanarak matematiksel ifadeleri yorumlar." }
+          ],
+          "subtopics": [],
+          "content_file": null
+        },
+        {
+          "id": "top-9-logicalgo",
+          "title": "Mantık Bağlaçları ve Niceleyicilerin Algoritmik Problemlerde Kullanımı",
+          "learning_outcomes": [
+            { "code": "MAT.9.5.3", "text": "Mantık bağlaçlarını ve niceleyicileri algoritmik problemlerde kullanır." }
           ],
           "subtopics": [],
           "content_file": null
@@ -182,13 +211,22 @@
       "id": "th-9-6",
       "order": 6,
       "title": "İstatistiksel Araştırma Süreci",
-      "description": "Veri toplama, düzenleme, gösterme ve yorumlama.",
+      "description": "Tek nicel değişkenli veri dağılımları.",
       "topics": [
         {
           "id": "top-9-stat",
-          "title": "Veri Toplama ve Analiz",
+          "title": "Tek Nicel Değişkenli Veri Dağılımları",
           "learning_outcomes": [
-            { "code": "MAT.9.6.1", "text": "Bir araştırma sorusu için veri toplar, uygun grafikle gösterir ve merkezi eğilim ölçüleriyle yorumlar." }
+            { "code": "MAT.9.6.1", "text": "Tek nicel değişkenli veri dağılımlarını oluşturur ve yorumlar." }
+          ],
+          "subtopics": [],
+          "content_file": null
+        },
+        {
+          "id": "top-9-statreview",
+          "title": "Başkaları Tarafından Oluşturulan Tek Nicel Değişkenli Veri Dağılımlarını İnceleme",
+          "learning_outcomes": [
+            { "code": "MAT.9.6.2", "text": "Başkaları tarafından oluşturulan tek nicel değişkenli veri dağılımlarını inceler." }
           ],
           "subtopics": [],
           "content_file": null
@@ -202,10 +240,19 @@
       "description": "Deneysel ve teorik olasılık.",
       "topics": [
         {
-          "id": "top-9-prob",
-          "title": "Olasılık",
+          "id": "top-9-probexp",
+          "title": "Deneysel Olasılık",
           "learning_outcomes": [
-            { "code": "MAT.9.7.1", "text": "Deneysel ve teorik olasılığı karşılaştırarak olayların olasılığını hesaplar." }
+            { "code": "MAT.9.7.1", "text": "Deneysel olasılığı hesaplar ve yorumlar." }
+          ],
+          "subtopics": [],
+          "content_file": null
+        },
+        {
+          "id": "top-9-probtheo",
+          "title": "Teorik Olasılık",
+          "learning_outcomes": [
+            { "code": "MAT.9.7.2", "text": "Teorik olasılığı hesaplar ve deneysel olasılıkla karşılaştırır." }
           ],
           "subtopics": [],
           "content_file": null

@@ -41,6 +41,18 @@ const routes = [
     meta: { requiresAuth: true, title: 'Öğrenci Paneli' },
   },
   {
+    path: '/sinif/:grade(9|10|11|12)',
+    name: 'grade-hub',
+    component: () => import('@/views/learning/GradeHubView.vue'),
+    meta: { title: 'Sınıf' },
+  },
+  {
+    path: '/sinif/:grade(9|10|11|12)/soru-coz',
+    name: 'practice-topics',
+    component: () => import('@/views/practice/PracticeTopicsView.vue'),
+    meta: { title: 'Soru Çözümü' },
+  },
+  {
     path: '/konular',
     name: 'topics',
     component: () => import('@/views/learning/TopicListView.vue'),
@@ -122,6 +134,7 @@ const router = createRouter({
   routes,
   scrollBehavior(to, from, saved) {
     if (saved) return saved
+    if (to.hash) return { el: to.hash, top: 80 } // ör. /#sinif-sec → ana sayfadaki sınıf seçimi
     // Aynı sayfada yalnızca sorgu değişiyorsa (ör. konu içi bölüm geçişi) kaydırmayı sayfa yönetir.
     if (to.path === from.path) return false
     return { top: 0 }

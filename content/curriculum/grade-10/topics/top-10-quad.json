@@ -2,7 +2,7 @@
   "id": "top-10-quad",
   "version": "1.0",
   "grade": 10,
-  "theme_id": "th-10-2",
+  "theme_id": "th-10-4",
   "title": "İkinci Dereceden Denklemler",
   "summary": "İkinci dereceden denklemleri çözüyor, diskriminantın kök sayısını nasıl haber verdiğini ve katsayıların parabolü nasıl şekillendirdiğini görüyoruz.",
   "estimated_minutes": 40,
