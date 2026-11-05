@@ -1,6 +1,8 @@
 <script setup>
 import { computed, ref, watch } from 'vue'
+import { useRoute } from 'vue-router'
 import OktopiMascot from './OktopiMascot.vue'
+import { getMascot } from '@/assets/mascot'
 
 /**
  * Bağlama göre değişen ahtapot geri bildirimi.
@@ -14,7 +16,11 @@ const props = defineProps({
   message: { type: String, default: '' },
   name: { type: String, default: '' },
   compact: { type: Boolean, default: false },
+  character: { type: String, default: '' },
 })
+
+const route = useRoute()
+const mascot = computed(() => getMascot(props.character || route?.meta?.mascot))
 
 const STATES = {
   welcome: {
@@ -83,8 +89,11 @@ const messageText = computed(() => props.message || config.value.messages[index.
     :class="[config.tone, compact ? '' : 'sm:p-4']"
     :role="state === 'struggle' || state === 'correct' ? 'status' : undefined"
   >
-    <OktopiMascot :mood="config.mood" :size="compact ? 56 : 80" class="shrink-0" />
+    <OktopiMascot :character="mascot.key" :mood="config.mood" :size="compact ? 56 : 80" class="shrink-0" />
     <div class="min-w-0 flex-1">
+      <p v-if="!compact" class="text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">
+        {{ mascot.name }} · {{ mascot.title }}
+      </p>
       <p class="font-bold text-slate-900 dark:text-white" :class="compact ? 'text-sm' : 'text-base sm:text-lg'">
         {{ titleText }}
       </p>

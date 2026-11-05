@@ -9,114 +9,116 @@ import { useAuthStore } from '@/stores/auth'
  *   bare             → uygulama iskeleti (navbar/sidebar) olmadan çizilir
  *   keepStudyActive  → fare/klavye hareketi olmasa da çalışma süresi sayılır (ör. süreli test)
  *   title            → sekme başlığı
+ *   mascot           → bölümün rehber maskotu: navigator (Kaptan Pusula) · tenebris (Dr. Tenebris) · nori (Arşivci Nori)
  */
 const routes = [
   {
     path: '/',
     name: 'home',
     component: () => import('@/views/auth/HomeView.vue'),
+    meta: { mascot: 'navigator' },
   },
   {
     path: '/giris',
     name: 'login',
     component: () => import('@/views/auth/LoginView.vue'),
-    meta: { guestOnly: true, bare: true, title: 'Giriş Yap' },
+    meta: { mascot: 'navigator', guestOnly: true, bare: true, title: 'Giriş Yap' },
   },
   {
     path: '/kayit',
     name: 'register',
     component: () => import('@/views/auth/RegisterView.vue'),
-    meta: { guestOnly: true, bare: true, title: 'Kayıt Ol' },
+    meta: { mascot: 'navigator', guestOnly: true, bare: true, title: 'Kayıt Ol' },
   },
   {
     path: '/profil',
     name: 'profile',
     component: () => import('@/views/auth/ProfileView.vue'),
-    meta: { requiresAuth: true, title: 'Profilim' },
+    meta: { mascot: 'nori', requiresAuth: true, title: 'Profilim' },
   },
   {
     path: '/panel',
     name: 'dashboard',
     component: () => import('@/views/dashboard/StudentDashboardView.vue'),
-    meta: { requiresAuth: true, title: 'Öğrenci Paneli' },
+    meta: { mascot: 'navigator', requiresAuth: true, title: 'Öğrenci Paneli' },
   },
   {
     path: '/sinif/:grade(9|10|11|12)',
     name: 'grade-hub',
     component: () => import('@/views/learning/GradeHubView.vue'),
-    meta: { title: 'Sınıf' },
+    meta: { mascot: 'navigator', title: 'Sınıf' },
   },
   {
     path: '/sinif/:grade(9|10|11|12)/soru-coz',
     name: 'practice-topics',
     component: () => import('@/views/practice/PracticeTopicsView.vue'),
-    meta: { title: 'Soru Çözümü' },
+    meta: { mascot: 'tenebris', title: 'Soru Çözümü' },
   },
   {
     path: '/konular',
     name: 'topics',
     component: () => import('@/views/learning/TopicListView.vue'),
-    meta: { title: 'Konular' },
+    meta: { mascot: 'navigator', title: 'Konular' },
   },
   {
     path: '/konular/:topicId',
     name: 'topic-detail',
     component: () => import('@/views/learning/TopicDetailView.vue'),
-    meta: { title: 'Konu Anlatımı' },
+    meta: { mascot: 'navigator', title: 'Konu Anlatımı' },
   },
   {
     path: '/oyss',
     name: 'oyss',
     component: () => import('@/views/learning/OyssView.vue'),
-    meta: { title: 'OYSS Hazırlık' },
+    meta: { mascot: 'nori', title: 'OYSS Hazırlık' },
   },
   {
     path: '/baslangic-testi',
     name: 'diagnostic',
     component: () => import('@/views/auth/DiagnosticView.vue'),
-    meta: { requiresAuth: true, title: 'Başlangıç Seviye Testi' },
+    meta: { mascot: 'navigator', requiresAuth: true, title: 'Başlangıç Seviye Testi' },
   },
   {
     path: '/soru-coz',
     name: 'practice',
     component: () => import('@/views/practice/QuestionPracticeView.vue'),
-    meta: { requiresAuth: true, title: 'Soru Çöz' },
+    meta: { mascot: 'tenebris', requiresAuth: true, title: 'Soru Çöz' },
   },
   {
     path: '/soru-coz/:sessionId(\\d+)',
     name: 'practice-session',
     component: () => import('@/views/practice/QuestionPracticeView.vue'),
-    meta: { requiresAuth: true, title: 'Soru Çöz' },
+    meta: { mascot: 'tenebris', requiresAuth: true, title: 'Soru Çöz' },
   },
   {
     path: '/sureli-test',
     name: 'timed',
     component: () => import('@/views/practice/TimedExamView.vue'),
-    meta: { requiresAuth: true, title: 'Süreli Test' },
+    meta: { mascot: 'tenebris', requiresAuth: true, title: 'Süreli Test' },
   },
   {
     path: '/sureli-test/:sessionId(\\d+)',
     name: 'timed-session',
     component: () => import('@/views/practice/TimedExamView.vue'),
-    meta: { requiresAuth: true, keepStudyActive: true, title: 'Süreli Test' },
+    meta: { mascot: 'tenebris', requiresAuth: true, keepStudyActive: true, title: 'Süreli Test' },
   },
   {
     path: '/sonuc/:type(practice|timed)/:sessionId(\\d+)',
     name: 'exam-result',
     component: () => import('@/views/practice/ExamResultView.vue'),
-    meta: { requiresAuth: true, title: 'Sonuçlar' },
+    meta: { mascot: 'tenebris', requiresAuth: true, title: 'Sonuçlar' },
   },
   {
     path: '/hata-analizi',
     name: 'error-analysis',
     component: () => import('@/views/dashboard/ErrorAnalysisView.vue'),
-    meta: { requiresAuth: true, title: 'Hata Analizi' },
+    meta: { mascot: 'tenebris', requiresAuth: true, title: 'Hata Analizi' },
   },
   {
     path: '/hedeflerim',
     name: 'goals',
     component: () => import('@/views/dashboard/GoalsView.vue'),
-    meta: { requiresAuth: true, title: 'Hedeflerim' },
+    meta: { mascot: 'nori', requiresAuth: true, title: 'Hedeflerim' },
   },
   { path: '/:pathMatch(.*)*', redirect: '/' },
 ]

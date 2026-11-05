@@ -1,18 +1,40 @@
 /**
- * OKTOPİ ahtapot maskotu — duygu durumu → görsel eşlemesi.
+ * OKTOPİ maskot ailesi — her bölümün kendi rehber ahtapotu vardır.
  *
- * Gerçek 3D maskot görselleri hazır olduğunda:
- *   1. Dosyaları bu klasöre koyun (ör. welcome.png, happy.png ...). Önerilen: şeffaf arka planlı,
- *      kare (en az 512x512) PNG veya WebP.
- *   2. Aşağıdaki ilgili satırı `new URL('./welcome.png', import.meta.url).href` biçiminde doldurun.
- * Değeri null olan durumlar için yerleşik SVG yer tutucu çizilir.
+ *   navigator → Kaptan Pusula   : öğrenme yolculuğu (ana sayfa, panel, sınıf/konu anlatımı)
+ *   tenebris  → Dr. Tenebris    : soru çözümü, süreli test, sonuçlar ve hata analizi
+ *   nori      → Arşivci Nori    : OYSS hazırlık, hedefler ve profil
+ *
+ * Hangi maskotun görüneceği rotanın `meta.mascot` alanından okunur (bkz. router/index.js);
+ * bileşenlere `character` prop'u verilerek elle de seçilebilir.
+ * Duygu durumları (mood) ayrı görsel yerine animasyon + küçük durum balonu ile gösterilir.
  */
-export const MASCOT_IMAGES = {
-  welcome: null, // Karşılama: el sallayan, gülümseyen
-  happy: null, // Doğru cevap: mutlu
-  celebrate: null, // Rozet / hedef kazanımı: kutlama
-  thinking: null, // Düşünme / ipucu
-  encourage: null, // Zorlanma / hata: teşvik edici, şefkatli
+export const MASCOTS = {
+  navigator: {
+    key: 'navigator',
+    name: 'Kaptan Pusula',
+    title: 'Okyanus Haritacısı',
+    intro: 'Rotanı birlikte çizelim; hangi konudan başlayacağını ben gösteririm.',
+    image: new URL('./navigator.webp', import.meta.url).href,
+  },
+  tenebris: {
+    key: 'tenebris',
+    name: 'Dr. Tenebris',
+    title: 'Derinlik Bilgini',
+    intro: 'Her yanlış cevabın altında bir ipucu yatar; onu birlikte bulacağız.',
+    image: new URL('./tenebris.webp', import.meta.url).href,
+  },
+  nori: {
+    key: 'nori',
+    name: 'Arşivci Nori',
+    title: 'Deniz Tarihçisi',
+    intro: 'Öğrendiklerini arşivliyor, sınavlara ve hedeflerine hazırlıyorum.',
+    image: new URL('./nori.webp', import.meta.url).href,
+  },
 }
 
-export const MASCOT_MOODS = Object.keys(MASCOT_IMAGES)
+export const DEFAULT_MASCOT = 'navigator'
+export const MASCOT_KEYS = Object.keys(MASCOTS)
+export const MASCOT_MOODS = ['welcome', 'happy', 'celebrate', 'thinking', 'encourage']
+
+export const getMascot = (key) => MASCOTS[key] ?? MASCOTS[DEFAULT_MASCOT]

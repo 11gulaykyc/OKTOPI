@@ -43,7 +43,7 @@ async function logout() {
       </button>
 
       <RouterLink to="/" class="flex shrink-0 items-center gap-2" aria-label="OKTOPİ ana sayfa">
-        <OktopiMascot mood="happy" :size="36" />
+        <OktopiMascot character="navigator" mood="happy" :size="36" />
         <span class="hidden text-xl font-bold tracking-tight text-brand-800 dark:text-brand-300 min-[400px]:inline">
           OKTOP<span class="text-aqua-500">İ</span>
         </span>
