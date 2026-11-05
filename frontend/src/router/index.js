@@ -73,6 +73,24 @@ const routes = [
     meta: { mascot: 'nori', title: 'OYSS Hazırlık' },
   },
   {
+    path: '/sozluk',
+    name: 'glossary',
+    component: () => import('@/views/explore/GlossaryView.vue'),
+    meta: { mascot: 'nori', title: 'Matematik Sözlüğü' },
+  },
+  {
+    path: '/mathlingo',
+    name: 'mathlingo',
+    component: () => import('@/views/explore/MathLingoView.vue'),
+    meta: { mascot: 'navigator', title: 'MathLingo' },
+  },
+  {
+    path: '/akis',
+    name: 'feed',
+    component: () => import('@/views/explore/FeedView.vue'),
+    meta: { mascot: 'navigator', title: 'Akış' },
+  },
+  {
     path: '/baslangic-testi',
     name: 'diagnostic',
     component: () => import('@/views/auth/DiagnosticView.vue'),

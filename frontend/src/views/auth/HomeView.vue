@@ -109,6 +109,69 @@ onMounted(async () => {
       <OktopiMascot mood="welcome" :size="200" class="shrink-0" />
     </section>
 
+    <!-- Neden Oktopi? -->
+    <section class="card p-6 sm:p-8">
+      <h2 class="text-2xl font-bold text-slate-900 dark:text-white">Neden Oktopi?</h2>
+      <p class="mt-3 text-lg font-semibold text-brand-700 dark:text-brand-300">
+        Her öğrencinin öğrenme yolculuğu farklıdır. Oktopi, bu yolculuğu daha keşfedilebilir, anlaşılır ve keyifli hâle getirir.
+      </p>
+      <div class="mt-4 space-y-3 leading-relaxed text-slate-600 dark:text-slate-300">
+        <p>
+          Matematik, yalnızca formüllerden ve işlem adımlarından ibaret değildir. Kavramları anlamak, aralarındaki ilişkileri
+          keşfetmek ve öğrendiklerini farklı problemlerde kullanabilmek gerekir. Oktopi, tam da bu noktadan hareketle matematik
+          öğrenme deneyimini yeniden şekillendirir.
+        </p>
+        <p>
+          Klasik öğrenme yöntemlerinin ötesine geçerek konu anlatımlarını, detaylı soru çözümlerini, interaktif matematiksel
+          görselleştirmeleri ve süreli testleri tek bir platformda buluşturur. Öğrencilerin yalnızca ne öğrendiğine değil, nasıl
+          öğrendiğine de odaklanır.
+        </p>
+        <p>
+          Oyunlaştırma ve gelişim takibiyle öğrenme sürecini daha motive edici hâle getirirken her öğrencinin kendi hızında
+          ilerleyebilmesine olanak tanır. Çünkü bizim için başarı, yalnızca soruları doğru cevaplamak değil; öğrenilen bilgiyi
+          anlamlandırmak ve kalıcı hâle getirmektir.
+        </p>
+      </div>
+      <p class="mt-5 rounded-2xl bg-gradient-to-r from-brand-600 to-aqua-500 px-5 py-4 text-center font-bold text-white">
+        Oktopi ile öğrenmenin sınırlarını değil, keşfedilecek yeni yolları keşfet!
+      </p>
+    </section>
+
+    <!-- Oktopi adı nereden geliyor? -->
+    <section class="card overflow-hidden">
+      <div class="bg-gradient-to-br from-brand-800 via-brand-600 to-aqua-500 px-6 py-6 text-white sm:px-8">
+        <p class="text-sm font-bold uppercase tracking-wider text-white/70">Merak edenler için</p>
+        <h2 class="mt-1 text-2xl font-bold">Oktopi adı nereden geliyor?</h2>
+        <p class="mt-2 text-lg font-semibold">
+          OKTO<span class="text-sky-200">Pİ</span> = <span class="font-bold">Okto</span>pus (ahtapot) + <span class="font-bold">π</span> (pi)
+        </p>
+      </div>
+      <div class="space-y-3 p-6 leading-relaxed text-slate-600 dark:text-slate-300 sm:p-8">
+        <p>
+          Adımız iki şeyin buluşmasından doğdu: okyanusların en meraklı canlısı <strong class="text-slate-900 dark:text-white">ahtapot</strong>
+          ve matematiğin en ünlü sayısı <strong class="text-slate-900 dark:text-white">π</strong>. Virgülden sonra sonsuza kadar uzanan,
+          hiçbir zaman kendini tekrar etmeyen π gibi, matematik de keşfettikçe yeni bir şey gösteren bir dünya.
+        </p>
+        <p>
+          Okyanusu düşün: Yüzeyde dalgalar vardır, ama asıl hayat derinlerde saklıdır. Matematik de böyledir. Yüzeyde formüller ve
+          işlemler görürsün; derinlere indikçe kavramların birbirine nasıl bağlandığını, bir fikrin nasıl başka bir fikri doğurduğunu fark
+          edersin. Her derinlikte yeni bir keşif seni bekler.
+        </p>
+        <p>
+          Ahtapot ise bu derinliklerin en zeki kâşifidir. Meraklıdır, karşılaştığı her şeyi inceler; bir yol kapanınca başka bir yol bulur,
+          bulmacaları çözer ve deneyerek öğrenir. Sekiz koluyla aynı anda birçok şeye uzanabilir. Bir problemi çözmenin de tek bir yolu
+          yoktur: Kimi zaman bir grafik, kimi zaman bir formül, kimi zaman farklı bir bakış açısı seni sonuca ulaştırır.
+        </p>
+        <p>
+          İşte Oktopi'de öğrenci, bu okyanusun ahtapotudur. Kendi hızında dalar, merak ettiği yere uzanır, hata yaptığında yön değiştirir
+          ve her yeni konuda biraz daha derine iner. Biz de bu yolculukta ona eşlik eden rehberiz.
+        </p>
+        <p class="pt-2 text-center font-bold text-brand-700 dark:text-brand-300">
+          Matematiğin derinliklerine dalmaya hazır mısın? Sekiz kolunla keşfe çık!
+        </p>
+      </div>
+    </section>
+
     <!-- İçerik hakkında -->
     <section>
       <h2 class="text-xl font-bold text-slate-900 dark:text-white">OKTOPİ'de neler var?</h2>

@@ -2,6 +2,7 @@
 import { BookOpen, CalendarCheck, ChartColumn, House, Lock, PencilLine, Target, Timer, TriangleAlert, UserRound, X } from 'lucide-vue-next'
 import { useAuthStore } from '@/stores/auth'
 import GradeSwitcher from './GradeSwitcher.vue'
+import { exploreLinks } from './navLinks'
 
 defineProps({ open: { type: Boolean, default: false } })
 defineEmits(['close'])
@@ -25,6 +26,10 @@ const sections = [
       { label: 'Konular', icon: BookOpen, to: '/konular' },
       { label: 'OYSS Hazırlık', icon: CalendarCheck, to: '/oyss' },
     ],
+  },
+  {
+    title: 'Keşfet',
+    items: exploreLinks,
   },
   {
     title: 'Pratik',
@@ -58,8 +63,8 @@ const sections = [
       </button>
     </div>
 
-    <!-- Üst bardaki sınıf seçici dar ekranlarda burada -->
-    <div class="mb-5 md:hidden">
+    <!-- Üst bardaki "Sınıflar" menüsü dar ekranlarda burada -->
+    <div class="mb-5 lg:hidden">
       <p class="mb-1.5 px-1 text-xs font-bold uppercase tracking-wider text-slate-400">Sınıf</p>
       <GradeSwitcher block />
     </div>

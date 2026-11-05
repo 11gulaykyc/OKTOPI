@@ -6,7 +6,8 @@ import api from '@/services/api'
 import { useAuthStore } from '@/stores/auth'
 import { useRewardStore } from '@/stores/rewards'
 import { useStatsStore } from '@/stores/stats'
-import GradeSwitcher from './GradeSwitcher.vue'
+import GradeMenu from './GradeMenu.vue'
+import { exploreLinks } from './navLinks'
 import OktopiMascot from './OktopiMascot.vue'
 import ThemeToggle from './ThemeToggle.vue'
 
@@ -49,10 +50,22 @@ async function logout() {
         </span>
       </RouterLink>
 
-      <!-- Sarmalayıcı şart: bileşenin kendi `inline-flex` sınıfı `hidden` ile çakışıp mobilde görünür kalıyordu. -->
-      <div class="ml-4 hidden md:block">
-        <GradeSwitcher />
-      </div>
+      <!-- Ana gezinme: dar ekranlarda aynı bağlantılar yan menüde yer alır. -->
+      <nav class="ml-4 hidden items-center gap-1 lg:flex" aria-label="Ana gezinme">
+        <GradeMenu />
+        <RouterLink
+          v-for="link in exploreLinks"
+          :key="link.to"
+          :to="link.to"
+          :title="link.hint || link.label"
+          class="flex items-center gap-1.5 rounded-xl px-3 py-2 text-sm font-semibold text-slate-600 transition hover:bg-brand-50 hover:text-brand-700 dark:text-slate-300 dark:hover:bg-slate-800"
+          active-class="!bg-brand-50 !text-brand-700 dark:!bg-slate-800 dark:!text-brand-300"
+        >
+          <component :is="link.icon" class="h-4 w-4" aria-hidden="true" />
+          <span class="xl:hidden">{{ link.short }}</span>
+          <span class="hidden xl:inline">{{ link.label }}</span>
+        </RouterLink>
+      </nav>
 
       <div class="ml-auto flex items-center gap-1 sm:gap-2">
         <StudyTimer v-if="auth.isAuthenticated" />
