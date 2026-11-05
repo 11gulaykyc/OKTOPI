@@ -5,6 +5,7 @@ import { useAuthStore } from '@/stores/auth'
 import AppNavbar from './AppNavbar.vue'
 import AppSidebar from './AppSidebar.vue'
 import RewardToast from './RewardToast.vue'
+import OceanBackground from './OceanBackground.vue'
 
 const auth = useAuthStore()
 const route = useRoute()
@@ -27,7 +28,8 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <div class="min-h-dvh">
+  <div class="relative isolate min-h-dvh">
+    <OceanBackground />
     <a
       href="#ana-icerik"
       class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-xl focus:bg-brand-600 focus:px-4 focus:py-2 focus:text-white"
